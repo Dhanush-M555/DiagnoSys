@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Storage System Simulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6b48ff;
+            --primary-dark: #5438cc;
+            --secondary: #00ddeb;
+            --danger: #ff6b6b;
+            --success: #48ff6b;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f5f5f5;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(45deg, #6b48ff, #00ddeb, #ff6b6b, #48ff6b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: var(--card-bg);
+            padding: 25px 15px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 1001;
+            border: none;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .sidebar-toggle:hover {
+            background: var(--primary);
+            color: var(--text-light);
+        }
+        
+        .main {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 0;
+            transition: var(--transition);
+            margin-top: 60px;
+            width: 100%;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        h1 {
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-align: center;
+            font-size: 32px;
+        }
+        
+        h2 {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            margin: 5px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-sm {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn-success {
+            background: var(--success);
+        }
+        
+        .btn-success:hover {
+            background: #36dd59;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+        }
+        
+        .btn-danger:hover {
+            background: #e95757;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--text-dark);
+        }
+        
+        .btn-secondary:hover {
+            background: #00c7d3;
+        }
+        
+        .crud-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 15px;
+        }
+        
+        .form-control {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        
+        .form-control label {
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        select, input {
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+            transition: var(--transition);
+            background: white;
+            font-size: 16px;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 72, 255, 0.2);
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333' width='18px' height='18px'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+        
+        pre {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            border: 1px solid #eee;
+        }
+        
+        /* Sidebar JSON Output */
+        .json-container {
+            margin-top: 20px;
+        }
+        
+        .json-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        /* Hide elements initially */
+        .initially-hidden {
+            display: none;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .card {
+                padding: 15px;
+            }
+            
+            .crud-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                margin: 3px 0;
+            }
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <h2><i class="fas fa-database section-icon"></i> JSON Data</h2>
+            <div class="json-buttons">
+                <button class="btn btn-sm" onclick="fetchJson('system')">
+                    <i class="fas fa-server"></i> System
+                </button>
+                <button class="btn btn-sm" onclick="fetchJson('node')">
+                    <i class="fas fa-microchip"></i> Node
+                </button>
+                <button class="btn btn-sm" onclick="fetchJson('volume')">
+                    <i class="fas fa-hdd"></i> Volume
+                </button>
+                <button class="btn btn-sm" onclick="fetchJson('host')">
+                    <i class="fas fa-desktop"></i> Host
+                </button>
+                <button class="btn btn-sm" onclick="fetchJson('settings')">
+                    <i class="fas fa-cog"></i> Settings
+                </button>
+            </div>
+            <div class="json-container">
+                <pre id="json-output"></pre>
+            </div>
+        </div>
+        
+        <div class="main">
+            <h1>Storage System Simulator</h1>
+
+            <!-- System -->
+            <div class="card" id="system-card">
+                <h2><i class="fas fa-server section-icon"></i> System</h2>
+                <div id="create-system-form">
+                    <div class="form-control">
+                        <label for="system_name">System Name</label>
+                        <input id="system_name" placeholder="Enter system name">
+                    </div>
+            
+                    <!-- Remote Replication Toggle -->
+                    <div class="form-control">
+                        <label for="remote_replication">Enable Remote Replication</label>
+                        <input type="checkbox" id="remote_replication" onchange="toggleReplicationTarget()">
+                    </div>
+            
+                    <!-- Target System Dropdown -->
+                    <div class="form-control initially-hidden" id="replication-target-container">
+                        <label for="replication_target">Select Target System</label>
+                        <select id="replication_target"></select>
+                    </div>
+
+                    <!-- Replication Type Dropdown -->
+                    <div class="form-control initially-hidden" id="replication-type-container">
+                        <label for="replication_type">Replication Type</label>
+                        <select id="replication_type">
+                            <option value="synchronous">Synchronous</option>
+                            <option value="asynchronous">Asynchronous</option>
+                        </select>
+                    </div>
+
+
+                    
+            
+                    <div class="crud-buttons">
+                        <button class="btn btn-success" onclick="createSystem()">
+                            <i class="fas fa-plus"></i> Create
+                        </button>
+                        <button class="btn" onclick="getSystem()">
+                            <i class="fas fa-eye"></i> View All
+                        </button>
+                        <button class="btn btn-secondary initially-hidden" id="update-system-btn" onclick="updateSystem()">
+                            <i class="fas fa-edit"></i> Update
+                        </button>
+                        <button class="btn btn-danger initially-hidden" id="delete-system-btn" onclick="deleteSystem()">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Node -->
+            <div class="card" id="node-card">
+                <h2><i class="fas fa-microchip section-icon"></i> Node</h2>
+                <div id="create-node-form">
+                    <div class="form-control">
+                        <label for="node_system_id">Select System</label>
+                        <select id="node_system_id" onchange="checkNodeFormVisibility()"></select>
+                    </div>
+                    <div class="form-control initially-hidden" id="node-name-container">
+                        <label for="node_name">Node Name</label>
+                        <input id="node_name" placeholder="Enter node name">
+                    </div>
+                    <div class="form-control initially-hidden" id="node-id-container">
+                        <label for="node_id">Select Node</label>
+                        <select id="node_id" onchange="checkNodeActionVisibility()"></select>
+                    </div>
+                    <div class="crud-buttons">
+                        <button class="btn btn-success initially-hidden" id="create-node-btn" onclick="createNode()">
+                            <i class="fas fa-plus"></i> Create
+                        </button>
+                        <button class="btn initially-hidden" id="get-node-btn" onclick="getNode()">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-secondary initially-hidden" id="update-node-btn" onclick="updateNode()">
+                            <i class="fas fa-edit"></i> Update
+                        </button>
+                        <button class="btn btn-danger initially-hidden" id="delete-node-btn" onclick="deleteNode()">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volume -->
+            <div class="card" id="volume-card">
+                <h2><i class="fas fa-hdd section-icon"></i> Volume</h2>
+                <div id="create-volume-form">
+                    <div class="form-control">
+                        <label for="volume_system_id">Select System</label>
+                        <select id="volume_system_id" onchange="checkVolumeFormVisibility()"></select>
+                    </div>
+                    <div class="form-control initially-hidden" id="volume-name-container">
+                        <label for="volume_name">Volume Name</label>
+                        <input id="volume_name" placeholder="Enter volume name">
+                    </div>
+                    <div class="form-control initially-hidden" id="volume-id-container">
+                        <label for="volume_id">Select Volume</label>
+                        <select id="volume_id" onchange="checkVolumeActionVisibility()"></select>
+                    </div>
+                    
+                    <!-- Snapshot Frequency Dropdown (Only visible when updating a volume) -->
+                    <div class="form-control initially-hidden" id="snapshot-frequency-container">
+                        <label for="snapshot_frequency">Snapshot Frequency</label>
+                        <select id="snapshot_frequency">
+                            <option value="30 seconds">Every 30 seconds</option>
+                            <option value="1 minute">Every 1 minute</option>
+                            <option value="5 minutes" selected>Every 5 Minutes</option>
+                            <option value="30 minutes">Every 30 Minutes</option>
+                            <option value="1 hour">Every Hour</option>
+                            <option value="6 hours">Every 6 Hours</option>
+                            <option value="daily">Daily</option>
+                        </select>
+                    </div>
+            
+                    <div class="crud-buttons">
+                        <button class="btn btn-success initially-hidden" id="create-volume-btn" onclick="createVolume()">
+                            <i class="fas fa-plus"></i> Create
+                        </button>
+                        <button class="btn initially-hidden" id="get-volume-btn" onclick="getVolume()">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-secondary initially-hidden" id="update-volume-btn" onclick="updateVolume()">
+                            <i class="fas fa-edit"></i> Update
+                        </button>
+                        <button class="btn btn-danger initially-hidden" id="delete-volume-btn" onclick="deleteVolume()">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Host -->
+            
+        <div class="card" id="host-card">
+            <h2><i class="fas fa-network-wired section-icon"></i> Host</h2>
+            <div id="create-host-form">
+                <!-- Select System First -->
+                <div class="form-control">
+                    <label for="host_system_id">Select System</label>
+                    <select id="host_system_id" onchange="checkHostFormVisibility()"></select>
+                </div>
+
+                <!-- Host Name -->
+                <div class="form-control initially-hidden" id="host-name-container">
+                    <label for="host_name">Host Name</label>
+                    <input id="host_name" placeholder="Enter host name">
+                </div>
+
+                <!-- Application Type Dropdown -->
+                <div class="form-control initially-hidden" id="application-type-container">
+                    <label for="application_type">Application Type</label>
+                    <select id="application_type">
+                        <option value="HPE">HPE</option>
+                        <option value="Oracle">Oracle</option>
+                        <option value="SQL">SQL</option>
+                        <option value="VMware">VMware</option>
+                    </select>
+                </div>
+
+                <!-- Protocol Dropdown -->
+                <div class="form-control initially-hidden" id="protocol-container">
+                    <label for="protocol">Protocol</label>
+                    <select id="protocol">
+                        <option value="FC">FC</option>
+                        <option value="iSCSI">iSCSI</option>
+                        <option value="NVMe">NVMe</option>
+                    </select>
+                </div>
+
+                <!-- Select Host -->
+                <div class="form-control initially-hidden" id="host-id-container">
+                    <label for="host_id">Select Host</label>
+                    <select id="host_id" onchange="toggleHostButtons()"></select>
+                </div>
+
+                <!-- CRUD Buttons -->
+                <div class="crud-buttons">
+                    <button class="btn btn-success initially-hidden" id="create-host-btn" onclick="createHost()">
+                        <i class="fas fa-plus"></i> Create
+                    </button>
+                    <button class="btn initially-hidden" id="get-host-btn" onclick="getHost()">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-secondary initially-hidden" id="update-host-btn" onclick="updateHost()">
+                        <i class="fas fa-edit"></i> Update
+                    </button>
+                    <button class="btn btn-danger initially-hidden" id="delete-host-btn" onclick="deleteHost()">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Volume -->
+        <div class="card" id="export-volume-card">
+            <h2><i class="fas fa-database section-icon"></i> Export Volume</h2>
+            <div id="export-volume-form">
+                <div class="form-control">
+                    <label for="export_volume_id">Select Volume</label>
+                    <select id="export_volume_id"></select>
+                </div>
+                <div class="form-control">
+                    <label for="export_host_id">Select Host</label>
+                    <select id="export_host_id"></select>
+                </div>
+                <div class="form-control">
+                    <label for="workload_size">Workload Size</label>
+                    <input type="number" id="workload_size" placeholder="Enter workload size">
+                </div>
+                <div class="crud-buttons">
+                    <button class="btn btn-success" onclick="exportVolume()">
+                        <i class="fas fa-share-square"></i> Export Volume
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Updated Unexport Volume Section -->
+        <div class="card" id="unexport-volume-card">
+            <h2><i class="fas fa-database section-icon"></i> Unexport Volume</h2>
+            <label for="volume-select">Select Volume:</label>
+            <select id="volume-select">
+                <option value="">-- Select Exported Volume --</option>
+            </select>
+            <button class="btn btn-sm" onclick="unexportVolume()">Unexport</button>
+        </div>
+
+        <script>
+        // Fetch and populate exported volumes
+        function loadExportedVolumes() {
+            fetch('/data/exported-volumes')
+            .then(response => response.json())
+            .then(data => {
+                let dropdown = document.getElementById("volume-select");
+                dropdown.innerHTML = '<option value="">-- Select Exported Volume --</option>';
+                data.forEach(volume => {
+                    let option = document.createElement("option");
+                    option.value = volume.id;
+                    option.textContent = volume.name || `Volume ${volume.id}`;
+                    dropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error("Error fetching volumes:", error));
+        }
+
+        // Call loadExportedVolumes on page load
+        window.onload = loadExportedVolumes();
+
+        // Unexport selected volume
+        function unexportVolume() {
+            let volumeId = document.getElementById("volume-select").value;
+            if (!volumeId) {
+                alert("Please select a volume to unexport.");
+                return;
+            }
+
+            fetch("/unexport-volume", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ volume_id: volumeId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || "Unexport successful!");
+                loadExportedVolumes(); // Refresh dropdown after unexporting
+            })
+            .catch(error => console.error("Error unexporting volume:", error));
+        }
+        </script>
+
+        
+
+
+            <!-- Settings -->
+            <div class="card" id="settings-card">
+                <h2><i class="fas fa-cog section-icon"></i> Settings</h2>
+                <div id="create-settings-form">
+                    <div class="form-control">
+                        <label for="settings_system_id">Select System</label>
+                        <select id="settings_system_id" onchange="checkSettingsFormVisibility()"></select>
+                    </div>
+                    <div class="form-control initially-hidden" id="settings-id-container">
+                        <label for="settings_id">Select Settings</label>
+                        <select id="settings_id" onchange="checkSettingsActionVisibility()"></select>
+                    </div>
+                    <div class="crud-buttons">
+                        <button class="btn btn-success initially-hidden" id="create-settings-btn" onclick="createSettings()">
+                            <i class="fas fa-plus"></i> Create
+                        </button>
+                        <button class="btn initially-hidden" id="get-settings-btn" onclick="getSettings()">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-secondary initially-hidden" id="update-settings-btn" onclick="updateSettings()">
+                            <i class="fas fa-edit"></i> Update
+                        </button>
+                        <button class="btn btn-danger initially-hidden" id="delete-settings-btn" onclick="deleteSettings()">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Response -->
+            <div class="card" id="response-card">
+                <h2><i class="fas fa-reply section-icon"></i> Response</h2>
+                <pre id="response"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar Toggle
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            
+            if (!sidebar.contains(event.target) && event.target !== sidebarToggle && !sidebarToggle.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Utility Functions
+        function showResponse(data) {
+            const responseEl = document.getElementById('response');
+            responseEl.innerHTML = JSON.stringify(data, null, 2);
+            
+            // Scroll to response
+            document.getElementById('response-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function fetchJson(resource) {
+            document.getElementById('json-output').innerHTML = "Loading...";
+            fetch(`/data/${resource}`)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('json-output').innerHTML = JSON.stringify(data, null, 2);
+                })
+                .catch(err => {
+                    document.getElementById('json-output').innerHTML = err.message;
+                });
+        }
+
+        function updateDropdown(resource, selectId, idField, nameField) {
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">Select...</option>';
+            
+            fetch(`/data/${resource}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        select.innerHTML = '<option value="">No items available</option>';
+                        return;
+                    }
+                    
+                    data.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item[idField];
+                        
+                        // Format the display text based on the resource type
+                        if (resource === 'settings') {
+                            option.text = `Settings for System ID: ${item[nameField]}`;
+                        } 
+                        
+                        else {
+                            option.text = `${item[nameField]} (ID: ${item[idField]})`;
+                        }
+                        
+                        select.appendChild(option);
+
+                        
+
+                    });
+                    
+                    
+                    // Check visibility of dependent elements
+                    if (selectId === 'node_system_id') checkNodeFormVisibility();
+                    if (selectId === 'volume_system_id') checkVolumeFormVisibility();
+                    if (selectId === 'settings_system_id') checkSettingsFormVisibility();
+                    if (selectId === 'node_id') checkNodeActionVisibility();
+                    if (selectId === 'volume_id') checkVolumeActionVisibility();
+                    if (selectId === 'host_id') checkHostActionVisibility();
+                    if (selectId === 'settings_id') checkSettingsActionVisibility();
+                })
+                .catch(err => {
+                    console.error('Error updating dropdown:', err);
+                    select.innerHTML = '<option value="">Error loading items</option>';
+                });
+        }
+
+        // Visibility check functions
+        function checkNodeFormVisibility() {
+            const systemId = document.getElementById('node_system_id').value;
+            const nameContainer = document.getElementById('node-name-container');
+            const createBtn = document.getElementById('create-node-btn');
+            
+            if (systemId) {
+                nameContainer.classList.remove('initially-hidden');
+                createBtn.classList.remove('initially-hidden');
+                updateDropdown('node', 'node_id', 'id', 'name');
+                document.getElementById('node-id-container').classList.remove('initially-hidden');
+            } else {
+                nameContainer.classList.add('initially-hidden');
+                createBtn.classList.add('initially-hidden');
+                document.getElementById('node-id-container').classList.add('initially-hidden');
+            }
+        }
+
+        function checkNodeActionVisibility() {
+            const nodeId = document.getElementById('node_id').value;
+            const getBtn = document.getElementById('get-node-btn');
+            const updateBtn = document.getElementById('update-node-btn');
+            const deleteBtn = document.getElementById('delete-node-btn');
+            
+            if (nodeId) {
+                getBtn.classList.remove('initially-hidden');
+                updateBtn.classList.remove('initially-hidden');
+                deleteBtn.classList.remove('initially-hidden');
+            } else {
+                getBtn.classList.add('initially-hidden');
+                updateBtn.classList.add('initially-hidden');
+                deleteBtn.classList.add('initially-hidden');
+            }
+        }
+
+        function checkVolumeFormVisibility() {
+            const systemId = document.getElementById('volume_system_id').value;
+            const nameContainer = document.getElementById('volume-name-container');
+            const createBtn = document.getElementById('create-volume-btn');
+            
+            if (systemId) {
+                nameContainer.classList.remove('initially-hidden');
+                createBtn.classList.remove('initially-hidden');
+                updateDropdown('volume', 'volume_id', 'id', 'name');
+                document.getElementById('volume-id-container').classList.remove('initially-hidden');
+            } else {
+                nameContainer.classList.add('initially-hidden');
+                createBtn.classList.add('initially-hidden');
+                document.getElementById('volume-id-container').classList.add('initially-hidden');
+            }
+        }
+
+        function checkVolumeActionVisibility() {
+            const volumeId = document.getElementById('volume_id').value;
+            const getBtn = document.getElementById('get-volume-btn');
+            const updateBtn = document.getElementById('update-volume-btn');
+            const deleteBtn = document.getElementById('delete-volume-btn');
+            
+            if (volumeId) {
+                getBtn.classList.remove('initially-hidden');
+                updateBtn.classList.remove('initially-hidden');
+                deleteBtn.classList.remove('initially-hidden');
+                document.getElementById("snapshot-frequency-container").classList.remove("initially-hidden");
+            } else {
+                getBtn.classList.add('initially-hidden');
+                updateBtn.classList.add('initially-hidden');
+                deleteBtn.classList.add('initially-hidden');
+                document.getElementById("snapshot-frequency-container").classList.add("initially-hidden");
+            }
+        }
+        function checkHostFormVisibility() {
+            const systemId = document.getElementById("host_system_id").value;
+            const hostNameContainer = document.getElementById("host-name-container");
+            const applicationTypeContainer = document.getElementById("application-type-container");
+            const protocolContainer = document.getElementById("protocol-container");
+            const createHostBtn = document.getElementById("create-host-btn");
+            const hostDropdownContainer = document.getElementById('host-id-container');
+            const hostDropdown = document.getElementById('host_id');
+
+            if (systemId) {
+                hostNameContainer.classList.remove("initially-hidden");
+                applicationTypeContainer.classList.remove("initially-hidden");
+                protocolContainer.classList.remove("initially-hidden");
+                createHostBtn.classList.remove("initially-hidden");
+
+                // ✅ Check if there are hosts for the selected system
+                fetch('/data/host')
+                    .then(response => response.json())
+                    .then(data => {
+                        const filteredHosts = data.filter(host => host.system_id === systemId);
+                        
+                        if (filteredHosts.length > 0) {
+                            updateDropdown('host', 'host_id', 'id', 'name'); // ✅ Update dropdown
+                            hostDropdownContainer.classList.remove('initially-hidden'); // ✅ Show dropdown
+                        } else {
+                            hostDropdown.innerHTML = '<option value="">No hosts available</option>';
+                            hostDropdownContainer.classList.add('initially-hidden'); // ❌ Hide dropdown if no hosts
+                        }
+                    })
+                    .catch(error => console.error('❌ Error loading hosts:', error));
+            } else {
+                // ❌ Hide everything if no system is selected
+                hostNameContainer.classList.add("initially-hidden");
+                applicationTypeContainer.classList.add("initially-hidden");
+                protocolContainer.classList.add("initially-hidden");
+                createHostBtn.classList.add("initially-hidden");
+                hostDropdownContainer.classList.add('initially-hidden');
+            }
+        }
+
+
+        function checkHostActionVisibility() {
+            const hostId = document.getElementById('host_id').value;
+            const getBtn = document.getElementById('get-host-btn');
+            const updateBtn = document.getElementById('update-host-btn');
+            const deleteBtn = document.getElementById('delete-host-btn');
+            
+            if (hostId) {
+                getBtn.classList.remove('initially-hidden');
+                updateBtn.classList.remove('initially-hidden');
+                deleteBtn.classList.remove('initially-hidden');
+            } else {
+                getBtn.classList.add('initially-hidden');
+                updateBtn.classList.add('initially-hidden');
+                deleteBtn.classList.add('initially-hidden');
+            }
+        }
+
+        function toggleHostButtons() {
+            const selectedHost = document.getElementById("host_id").value;
+            const updateBtn = document.getElementById("update-host-btn");
+            const deleteBtn = document.getElementById("delete-host-btn");
+
+            if (selectedHost) {
+                updateBtn.classList.remove("initially-hidden");
+                deleteBtn.classList.remove("initially-hidden");
+            } else {
+                updateBtn.classList.add("initially-hidden");
+                deleteBtn.classList.add("initially-hidden");
+            }
+        }
+
+        function checkSettingsFormVisibility() {
+            const systemId = document.getElementById('settings_system_id').value;
+            const createBtn = document.getElementById('create-settings-btn');
+            
+            if (systemId) {
+                createBtn.classList.remove('initially-hidden');
+                updateDropdown('settings', 'settings_id', 'id', 'system_id');
+                document.getElementById('settings-id-container').classList.remove('initially-hidden');
+            } else {
+                createBtn.classList.add('initially-hidden');
+                document.getElementById('settings-id-container').classList.add('initially-hidden');
+            }
+        }
+
+        function checkSettingsActionVisibility() {
+            const settingsId = document.getElementById('settings_id').value;
+            const getBtn = document.getElementById('get-settings-btn');
+            const updateBtn = document.getElementById('update-settings-btn');
+            const deleteBtn = document.getElementById('delete-settings-btn');
+            
+            if (settingsId) {
+                getBtn.classList.remove('initially-hidden');
+                updateBtn.classList.remove('initially-hidden');
+                deleteBtn.classList.remove('initially-hidden');
+            } else {
+                getBtn.classList.add('initially-hidden');
+                updateBtn.classList.add('initially-hidden');
+                deleteBtn.classList.add('initially-hidden');
+            }
+        }
+
+        // System CRUD
+        function createSystem() {
+            const name = document.getElementById('system_name').value;
+            if (!name) {
+                showResponse({ error: "System name is required" });
+                return;
+            }
+            
+            fetch('/system', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name })
+            })
+                .then(res => res.json())
+                .then(data => { 
+                    showResponse(data); 
+                    updateDropdown('system', 'node_system_id', 'id', 'name');
+                    updateDropdown('system', 'volume_system_id', 'id', 'name');
+                    updateDropdown('system', 'settings_system_id', 'id', 'name');
+                    updateDropdown("system", "host_system_id", "id", "name");
+                    document.getElementById('update-system-btn').classList.remove('initially-hidden');
+                    document.getElementById('delete-system-btn').classList.remove('initially-hidden');
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        function getSystem() {
+            fetch('/system')
+                .then(res => res.json())
+                .then(data => {
+                    showResponse(data);
+                    if (data && data.length > 0) {
+                        document.getElementById('update-system-btn').classList.remove('initially-hidden');
+                        document.getElementById('delete-system-btn').classList.remove('initially-hidden');
+                    }
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+        // Show/hide the target system dropdown when enabling replication
+        function toggleReplicationTarget() {
+            const replicationCheckbox = document.getElementById("remote_replication");
+            const replicationContainer = document.getElementById("replication-target-container");
+            const replicationTypeContainer = document.getElementById("replication-type-container");
+
+            if (replicationCheckbox.checked) {
+                replicationContainer.classList.remove("initially-hidden");
+                replicationTypeContainer.classList.remove("initially-hidden");
+                loadAvailableSystems();  // Load systems from global_systems.json
+            } else {
+                replicationContainer.classList.add("initially-hidden");
+                replicationTypeContainer.classList.add("initially-hidden");
+            }
+        }
+
+
+        // Load available systems for remote replication from global_systems.json
+        function loadAvailableSystems() {
+            fetch("/all-systems")
+                .then(response => response.json())
+                .then(systems => {
+                    const systemSelect = document.getElementById("replication_target");
+                    systemSelect.innerHTML = ""; // Clear previous options
+
+                    systems.forEach(system => {
+                        const option = document.createElement("option");
+                        option.value = system.id;
+                        option.textContent = system.name;
+                        systemSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Error loading systems:", error));
+        }
+        function updateSystem() {
+            const systemName = document.getElementById("system_name").value;
+            const remoteReplication = document.getElementById("remote_replication").checked;
+            const replicationTarget = remoteReplication ? document.getElementById("replication_target").value : null;
+            const replicationType = remoteReplication ? document.getElementById("replication_type").value : "synchronous";
+
+            // Get current system ID (if available)
+            const currentSystemId = document.getElementById("system_id") ? document.getElementById("system_id").value : null;
+
+            // Prevent selecting the same system as the target
+            if (remoteReplication && replicationTarget === currentSystemId) {
+                alert("❌ Target system cannot be the same as the source system!");
+                return;
+            }
+
+            fetch("/system", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: systemName,
+                    remote_replication: remoteReplication,
+                    replication_target: replicationTarget,
+                    replication_type: replicationType
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert("❌ Error: " + data.error);
+                } else {
+                    alert("✅ System updated successfully!");
+                    console.log("Updated system:", data);
+                }
+            })
+            .catch(error => console.error("Error updating system:", error));
+        }
+
+
+
+        function deleteSystem() {
+            fetch('/system', { method: 'DELETE' })
+                .then(() => {
+                    showResponse({ message: "System deleted successfully" });
+                    document.getElementById('update-system-btn').classList.add('initially-hidden');
+                    document.getElementById('delete-system-btn').classList.add('initially-hidden');
+                    updateDropdown('system', 'node_system_id', 'id', 'name');
+                    updateDropdown('system', 'volume_system_id', 'id', 'name');
+                    updateDropdown('system', 'settings_system_id', 'id', 'name');
+                    updateDropdown("system", "host_system_id", "id", "name");
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        // Node CRUD
+        function createNode() {
+            const system_id = document.getElementById('node_system_id').value;
+            const name = document.getElementById('node_name').value;
+            
+            if (!system_id || !name) {
+                showResponse({ error: "System ID and Node name are required" });
+                return;
+            }
+            
+            fetch('/node', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ system_id, name })
+            })
+                .then(res => res.json())
+                .then(data => { 
+                    showResponse(data); 
+                    updateDropdown('node', 'node_id', 'id', 'name');
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        function getNode() {
+            const node_id = document.getElementById('node_id').value;
+            
+            if (!node_id) {
+                showResponse({ error: "Node ID is required" });
+                return;
+            }
+            
+            fetch(`/node/${node_id}`)
+                .then(res => res.json())
+                .then(showResponse)
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        function updateNode() {
+            const node_id = document.getElementById('node_id').value;
+            const name = document.getElementById('node_name').value;
+            
+            if (!node_id || !name) {
+                showResponse({ error: "Node ID and new name are required" });
+                return;
+            }
+            
+            fetch(`/node/${node_id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    showResponse(data);
+                    updateDropdown('node', 'node_id', 'id', 'name');
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        function deleteNode() {
+            const node_id = document.getElementById('node_id').value;
+            
+            if (!node_id) {
+                showResponse({ error: "Node ID is required" });
+                return;
+            }
+            
+            fetch(`/node/${node_id}`, { method: 'DELETE' })
+                .then(() => {
+                    showResponse({ message: "Node deleted successfully" });
+                    updateDropdown('node', 'node_id', 'id', 'name');
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        // Volume CRUD
+        function createVolume() {
+            const system_id = document.getElementById('volume_system_id').value;
+            const name = document.getElementById('volume_name').value;
+            
+            if (!system_id || !name) {
+                showResponse({ error: "System ID and Volume name are required" });
+                return;
+            }
+            
+            fetch('/volume', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ system_id, name })
+            })
+                .then(res => res.json())
+                .then(data => { 
+                    showResponse(data); 
+                    updateDropdown('volume', 'volume_id', 'id', 'name');
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        function getVolume() {
+            const volume_id = document.getElementById('volume_id').value;
+            
+            if (!volume_id) {
+                showResponse({ error: "Volume ID is required" });
+                return;
+            }
+            
+            fetch(`/volume/${volume_id}`)
+                .then(res => res.json())
+                .then(showResponse)
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        function updateVolume() {
+            const volumeId = document.getElementById("volume_id").value;
+            const volumeName = document.getElementById("volume_name").value;
+            const snapshotFrequency = document.getElementById("snapshot_frequency").value;
+
+            if (!volumeId) {
+                alert("Please select a volume to update.");
+                return;
+            }
+
+            fetch(`/volume/${volumeId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: volumeName,
+                    snapshot_frequency: snapshotFrequency
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Volume updated successfully!");
+                console.log("Updated volume:", data);
+            })
+            .catch(error => console.error("Error updating volume:", error));
+        }
+        function deleteVolume() {
+            const volume_id = document.getElementById('volume_id').value;
+            
+            if (!volume_id) {
+                showResponse({ error: "Volume ID is required" });
+                return;
+            }
+            
+            fetch(`/volume/${volume_id}`, { method: 'DELETE' })
+                .then(() => {
+                    showResponse({ message: "Volume deleted successfully" });
+                    updateDropdown('volume', 'volume_id', 'id', 'name');
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        // Host CRUD
+        function createHost() {
+            const hostName = document.getElementById("host_name").value;
+            const systemId = document.getElementById("host_system_id").value;
+            const applicationType = document.getElementById("application_type").value;
+            const protocol = document.getElementById("protocol").value;
+
+            if (!systemId) {
+                alert("❌ Please select a system first.");
+                return;
+            }
+
+            fetch("/host", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    system_id: systemId,
+                    name: hostName,
+                    application_type: applicationType,
+                    protocol: protocol
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("✅ Host created successfully!");
+                console.log("Created host:", data);
+
+                // ✅ Refresh host dropdown
+                updateDropdown("host", "host_id", "id", "name");
+
+                // ✅ Show the host selection dropdown now that at least one host exists
+                document.getElementById('host-id-container').classList.remove('initially-hidden');
+            })
+            .catch(error => console.error("❌ Error creating host:", error));
+        }
+
+
+
+        function getHost() {
+            fetch("/host")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("❌ Failed to fetch hosts");
+                }
+                return response.json();
+            })
+            .then(hosts => {
+                const hostDropdown = document.getElementById("host_id");
+                hostDropdown.innerHTML = '<option value="">Select a Host</option>'; // Reset dropdown
+
+                if (!Array.isArray(hosts) || hosts.length === 0) {
+                    console.warn("⚠️ No hosts found. Dropdown will remain empty.");
+                    return;
+                }
+
+                hosts.forEach(host => {
+                    let option = document.createElement("option");
+                    option.value = host.id;
+                    option.textContent = `${host.name} (${host.application_type}, ${host.protocol})`;
+                    hostDropdown.appendChild(option);
+                });
+
+                toggleHostButtons(); // Show update & delete buttons when a host is selected
+            })
+            .then(data => {
+                
+                console.log("Created host:", data);
+
+                // ✅ Refresh host dropdown immediately
+                updateDropdown("host", "host_id", "id", "name");
+
+                // ✅ Show the host selection dropdown
+                document.getElementById('host-id-container').classList.remove('initially-hidden');
+            })
+                    .catch(error => {
+                console.error("❌ Error fetching hosts:", error);
+                alert("Error loading hosts. Please try again.");
+            });
+        }
+
+
+
+
+        function updateHost() {
+            const hostId = document.getElementById("host_id").value;
+            const systemId = document.getElementById("host_system_id").value;
+            const hostName = document.getElementById("host_name").value;
+            const applicationType = document.getElementById("application_type").value;
+            const protocol = document.getElementById("protocol").value;
+
+            if (!systemId) {
+                alert("❌ Please select a system before updating the host.");
+                return;
+            }
+
+            fetch(`/host/${hostId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    system_id: systemId,
+                    name: hostName,
+                    application_type: applicationType,
+                    protocol: protocol
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("✅ Host updated successfully!");
+                console.log("Updated host:", data);
+                getHost(); // Refresh dropdown
+            })
+            .catch(error => console.error("❌ Error updating host:", error));
+        }
+
+
+        function deleteHost() {
+            const hostId = document.getElementById("host_id").value;
+
+            if (!hostId) {
+                alert("❌ Please select a host to delete.");
+                return;
+            }
+
+            fetch(`/host/${hostId}`, {
+                method: "DELETE"
+            })
+            .then(response => {
+                if (response.status === 204) {
+                    alert("✅ Host deleted successfully!");
+                    getHost(); // Refresh list
+                } else {
+                    return response.json();
+                }
+            })
+            .catch(error => console.error("Error deleting host:", error));
+        }
+
+
+// Settings CRUD
+function createSettings() {
+            const system_id = document.getElementById('settings_system_id').value;
+            
+            if (!system_id) {
+                showResponse({ error: "System ID is required" });
+                return;
+            }
+            
+            fetch('/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ system_id })
+            })
+                .then(res => res.json())
+                .then(data => { 
+                    showResponse(data); 
+                    updateDropdown('settings', 'settings_id', 'id', 'system_id');
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        function getSettings() {
+            const settings_id = document.getElementById('settings_id').value;
+            
+            if (!settings_id) {
+                showResponse({ error: "Settings ID is required" });
+                return;
+            }
+            
+            fetch(`/settings/${settings_id}`)
+                .then(res => res.json())
+                .then(showResponse)
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        function updateSettings() {
+            const settings_id = document.getElementById('settings_id').value;
+            
+            if (!settings_id) {
+                showResponse({ error: "Settings ID is required" });
+                return;
+            }
+            
+            fetch(`/settings/${settings_id}`, { 
+                method: 'PUT', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({}) 
+            })
+                .then(res => res.json())
+                .then(showResponse)
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        function deleteSettings() {
+            const settings_id = document.getElementById('settings_id').value;
+            
+            if (!settings_id) {
+                showResponse({ error: "Settings ID is required" });
+                return;
+            }
+            
+            fetch(`/settings/${settings_id}`, { method: 'DELETE' })
+                .then(() => {
+                    showResponse({ message: "Settings deleted successfully" });
+                    updateDropdown('settings', 'settings_id', 'id', 'system_id');
+                })
+                .catch(err => showResponse({ error: err.message }));
+        }
+
+        // Populate Dropdowns on Load and configure initial state
+        window.onload = () => {
+            // Initialize dropdown states
+            
+            updateDropdown('system', 'node_system_id', 'id', 'name');
+            updateDropdown('system', 'volume_system_id', 'id', 'name');
+            updateDropdown('system', 'settings_system_id', 'id', 'name');
+            updateDropdown('system', 'host_system_id', 'id', 'name');
+            updateDropdown('system', 'host_id', 'id', 'name');
+
+            setTimeout(getHost, 500);
+            // Check if we have existing data for systems
+            fetch('/data/system')
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        document.getElementById('update-system-btn').classList.remove('initially-hidden');
+                        document.getElementById('delete-system-btn').classList.remove('initially-hidden');
+                    }
+                })
+                .catch(err => console.error('Error checking systems:', err));
+                
+            // Initialize other dropdowns
+            updateDropdown('node', 'node_id', 'id', 'name');
+            updateDropdown('volume', 'volume_id', 'id', 'name');
+            updateDropdown('settings', 'settings_id', 'id', 'system_id');
+            updateDropdown('host', 'host_id', 'id', 'name');
+            
+            // Check if host data exists
+            fetch('/data/host')
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        document.getElementById('host-id-container').classList.remove('initially-hidden');
+                        //updateDropdown('system', 'host_id', 'id', 'name');
+                    }
+                })
+                .catch(err => console.error('Error checking hosts:', err));
+        };
+
+        
+        setTimeout(() => {
+        updateDropdown('host', 'host_id', 'id', 'name');
+        }, 500);
+        
+
+        // Add animation effect for cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+        });
+
+        // Staggered animation for cards on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+
+        
+    document.getElementById("create-host-btn").addEventListener("click", async function () {
+    const systemId = document.getElementById("system-id").value;
+    const hostName = document.getElementById("host-name").value;
+
+    const responseCard = document.getElementById("response-card");
+    const responsePre = document.getElementById("response");
+
+    // Ensure response card is visible
+    responseCard.style.display = "block";
+
+    try {
+        const response = await fetch("/host", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ system_id: systemId, name: hostName })
+        });
+
+        const data = await response.json();
+        console.log("API Response:", data);  // LOG RESPONSE IN CONSOLE
+
+        if (response.ok) {
+            responseCard.style.border = "2px solid green";
+            responsePre.style.color = "green";
+            responsePre.textContent = data.message || " Host created successfully.";
+        } else {
+            console.error("Error detected", data);  // LOG ERROR IN CONSOLE
+            responseCard.style.border = "2px solid red";
+            responsePre.style.color = "red";
+            responsePre.textContent = data.error || "An unknown error occurred.";
+        }
+    } catch (error) {
+        console.error("Fetch Error:", error);  // LOG FETCH ERROR
+        responseCard.style.border = "2px solid red";
+        responsePre.style.color = "red";
+        responsePre.textContent = "Failed to connect to the server.";
+    }
+});
+
+function exportVolume() {
+    const volumeId = document.getElementById("export_volume_id").value;
+    const hostId = document.getElementById("export_host_id").value;
+    const workloadSize = document.getElementById("workload_size").value;
+
+    console.log("Sending API request:", volumeId, hostId, workloadSize); // Debug log
+
+
+    if (!volumeId || !hostId || !workloadSize) {
+        alert("Please fill in all fields before exporting.");
+        return;
+    }
+
+    fetch("/export-volume", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            volume_id: volumeId,
+            host_id: hostId,
+            workload_size: workloadSize
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("API Response:", data); // Debug log
+        alert(data.message || "Volume exported successfully!");
+    })
+    .catch(error => console.error("Export failed:", error));
+}
+
+
+    //Load exported volumes when the page loads
+    window.onload = function() {
+        loadUnexportVolumes();
+    };
+
+
+// Update dropdowns with existing volumes and hosts
+function updateExportDropdowns() {
+    updateDropdown("volume", "export_volume_id", "id", "name");
+    updateDropdown("host", "export_host_id", "id", "name");
+}
+
+// Call dropdown update on page load
+window.onload = () => {
+    updateExportDropdowns();
+};
+
+
+    </script>
+</body>
+</html>

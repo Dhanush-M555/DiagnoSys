@@ -1,0 +1,37 @@
+[
+    {
+        "id": "1e0317f5-76e2-4888-aff7-28b4414ab88c",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "name": "h1",
+        "application_type": "HPE",
+        "protocol": "FC"
+    },
+    {
+        "id": "0dd8beb9-99b4-46ab-9bae-381028311356",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "name": "h2",
+        "application_type": "HPE",
+        "protocol": "FC"
+    },
+    {
+        "id": "8fba7b93-9757-4ab8-97fa-540fa10070b3",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "name": "h3",
+        "application_type": "HPE",
+        "protocol": "FC"
+    },
+    {
+        "id": "d87b0b5e-0173-4be0-a165-2a59041af5d6",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "name": "h4",
+        "application_type": "HPE",
+        "protocol": "FC"
+    },
+    {
+        "id": "7ad82531-633b-4e0e-bd89-20c844369ce4",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "name": "TestHost",
+        "application_type": "Unknown",
+        "protocol": "Unknown"
+    }
+]

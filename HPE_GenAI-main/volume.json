@@ -1,0 +1,124 @@
+[
+    {
+        "id": "e2f3d9f8-d9ba-4fcf-9df0-dfc60b64e480",
+        "name": "v1",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": true,
+        "exported_host_id": "0dd8beb9-99b4-46ab-9bae-381028311356",
+        "workload_size": 2,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    },
+    {
+        "id": "ca89f0ce-8291-4894-b251-965d0e0d160c",
+        "name": "v1",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": true,
+        "exported_host_id": "7ad82531-633b-4e0e-bd89-20c844369ce4",
+        "workload_size": 2,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    },
+    {
+        "id": "692e6789-1a7d-47f5-b693-273e77c71e35",
+        "name": "v1",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": true,
+        "exported_host_id": "8fba7b93-9757-4ab8-97fa-540fa10070b3",
+        "workload_size": 2,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    },
+    {
+        "id": "ee904920-b0b0-4582-a385-a6d2e102a9cb",
+        "name": "v5",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": true,
+        "exported_host_id": "1e0317f5-76e2-4888-aff7-28b4414ab88c",
+        "workload_size": 1,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    },
+    {
+        "id": "84b700ce-e1a3-48c3-a27d-70dfc97fcd2c",
+        "name": "v5",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": true,
+        "exported_host_id": "1e0317f5-76e2-4888-aff7-28b4414ab88c",
+        "workload_size": 2,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    },
+    {
+        "id": "f8c780fd-14d4-4b1b-8f72-d2cdd69c0682",
+        "name": "v7",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": true,
+        "exported_host_id": "7ad82531-633b-4e0e-bd89-20c844369ce4",
+        "workload_size": 10,
+        "snapshot_settings": {},
+        "replication_settings": {},
+        "exported": false
+    },
+    {
+        "id": "659093d6-9b9c-42c5-b1b1-80adaf968a13",
+        "name": "v7",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": false,
+        "exported_host_id": null,
+        "workload_size": 0,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    },
+    {
+        "id": "db48ac4c-f444-49ec-b893-76248a60f456",
+        "name": "v8",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": false,
+        "exported_host_id": null,
+        "workload_size": 0,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    },
+    {
+        "id": "d302ccd3-a098-4df1-b249-b9e706549f13",
+        "name": "v2",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": false,
+        "exported_host_id": null,
+        "workload_size": 0,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    },
+    {
+        "id": "f61a8b53-8f98-49a6-9936-74d9949b2e25",
+        "name": "v9",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": true,
+        "exported_host_id": "7ad82531-633b-4e0e-bd89-20c844369ce4",
+        "workload_size": 2,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    },
+    {
+        "id": "dba86731-2f1f-4212-9023-ee6b44b80ef9",
+        "name": "v10",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": false,
+        "exported_host_id": "1e0317f5-76e2-4888-aff7-28b4414ab88c",
+        "workload_size": 2,
+        "snapshot_settings": {},
+        "replication_settings": {},
+        "exported": false
+    },
+    {
+        "id": "2bfdffd0-b6c9-4dec-bf98-215e5f67c876",
+        "name": "v11",
+        "system_id": "289d5d8b-558d-4bdf-ac90-2adffcf506d0",
+        "is_exported": false,
+        "exported_host_id": null,
+        "workload_size": 0,
+        "snapshot_settings": {},
+        "replication_settings": {}
+    }
+]
