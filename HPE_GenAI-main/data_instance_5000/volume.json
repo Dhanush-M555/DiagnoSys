@@ -1,0 +1,68 @@
+[
+    {
+        "id": "cbed47b3-7fca-4202-9469-59eafa935557",
+        "name": "v1",
+        "system_id": "f5ee15d0-489c-47e5-b3cd-a4515a879780",
+        "size": 1,
+        "is_exported": false,
+        "exported_host_id": "c723a957-9814-4638-94f2-f0101e2ef299",
+        "workload_size": 1,
+        "snapshot_settings": {},
+        "replication_settings": []
+    },
+    {
+        "id": "c87f181e-8a79-4ab0-8dce-a9f86ba6692e",
+        "name": "v2",
+        "system_id": "f5ee15d0-489c-47e5-b3cd-a4515a879780",
+        "size": 1,
+        "is_exported": false,
+        "exported_host_id": "c723a957-9814-4638-94f2-f0101e2ef299",
+        "workload_size": 1,
+        "snapshot_settings": {},
+        "replication_settings": []
+    },
+    {
+        "id": "04bb3ad6-d4d7-41f4-98c4-6d6ccd954ee1",
+        "name": "v3",
+        "system_id": "f5ee15d0-489c-47e5-b3cd-a4515a879780",
+        "size": 1,
+        "is_exported": false,
+        "exported_host_id": "c723a957-9814-4638-94f2-f0101e2ef299",
+        "workload_size": 1,
+        "snapshot_settings": {},
+        "replication_settings": []
+    },
+    {
+        "id": "f1f8e3ac-67ac-40d6-bed9-26f94ce25b30",
+        "name": "v4",
+        "system_id": "f5ee15d0-489c-47e5-b3cd-a4515a879780",
+        "size": 1,
+        "is_exported": false,
+        "exported_host_id": "c723a957-9814-4638-94f2-f0101e2ef299",
+        "workload_size": 1,
+        "snapshot_settings": {},
+        "replication_settings": []
+    },
+    {
+        "id": "cac847f7-feac-40c4-935d-9d994192eb12",
+        "name": "v5",
+        "system_id": "f5ee15d0-489c-47e5-b3cd-a4515a879780",
+        "size": 1,
+        "is_exported": false,
+        "exported_host_id": "c723a957-9814-4638-94f2-f0101e2ef299",
+        "workload_size": 2,
+        "snapshot_settings": {},
+        "replication_settings": []
+    },
+    {
+        "id": "8e24c202-c931-42dc-a012-996bf12a9fe8",
+        "name": "v8",
+        "system_id": "f5ee15d0-489c-47e5-b3cd-a4515a879780",
+        "size": 1,
+        "is_exported": false,
+        "exported_host_id": "c723a957-9814-4638-94f2-f0101e2ef299",
+        "workload_size": 2,
+        "snapshot_settings": {},
+        "replication_settings": []
+    }
+]

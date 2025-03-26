@@ -1,0 +1,8 @@
+[
+    {
+        "id": "f5ee15d0-489c-47e5-b3cd-a4515a879780",
+        "name": "5000",
+        "max_throughput": "100",
+        "max_capacity": "10"
+    }
+]
