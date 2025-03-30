@@ -1,0 +1,21 @@
+[
+    {
+        "id": "7f88dd8b-18a4-4616-bc00-9e918b8fa07b",
+        "name": "abide",
+        "system_id": "eacf4927-23d7-4d7a-a6cb-32bad81b95c9",
+        "size": 4,
+        "is_exported": false,
+        "exported_host_id": null,
+        "workload_size": 0,
+        "snapshot_settings": {
+            "44ab27ef-dbfe-468f-b6b3-87a35c9f39ea": 30,
+            "6224bdb4-3339-4118-b00b-595637b7921d": 60
+        },
+        "replication_settings": [],
+        "snapshot_frequencies": [
+            30,
+            60
+        ],
+        "snapshot_count": 8
+    }
+]

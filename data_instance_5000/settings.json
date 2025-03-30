@@ -1,0 +1,18 @@
+[
+    {
+        "id": "44ab27ef-dbfe-468f-b6b3-87a35c9f39ea",
+        "system_id": "eacf4927-23d7-4d7a-a6cb-32bad81b95c9",
+        "name": "s1",
+        "type": "snapshot",
+        "value": "30 seconds",
+        "max_snapshots": 3
+    },
+    {
+        "id": "6224bdb4-3339-4118-b00b-595637b7921d",
+        "system_id": "eacf4927-23d7-4d7a-a6cb-32bad81b95c9",
+        "name": "s2",
+        "type": "snapshot",
+        "value": "60 seconds",
+        "max_snapshots": 4
+    }
+]

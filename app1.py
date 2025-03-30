@@ -140,6 +140,13 @@ def delete_system():
 
     except Exception as e:
         return jsonify({"error": f"Failed to delete system: {str(e)}"}), 500
+    
+
+@app.route('/settings/', methods=['GET'])
+def get_all_settings():
+    settings = storage_mgr.load_resource("settings")
+    return jsonify(settings)
+
 
 
 # --- Volume Routes ---
@@ -208,6 +215,25 @@ def get_all_volumes():
     return jsonify(volumes), 200
 
 
+def _convert_time(time_str):
+    """Parses a string like '2 minutes' and converts it to seconds."""
+    match = re.match(r"(\d+)\s*(seconds?|minutes?|hours?)", time_str.strip().lower())
+    if not match:
+        raise ValueError("Invalid time format. Use '30 seconds', '1 minute', or '2 hours'.")
+
+    value, unit = int(match.group(1)), match.group(2)
+
+    if "second" in unit:
+        return value  # No conversion needed
+    elif "minute" in unit:
+        return value * 60  # Convert minutes to seconds
+    elif "hour" in unit:
+        return value * 3600  # Convert hours to seconds
+    else:
+        raise ValueError("Invalid unit. Use 'seconds', 'minutes', or 'hours'.")
+
+
+
 @app.route('/volume/<volume_id>', methods=['PUT'])
 def update_volume(volume_id):
     try:
@@ -220,7 +246,7 @@ def update_volume(volume_id):
             print(f"❌ ERROR: Volume {volume_id} not found.")
             return jsonify({"error": "Volume not found."}), 404
 
-        # ✅ Unexport if volume is currently exported (from your function)
+        # ✅ Unexport if volume is currently exported
         if volume.get("is_exported"):
             print(f"🚨 Unexporting volume {volume_id} before updating settings.")
             storage_mgr.unexport_volume(volume_id, reason="Volume update")
@@ -229,16 +255,6 @@ def update_volume(volume_id):
         data = request.get_json(silent=True) or {}
         print(f"📥 Incoming data: {data}")  # Debug log
         setting_ids = data.get("setting_ids", [])  # List of setting IDs to apply
-
-        raw_frequencies = data.get("snapshot_frequencies", volume.get("snapshot_frequencies", [60]))
-        if isinstance(raw_frequencies, str):
-            snapshot_frequencies = [int(''.join(filter(str.isdigit, raw_frequencies)))]
-        elif isinstance(raw_frequencies, list):
-            snapshot_frequencies = [int(''.join(filter(str.isdigit, str(freq)))) for freq in raw_frequencies]
-        else:
-            snapshot_frequencies = [int(raw_frequencies)]
-
-        print(f"✅ Volume {volume_id} updated with snapshot_frequencies: {snapshot_frequencies}")  # Debug log
 
         # ✅ Load settings to validate setting IDs
         settings = storage_mgr.load_resource("settings")
@@ -262,13 +278,22 @@ def update_volume(volume_id):
                     r for r in volume["replication_settings"] if r.get("setting_id") != old_id
                 ]
 
-            # ✅ Apply new settings
+            # ✅ Apply new settings and ensure values are in seconds
+            snapshot_frequencies = []
             for setting_id in setting_ids:
                 setting = next(s for s in settings if s["id"] == setting_id)
 
                 if setting["type"] == "snapshot":
+                    # Check if value is already in seconds, otherwise convert
+                    if isinstance(setting["value"], int):  
+                        converted_value = setting["value"]  # Already in seconds
+                    else:
+                        converted_value = _convert_time(setting["value"])  # Convert only if needed
+
                     if setting_id not in volume["snapshot_settings"]:
-                        volume["snapshot_settings"][setting_id] = setting["value"]
+                        volume["snapshot_settings"][setting_id] = converted_value
+
+                    snapshot_frequencies.append(converted_value)
 
                 elif setting["type"] == "replication":
                     if not any(r.get("setting_id") == setting_id for r in volume["replication_settings"]):
@@ -284,10 +309,10 @@ def update_volume(volume_id):
                         })
 
             # ✅ Save updated volume
-            volume["snapshot_frequencies"] = snapshot_frequencies  # ✅ Ensure snapshot frequencies are stored
+            volume["snapshot_frequencies"] = snapshot_frequencies  # ✅ Store converted values
             storage_mgr.update_resource("volume", volume_id, volume)
 
-            # ✅ Restart snapshot with new frequencies
+            # ✅ Restart snapshot with converted frequencies
             print(f"🚀 Restarting snapshot for volume {volume_id} with frequencies {snapshot_frequencies}")
             storage_mgr.start_snapshot(volume_id, snapshot_frequencies)
 
@@ -300,6 +325,7 @@ def update_volume(volume_id):
     except Exception as e:
         print(f"❌ ERROR in update_volume(): {str(e)}")
         return jsonify({"error": f"Failed to update volume: {str(e)}"}), 500
+
 
 @app.route('/volume/<volume_id>', methods=['DELETE'])
 def delete_volume(volume_id):
@@ -415,9 +441,9 @@ def delete_host(host_id):
 # --- Settings Routes ---
 @app.route('/settings', methods=['POST'])
 def create_settings():
-    """Creates a new setting, merging replication logic with snapshot frequency handling."""
+    """Creates a new setting, ensuring snapshot max value is saved properly."""
     
-    # ✅ Ensure system exists before proceeding (from friend's function)
+    # ✅ Ensure system exists before proceeding
     exists, system, status = ensure_system_exists()
     if not exists:
         return system, status
@@ -440,17 +466,31 @@ def create_settings():
             "id": setting_id,
             "system_id": system_id,
             "name": setting_name,
-            "type": setting_type,
-            "snapshot_frequency": data.get("snapshot_frequency", "daily")  # ✅ Added snapshot frequency
+            "type": setting_type
         }
 
-        if setting_type != "replication":
+        if setting_type == "snapshot":
             setting_value = data.get("value")
+            max_snapshots = data.get("max_snapshots")
+
             if not setting_value:
-                return jsonify({"error": "Value is required for non-replication settings"}), 400
+                return jsonify({"error": "Value is required for snapshot settings"}), 400
+
+            # ✅ Ensure max_snapshots is stored as an integer (even if None)
+            if max_snapshots is not None:
+                try:
+                    max_snapshots = int(max_snapshots)
+                    if max_snapshots <= 0:
+                        raise ValueError
+                except ValueError:
+                    return jsonify({"error": "max_snapshots must be a positive integer"}), 400
+            else:
+                max_snapshots = 0  # ✅ Default to 0 if not provided
+
             setting_data["value"] = setting_value
-        else:
-            # ✅ Replication-specific logic (from your function)
+            setting_data["max_snapshots"] = max_snapshots  # ✅ Ensures it is saved
+        elif setting_type == "replication":
+            # ✅ Replication-specific logic
             replication_type = data.get("replication_type")
             delay_sec = int(data.get("delay_sec", 0))
             target_system_id = data.get("replication_target_id")
@@ -476,15 +516,26 @@ def create_settings():
                     "name": target_system_name
                 }
             })
+        else:
+            return jsonify({"error": "Invalid setting type"}), 400
 
-        # ✅ Save settings
+        # ✅ Debugging: Print setting_data before saving
+        print("Saving setting:", setting_data)
+
+        # ✅ Save settings (make sure this function writes to settings.json)
         storage_mgr.save_resource("settings", setting_data)
+
+        # ✅ Verify if settings.json actually updates
+        saved_settings = storage_mgr.load_resource("settings")  # Debugging step
+        print("Current settings.json:", saved_settings)
+
         return jsonify({"message": "Setting created successfully!", "setting_id": setting_id}), 201
 
     except ValueError as e:
         return jsonify({"error": f"Invalid delay_sec value: {str(e)}"}), 400
     except Exception as e:
         return jsonify({"error": f"Failed to create setting: {str(e)}"}), 500
+
 
 @app.route('/settings/<settings_id>', methods=['GET'])
 def get_settings(settings_id):
@@ -583,12 +634,21 @@ def update_settings(settings_id):
 @app.route('/settings/<settings_id>', methods=['DELETE'])
 def delete_settings(settings_id):
     settings_list = storage_mgr.load_resource("settings")
-    if not any(s["id"] == settings_id for s in settings_list):
+
+    print(f"Received settings_id for deletion: {settings_id}")
+    print(f"Existing settings before deletion: {settings_list}")
+
+    if not any(str(s["id"]) == str(settings_id) for s in settings_list):
         return jsonify({"error": "Settings not found."}), 404
-    
+
     try:
-        storage_mgr.delete_resource("settings", settings_id)
-        return "", 204
+        # ✅ Manually delete the setting and update storage
+        settings_list = [s for s in settings_list if str(s["id"]) != str(settings_id)]
+        storage_mgr.save_resource("settings", settings_list)
+
+        print(f"Settings after deletion: {storage_mgr.load_resource('settings')}")
+
+        return jsonify({"message": "Settings deleted successfully"}), 204
     except Exception as e:
         return jsonify({"error": f"Failed to delete settings: {str(e)}"}), 500
 

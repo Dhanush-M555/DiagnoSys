@@ -1,3 +1,5 @@
+import re
+
 class System:
     def __init__(self, id, name, max_throughput=200, max_capacity=1024, saturation=0, cpu_usage=0, 
                  remote_replication=False, replication_target=None):
@@ -74,40 +76,66 @@ class Host:
         }
 
 
+import re
+
 class Settings:
     def __init__(self, id, system_id, name=None, type=None, value=None, volume_snapshots=None,
-                 replication_type="synchronous", replication_target=None, replication_frequency=None, delay_sec=0):
+                 replication_type="synchronous", replication_target=None, replication_frequency=None,
+                 delay_sec=0, max_snapshots=None):  # 🔹 Added max_snapshots
         self.id = id
         self.system_id = system_id
         self.name = name
         self.type = type
 
-        # ✅ Merge: Store multiple snapshot frequencies per volume
+        # ✅ Convert time-based values from text input for snapshots
+        if self.type == "snapshot" and isinstance(value, str):
+            self.value = self._convert_time(value)
+        else:
+            self.value = value if type != "replication" else None
+
+        # ✅ Store multiple snapshot frequencies per volume
         self.volume_snapshots = volume_snapshots if volume_snapshots else {}
 
-        # ✅ Merge: Ensure replication settings are handled properly
+        # ✅ Ensure replication settings are handled properly
         self.replication_type = replication_type  # 'synchronous' or 'asynchronous'
         self.replication_target = replication_target
         self.replication_frequency = replication_frequency
         self.delay_sec = delay_sec  # 0 for sync, >0 for async
 
-        # ✅ Preserve old setting value handling
-        self.value = value if type != "replication" else None
+        # 🔹 Added max_snapshots (default to None if not provided)
+        self.max_snapshots = max_snapshots
+
+    def _convert_time(self, time_str):
+        """Parses a string like '2 minutes' and converts it to seconds."""
+        match = re.match(r"(\d+)\s*(seconds?|minutes?|hours?)", time_str.strip().lower())
+        if not match:
+            raise ValueError("Invalid time format. Use format like '30 seconds', '1 minute', or '2 hours'.")
+
+        value, unit = int(match.group(1)), match.group(2)
+
+        if "second" in unit:
+            return value  # No conversion needed
+        elif "minute" in unit:
+            return value * 60  # Convert minutes to seconds
+        elif "hour" in unit:
+            return value * 3600  # Convert hours to seconds
+        else:
+            raise ValueError("Invalid unit. Use 'seconds', 'minutes', or 'hours'.")
 
     def to_dict(self):
+        """Convert the object to a dictionary format for JSON responses."""
         data = {
             "id": self.id,
             "system_id": self.system_id,
             "name": self.name,
             "type": self.type,
-            "volume_snapshots": self.volume_snapshots,  # ✅ Updated
+            "value": self.value,  # ✅ Converted to seconds
             "replication_type": self.replication_type,
             "replication_target": self.replication_target,
             "replication_frequency": self.replication_frequency,
-            "delay_sec": self.delay_sec
+            "delay_sec": self.delay_sec,
+            "volume_snapshots": self.volume_snapshots,  # ✅ Updated
+            "max_snapshots": self.max_snapshots  # 🔹 Added to dictionary
         }
-
-        if self.type != "replication":
-            data["value"] = self.value
-            
         return data
+

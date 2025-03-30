@@ -576,10 +576,13 @@
                 <div class="applied-settings-container" id="applied-settings-container" style="display: none;">
                     <h3>Applied Settings</h3>
                     <div id="applied-settings-list" style="display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0;"></div>
+                    
+                    <!-- Checkboxes for selecting new settings -->
+                    <div id="new-settings-container" style="margin: 10px 0; display: flex; flex-wrap: wrap; gap: 10px;">
+                        <!-- Checkboxes will be dynamically inserted here -->
+                    </div>
+                
                     <div style="margin-top: 10px;">
-                        <select id="new-setting-select" style="margin-right: 10px;">
-                            <option value="">Select setting to add...</option>
-                        </select>
                         <button class="btn btn-secondary" onclick="updateVolumeSettings()">
                             <i class="fas fa-sync-alt"></i> Update Volume
                         </button>
@@ -745,6 +748,11 @@
                         <label for="setting_value">Setting Value</label>
                         <input id="setting_value" placeholder="Enter value">
                     </div>
+                    <div class="form-control" id="max-snapshots-container">
+                        <label for="max_snapshots">Max Snapshots</label>
+                        <input type="number" id="max_snapshots" min="1" placeholder="Enter max snapshots">
+                    </div>
+                    
                 </div>
                 <div class="initially-hidden" id="replication-controls">
                     <div class="form-control">
@@ -1005,6 +1013,8 @@
         updateCharts();
         setInterval(updateCharts, 60000)//Update every minute
     </script>
+
+
     
     <script>
         async function fetchTopLatency() {
@@ -1107,7 +1117,7 @@
             document.getElementById('create-volume-btn').style.display = visible ? 'inline' : 'none';
             if (visible) {
                 updateDropdown('volume', 'volume_id', 'id', 'name');
-                updateSettingsDropdown();
+                updateSettingsCheckboxes();
                 document.getElementById('volume-id-container').style.display = 'block';
             } else {
                 document.getElementById('volume-id-container').style.display = 'none';
@@ -1334,54 +1344,63 @@
         }
 
         function createSetting() {
-            const name = document.getElementById('setting_name').value;
-            const type = document.getElementById('setting_type').value;
-            const systemId = document.getElementById('settings_system_id').value;
+    const name = document.getElementById('setting_name').value;
+    const type = document.getElementById('setting_type').value;
+    const systemId = document.getElementById('settings_system_id').value;
 
-            if (!name || !type || !systemId) 
-                return alert("Fill all required fields");
+    if (!name || !type || !systemId) 
+        return alert("Fill all required fields");
 
-            const data = {
-                name, 
-                type, 
-                system_id: systemId
-            };
+    const data = {
+        name, 
+        type, 
+        system_id: systemId
+    };
 
-            if (type === 'replication') {
-                const replicationType = document.getElementById('replication_type').value;
-                const delaySec = parseInt(document.getElementById('delay_sec').value);
-                const targetId = document.getElementById('replication_target').value;
-                const targetName = document.getElementById('replication_target').selectedOptions[0].text;
+    if (type === 'replication') {
+        const replicationType = document.getElementById('replication_type').value;
+        const delaySec = parseInt(document.getElementById('delay_sec').value);
+        const targetId = document.getElementById('replication_target').value;
+        const targetName = document.getElementById('replication_target').selectedOptions[0].text;
 
-                if (!targetId) return alert("Select a target system");
-                if (replicationType === 'asynchronous' && delaySec <= 0) 
-                    return alert("Delay must be greater than 0 for asynchronous replication");
+        if (!targetId) return alert("Select a target system");
+        if (replicationType === 'asynchronous' && delaySec <= 0) 
+            return alert("Delay must be greater than 0 for asynchronous replication");
 
-                data.replication_type = replicationType;
-                data.delay_sec = delaySec;
-                data.replication_target_id = targetId;
-                data.replication_target_name = targetName;
-            } else {
-                const value = document.getElementById('setting_value').value;
-                if (!value) return alert("Setting value is required");
-                data.value = value;
-            }
+        data.replication_type = replicationType;
+        data.delay_sec = delaySec;
+        data.replication_target_id = targetId;
+        data.replication_target_name = targetName;
+    } else {
+        const value = document.getElementById('setting_value').value;
+        if (!value) return alert("Setting value is required");
+        data.value = value;
 
-            fetch('/settings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-                .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    alert(data.error);
-                } else {
-                    alert(data.message || "Setting created");
-                    updateSettingsDropdown();
-                }
-            });
+        // ✅ Add max_snapshots if type is snapshot
+        if (type === 'snapshot') {
+            const maxSnapshots = parseInt(document.getElementById('max_snapshots').value);
+            if (!maxSnapshots || maxSnapshots <= 0) 
+                return alert("Max snapshots must be greater than 0");
+            data.max_snapshots = maxSnapshots;
         }
+    }
+
+    fetch('/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            alert(data.message || "Setting created");
+            updateSettingsCheckboxes();
+        }
+    });
+}
+
 
         function loadGlobalSystems() {
             fetch('/data/global-systems').then(res => res.json()).then(systems => {
@@ -1406,11 +1425,11 @@
             }
         });
 
-        function getSettings() {
-            const settingsId = document.getElementById('settings_id').value;
-            if (!settingsId) return showResponse({ error: "Settings ID required" });
-            fetch(`/settings/${settingsId}`).then(res => res.json()).then(showResponse);
-        }
+        //function getSettings() {
+            //const settingsId = document.getlementById('settings_id').value;
+            //if (!settingsId) return showResponse({ error: "Settings ID required" });
+            //etch(`/settings/${settingsId}`).then(res => res.json()).then(showResponse);
+        //}
 
         function updateSettings() {
             const settingsId = document.getElementById('settings_id').value;
@@ -1420,20 +1439,41 @@
                 .then(showResponse);
         }
 
-        function updateSettingsDropdown() {
-            fetch('/data/all-settings').then(res => res.json()).then(settings => {
-                const dropdown1 = document.getElementById('selected_setting');
-                const dropdown2 = document.getElementById('settings_id');
-                dropdown1.innerHTML = dropdown2.innerHTML = '<option value="">-- Select Setting --</option>';
-                settings.forEach(setting => {
-                    const option = document.createElement('option');
-                    option.value = setting.id;
-                    option.textContent = `${setting.name} (${setting.type}, ${setting.value})`;
-                    dropdown1.appendChild(option.cloneNode(true));
-                    dropdown2.appendChild(option);
-                });
+        function updateSettingsCheckboxes() {
+    fetch('/data/all-settings')
+        .then(res => res.json())
+        .then(settings => {
+            const container = document.getElementById('new-settings-container');
+            if (!container) {
+                console.error("❌ ERROR: new-settings-container not found in the DOM.");
+                return;
+            }
+
+            container.innerHTML = ""; // Clear previous checkboxes
+
+            settings.forEach(setting => {
+                const label = document.createElement('label');
+                label.style.display = "block";
+
+                const checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.value = setting.id;
+                checkbox.name = "settings";
+                checkbox.id = `setting-${setting.id}`;
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${setting.name} (${setting.type}, ${setting.value})`));
+
+                container.appendChild(label);
             });
-        }
+
+            console.log("✅ Checkboxes added:", settings);
+        })
+        .catch(error => {
+            console.error("❌ Failed to fetch settings:", error);
+        });
+}
+
 
         function deleteSettings() {
             const settingsId = document.getElementById('settings_id').value;
@@ -1606,30 +1646,48 @@
         }
 
         function updateVolumeSettings() {
-            const volumeId = document.getElementById('volume_id').value;
-            const newSettingId = document.getElementById('new-setting-select').value;
-            
-            if (newSettingId) {
-                currentVolumeSettings.add(newSettingId);
-            }
+    const volumeId = document.getElementById('volume_id').value;
+    if (!volumeId) {
+        alert("⚠️ Volume ID is missing!");
+        return;
+    }
 
-            fetch(`/volume/${volumeId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    setting_ids: Array.from(currentVolumeSettings)
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    alert(data.error);
-                } else {
-                    showVolumeSettings(volumeId);
-                    alert('Settings updated successfully');
-                }
-            });
+    // Collect all selected checkboxes
+    const selectedSettings = Array.from(document.querySelectorAll("#new-settings-container input:checked"))
+        .map(checkbox => checkbox.value);
+
+    console.log("📌 Selected Settings:", selectedSettings);
+
+    if (selectedSettings.length === 0) {
+        alert("⚠️ No settings selected.");
+        return;
+    }
+
+    // Ensure currentVolumeSettings is updated correctly
+    selectedSettings.forEach(setting => currentVolumeSettings.add(setting));
+
+    fetch(`/volume/${volumeId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            setting_ids: Array.from(currentVolumeSettings)
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            showVolumeSettings(volumeId);
+            alert('✅ Settings updated successfully!');
         }
+    })
+    .catch(err => {
+        console.error("❌ ERROR updating settings:", err);
+        alert("❌ Failed to update settings.");
+    });
+}
+
 
         function showLogs() {
             document.getElementById('logs-modal').style.display = 'block';
@@ -1698,10 +1756,74 @@
                 if (data.length > 0) document.getElementById('host-id-container').style.display = 'block';
                 updateDropdown('host', 'host_id', 'id', 'name');
             });
-            updateSettingsDropdown();
+            updateSettingsCheckboxes();
             loadExportedVolumes();
+
         };
+
+
+        function handleVolumeSelection() {
+    const settingsId = document.getElementById("settings_id")?.value;
+    const container = document.getElementById("applied-settings-container");
+
+    if (!settingsId) {
+        console.warn("⚠ No volume selected. Hiding settings.");
+        container.style.display = "none";
+        return;
+    }
+
+    console.log(`✅ Volume selected: ${settingsId}`);
+    getSettings(settingsId);
+}
+
+function getSettings(settingsId) {
+    console.log("📌 Fetching settings for:", settingsId);
+
+    fetch(`/settings/`)
+        .then(res => res.json())
+        .then(data => {
+            console.log("✅ Received Settings Data:", data);
+
+            if (!Array.isArray(data) || data.length === 0) {
+                console.warn("⚠ No settings found.");
+                return;
+            }
+
+            const newSettingsContainer = document.getElementById("new-settings-container");
+
+            if (!newSettingsContainer) {
+                console.error("❌ ERROR: #new-settings-container not found!");
+                return;
+            }
+
+            newSettingsContainer.innerHTML = ""; // Clear existing checkboxes
+
+            data.forEach(setting => {
+                console.log("📌 Adding setting:", setting);
+
+                const label = document.createElement("label");
+                label.style.display = "block";
+
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.value = setting.id;
+                checkbox.name = "settings";
+                checkbox.id = `setting-${setting.id}`;
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${setting.name}`));
+
+                newSettingsContainer.appendChild(label);
+            });
+
+            console.log("✅ Checkboxes inserted successfully.");
+        })
+        .catch(err => console.error("❌ Fetch Error:", err));
+}
+
     </script>
+
+
 
 
 </body>

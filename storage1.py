@@ -732,121 +732,108 @@ class StorageManager:
     MAX_SNAPSHOTS = 10  # Maximum number of snapshots per volume
     IO_SIZE_KB = 8  # Assume each I/O operation is 8KB  
 
-    def cleanup(self):
-        """
-        Perform cleanup tasks:
-        - Remove oldest snapshots if they exceed MAX_SNAPSHOTS
-        - Update system throughput, CPU usage, and saturation correctly
-        """
-        try:
-            # Load system metrics
-            system_metrics = self.load_metrics()
+def cleanup(self):
+    """
+    Perform cleanup tasks:
+    - Remove oldest snapshots if they exceed max_snapshots from settings.json
+    - Update system throughput, CPU usage, and saturation correctly
+    """
+    try:
+        # ---- 1️⃣ Load System Configuration ----
+        system_data = self.load_resource("system")  # Load system.json
+        if not system_data:
+            self.logger.warn("No system found. Skipping cleanup.", global_log=True)
+            return
 
-            # ---- 1️⃣ Fetch System Configuration ----
-            system_data = self.load_resource("system")  # Load system.json
-            if not system_data:
-                self.logger.warn("No system found. Skipping cleanup.", global_log=True)
-                return
+        system = system_data[0]  # Assuming a single system instance
+        max_capacity_gb = float(system.get("max_capacity", 1024))  # Default fallback of 1TB
+        max_throughput_mb = float(system.get("max_throughput", 200))  # Default fallback
 
-            system = system_data[0]  # Assuming single system instance
-            max_capacity_gb = float(system.get("max_capacity", 1024))  # Default fallback of 1TB
-            max_throughput_mb = float(system.get("max_throughput", 200))  # Default fallback
+        # ---- 2️⃣ Load Settings ----
+        settings = self.load_resource("settings")  # ✅ Load settings.json
+        settings_dict = {s["system_id"]: s for s in settings}  # Convert to dict for quick lookup
 
-            # ---- 2️⃣ Clean Excess Snapshots ----
-            volumes = self.load_resource("volume")
-            cleaned_snapshots = 0
+        # ---- 3️⃣ Clean Excess Snapshots ----
+        volumes = self.load_resource("volume")
+        cleaned_snapshots = 0
 
-            for volume in volumes:
-                snapshot_count = volume.get("snapshot_count", 0)  # Get snapshot count from volume JSON
-                
-                # ✅ Check if cleanup is needed
-                if snapshot_count > self.MAX_SNAPSHOTS:
-                    excess_count = snapshot_count - self.MAX_SNAPSHOTS
-                    
-                    # ✅ Update snapshot count in the volume
-                    volume["snapshot_count"] = self.MAX_SNAPSHOTS  # Set to limit after cleanup
-                    self.update_resource("volume", volume["id"], volume)
-                    cleaned_snapshots += excess_count
+        for volume in volumes:
+            volume_id = volume["id"]
+            snapshot_count = volume.get("snapshot_count", 0)  # Get snapshot count from volume JSON
+            
+            # ✅ Fetch max_snapshots for this system (fallback to 5)
+            system_id = volume.get("system_id")
+            max_snapshots = settings_dict.get(system_id, {}).get("max_snapshots", 5)
 
-            # ---- 3️⃣ Track Hosts & System IOPS ----
-            hosts = self.load_resource("host")
-            num_hosts = len(hosts)
+            # ✅ Check if cleanup is needed
+            if snapshot_count > max_snapshots:
+                excess_count = snapshot_count - max_snapshots
 
-            # ✅ Load IOPS dynamically from io_metrics.json
-            io_metrics = self.load_resource("io_metrics")
+                # ✅ Implement logic to delete oldest snapshots
+                snapshots = self.load_resource("snapshots")  # Load snapshots.json
+                snapshots = [s for s in snapshots if s["volume_id"] == volume_id]
+                snapshots.sort(key=lambda x: x["created_at"])  # Sort by creation date (oldest first)
 
-            # ✅ Ensure io_metrics is a list
-            if not isinstance(io_metrics, list):
-                io_metrics = []  
+                for i in range(excess_count):
+                    snapshot_to_delete = snapshots[i]
+                    self.delete_resource("snapshots", snapshot_to_delete["id"])  # ✅ Delete snapshot
 
-            # ✅ Flatten nested lists inside io_metrics
-            flat_metrics = []
-            for entry in io_metrics:
-                if isinstance(entry, list):  
-                    for sub_entry in entry:
-                        if isinstance(sub_entry, list):  
-                            flat_metrics.extend(sub_entry)  # Extract deeply nested lists
-                        else:
-                            flat_metrics.append(sub_entry)  # Append valid dict
-                elif isinstance(entry, dict):
-                    flat_metrics.append(entry)  # Append standalone dicts
+                # ✅ Update snapshot count in the volume
+                volume["snapshot_count"] = max_snapshots  # Set to limit after cleanup
+                self.update_resource("volume", volume_id, volume)
+                cleaned_snapshots += excess_count
 
-            io_metrics = flat_metrics  # ✅ Now io_metrics is a clean flat list
+        # ---- 4️⃣ Track Hosts & System IOPS ----
+        hosts = self.load_resource("host")
+        num_hosts = len(hosts)
 
+        # ✅ Load IOPS dynamically from io_metrics.json
+        io_metrics = self.load_resource("io_metrics") or []
+        io_metrics = [m for m in io_metrics if isinstance(m, dict)]  # Ensure valid dict format
 
-            # ✅ Initialize total IOPS and total throughput
-            total_iops = 0
-            total_throughput = 0
+        # ✅ Initialize total IOPS and total throughput
+        total_iops = 0
+        total_throughput = 0
 
-            for volume in volumes:
-                if volume.get("is_exported"):
-                    # ✅ Fetch the latest IOPS for the volume from io_metrics
-                    latest_metrics = next((m for m in reversed(io_metrics) if isinstance(m, dict) and m.get("volume_id") == volume["id"]), None)
-                    iops = latest_metrics.get("io_count", 1000) if latest_metrics else 1000
+        for volume in volumes:
+            if volume.get("is_exported"):
+                # ✅ Fetch the latest IOPS for the volume from io_metrics
+                latest_metrics = next((m for m in reversed(io_metrics) if m.get("volume_id") == volume["id"]), None)
+                iops = latest_metrics.get("io_count", 1000) if latest_metrics else 1000
 
+                total_iops += iops
+                total_throughput += (iops * self.IO_SIZE_KB) / 1024  # Convert KB to MB
 
-                    total_iops += iops
-                    total_throughput += (iops * self.IO_SIZE_KB) / 1024  # Convert KB to MB
+        total_throughput = min(max_throughput_mb, total_throughput)
 
+        # ---- 5️⃣ Update System Metrics ----
+        system_saturation = max(4, (total_throughput * 100) / max_throughput_mb) if total_throughput > 0 else 0
+        system_metrics = self.load_metrics()
+        system_metrics["saturation"] = system_saturation
+        system_metrics["cpu_usage"] = min(100, num_hosts * 5)
+        system_metrics["throughput_used"] = total_throughput
 
-            total_throughput = min(max_throughput_mb, total_throughput)
+        prev_saturation = system_metrics["saturation"]
 
-            if max_throughput_mb > 0:
-                if total_throughput > 0:
-                    system_saturation = max(4, (total_throughput * 100) / max_throughput_mb)
-                else:
-                    if any(v.get("is_exported") for v in volumes):
-                        system_saturation = 4
-                    else:
-                        system_saturation = 0
-            else:
-                system_saturation = 0
+        for volume in volumes:
+            if not volume.get("is_exported"):
+                system_metrics["saturation"] = max(0, prev_saturation - (total_throughput * 100) / max_throughput_mb)
+                system_metrics["cpu_usage"] = max(0, system_metrics["cpu_usage"] - 5)
 
-            system_metrics["saturation"] = system_saturation
-            system_metrics["cpu_usage"] = min(100, num_hosts * 5)
-            system_metrics["throughput_used"] = total_throughput
+        self.save_metrics(system_metrics)
 
-            prev_saturation = system_metrics["saturation"]
+        # ✅ Log cleanup results
+        self.logger.info(
+            f"Housekeeping completed: {cleaned_snapshots} snapshots removed, "
+            f"IOPS: {total_iops}, Saturation: {system_metrics['saturation']}%, "
+            f"Throughput: {total_throughput} MB/s, "
+            f"CPU Usage: {system_metrics['cpu_usage']}%", 
+            global_log=True
+        )
 
-            for volume in volumes:
-                if not volume.get("is_exported"):
-                    # Reduce saturation proportionally instead of fixed - 5
-                    system_metrics["saturation"] = max(0, prev_saturation - (total_throughput * 100) / max_throughput_mb)
-                    system_metrics["cpu_usage"] = max(0, system_metrics["cpu_usage"] - 5)
+    except Exception as e:
+        self.logger.error(f"Housekeeping error: {str(e)}", global_log=True)
 
-
-            self.save_metrics(system_metrics)
-
-            self.logger.info(
-                f"Housekeeping completed: {cleaned_snapshots} snapshots removed, "
-                f"IOPS: {total_iops}, Saturation: {system_metrics['saturation']}%, "
-                f"Throughput: {total_throughput} MB/s, "
-                f"CPU Usage: {system_metrics['cpu_usage']}%", 
-                global_log=True
-            )
-
-        except Exception as e:
-            self.logger.error(f"Housekeeping error: {str(e)}", global_log=True)
 
 class Settings:
     def __init__(self, id, system_id):
