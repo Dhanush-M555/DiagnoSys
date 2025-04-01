@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Storage System Simulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6b48ff;
+            --primary-dark: #5438cc;
+            --secondary: #00ddeb;
+            --danger: #ff6b6b;
+            --success: #48ff6b;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f5f5f5;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(45deg, #6b48ff, #00ddeb, #ff6b6b, #48ff6b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: var(--card-bg);
+            padding: 25px 15px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+        
+        .sidebar.active {
+            left: 0;
+            width: 50%;
+        }
+        
+        .sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 1001;
+            border: none;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .sidebar-toggle:hover {
+            background: var(--primary);
+            color: var(--text-light);
+        }
+        
+        .main {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 0;
+            transition: var(--transition);
+            margin-top: 60px;
+            width: 100%;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        h1 {
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-align: center;
+            font-size: 32px;
+        }
+        
+        h2 {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h3 {
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 18px;
+        }
+        
+        .section-icon {
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            margin: 5px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-sm {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn-success {
+            background: var(--success);
+        }
+        
+        .btn-success:hover {
+            background: #36dd59;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+        }
+        
+        .btn-danger:hover {
+            background: #e95757;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--text-dark);
+        }
+        
+        .btn-secondary:hover {
+            background: #00c7d3;
+        }
+        
+        .crud-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 15px;
+        }
+        
+        .form-control {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        
+        .form-control label {
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        select, input {
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+            transition: var(--transition);
+            background: white;
+            font-size: 16px;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 72, 255, 0.2);
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333' width='18px' height='18px'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+        
+        pre {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            border: 1px solid #eee;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+        
+        /* Sidebar JSON Output */
+        .json-container {
+            margin-top: 20px;
+        }
+        
+        .json-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        /* Hide elements initially */
+        .initially-hidden {
+            display: none;
+        }
+        
+        /* Applied Settings */
+        .applied-settings-container {
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: var(--border-radius);
+        }
+        
+        .setting-block {
+            position: relative;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background: white;
+            cursor: pointer;
+            margin: 5px;
+            transition: var(--transition);
+            min-width: 180px;
+            width: 45%;
+        }
+        
+        .setting-block:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .setting-block .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            color: var(--danger);
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .setting-block .remove-btn:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        .setting-tooltip {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            max-width: 300px;
+            top: 100%;
+            left: 0;
+        }
+        
+        .setting-block:hover .setting-tooltip {
+            display: block;
+        }
+        
+        /* Logs Modal */
+        .logs-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 999;
+            transition: var(--transition);
+        }
+        
+        .logs-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .logs-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-height: 80vh;
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .logs-content {
+            max-height: 60vh;
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: var(--border-radius);
+            border: 1px solid #eee;
+        }
+        
+        .logs-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .logs-tab {
+            padding: 8px 15px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .logs-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .card {
+                padding: 15px;
+            }
+            
+            .crud-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                margin: 3px 0;
+            }
+        }
+
+               /* Add these styles within the existing <style> tag */
+        .latency-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+
+        .latency-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .latency-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .chart-container {
+            width: calc(50% - 10px); /* Two charts per row with gap */
+            height: 300px;
+            background: #f9f9f9;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                width: 100%; /* Full width on smaller screens */
+            }
+        }
+
+        .latency-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .latency-table th,
+        .latency-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .latency-table th {
+            background: var(--primary);
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .latency-table td {
+            background: white;
+        }
+
+        .latency-table tr:nth-child(even) td {
+            background: #f9f9f9;
+        }
+
+        .latency-table tr:hover td {
+            background: #f0f0f0;
+            transition: background 0.2s ease;
+        }
+
+        .latency-table .latency-value {
+            color: var(--danger);
+            font-weight: 500;
+        }
+
+        #latencyGraphCard canvas {
+        width: 100% !important; /* Ensure the chart scales to card width */
+        height: 300px !important; /* Consistent height with other charts */
+        max-width: 100%;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <h2><i class="fas fa-database section-icon"></i> JSON Data</h2>
+            <div class="json-buttons">
+                <button class="btn btn-sm" onclick="fetchJson('system')">
+                    <i class="fas fa-server"></i> System
+                </button>
+                <button class="btn btn-sm" onclick="fetchJson('volume')">
+                    <i class="fas fa-hdd"></i> Volume
+                </button>
+                <button class="btn btn-sm" onclick="fetchJson('host')">
+                    <i class="fas fa-desktop"></i> Host
+                </button>
+                <button class="btn btn-sm" onclick="fetchJson('settings')">
+                    <i class="fas fa-cog"></i> Settings
+                </button>
+            </div>
+            <div class="json-container">
+                <pre id="json-output"></pre>
+            </div>
+        </div>
+        
+        <div class="main">
+            <h1>Storage System Simulator</h1>
+
+            <!-- System -->
+            <div class="card" id="system-card">
+                <h2><i class="fas fa-server section-icon"></i> System</h2>
+                <div class="form-control">
+                    <label for="max_throughput">Max Throughput (MB/s)</label>
+                    <input type="number" id="max_throughput" placeholder="Enter max throughput">
+                </div>
+                <div class="form-control">
+                    <label for="max_capacity">Max Capacity (GB)</label>
+                    <input type="number" id="max_capacity" placeholder="Enter max capacity">
+                </div>
+
+
+
+                <div class="crud-buttons">
+                    <button class="btn btn-success" onclick="createSystem()">
+                        <i class="fas fa-plus"></i> Create
+                    </button>
+                    <button class="btn" onclick="getSystem()">
+                        <i class="fas fa-eye"></i> View All
+                    </button>
+                    <button class="btn btn-secondary initially-hidden" id="update-system-btn" onclick="updateSystem()">
+                        <i class="fas fa-edit"></i> Update
+                    </button>
+                    <button class="btn" onclick="deleteSystem()">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+            <!----
+            <button class="btn btn-danger initially-hidden" id="delete-system-btn" onclick="deleteSystem()">
+                <i class="fas fa-trash"></i> Delete
+            </button>--->
+
+            <!-- Volume -->
+            <div class="card" id="volume-card">
+                <h2><i class="fas fa-hdd section-icon"></i> Volume</h2>
+                <div class="form-control">
+                    <label for="volume_system_id">Select System</label>
+                    <select id="volume_system_id" onchange="checkVolumeFormVisibility()"></select>
+                </div>
+                <div class="form-control initially-hidden" id="volume-name-container">
+                    <label for="volume_name">Volume Name</label>
+                    <input id="volume_name" placeholder="Enter volume name">
+                </div>
+                <div class="form-control initially-hidden" id="volume-size-container">
+                    <label for="volume_size">Volume Size (GB)</label>
+                    <input type="number" id="volume_size" placeholder="Enter volume size">
+                </div>
+                <div class="form-control initially-hidden" id="volume-id-container">
+                    <label for="volume_id">Select Volume</label>
+                    <select id="volume_id" onchange="checkVolumeActionVisibility()"></select>
+                </div>
+                <div class="applied-settings-container" id="applied-settings-container" style="display: none;">
+                    <h3>Applied Settings</h3>
+                    <div id="applied-settings-list" style="display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0;"></div>
+                    
+                    <!-- Checkboxes for selecting new settings -->
+                    <div id="new-settings-container" style="margin: 10px 0; display: flex; flex-wrap: wrap; gap: 10px;">
+                        <!-- Checkboxes will be dynamically inserted here -->
+                    </div>
+                
+                    <div style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="updateVolumeSettings()">
+                            <i class="fas fa-sync-alt"></i> Update Volume
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Snapshot Frequency Checkbox Selection -->
+                <div class="form-control initially-hidden" id="snapshot-frequency-container">
+                    <label>Select Snapshot Frequencies:</label>
+                    <div>
+                        <input type="checkbox" id="snap_30" value="30">
+                        <label for="snap_30">Every 30 seconds</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="snap_60" value="60">
+                        <label for="snap_60">Every 1 minute</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="snap_300" value="300">
+                        <label for="snap_300">Every 5 minutes</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="snap_1800" value="1800">
+                        <label for="snap_1800">Every 30 minutes</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="snap_3600" value="3600">
+                        <label for="snap_3600">Every 1 hour</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="snap_21600" value="21600">
+                        <label for="snap_21600">Every 6 hours</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="snap_86400" value="86400">
+                        <label for="snap_86400">Daily</label>
+                    </div>
+                </div>
+
+                <div class="crud-buttons">
+                    <button class="btn btn-success initially-hidden" id="create-volume-btn" onclick="createVolume()">
+                        <i class="fas fa-plus"></i> Create
+                    </button>
+                    <button class="btn initially-hidden" id="get-volume-btn" onclick="getVolume()">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-danger initially-hidden" id="delete-volume-btn" onclick="deleteVolume()">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+
+            <!-- Host -->
+            <div class="card" id="host-card">
+                <h2><i class="fas fa-network-wired section-icon"></i> Host</h2>
+                <div class="form-control">
+                    <label for="host_system_id">Select System</label>
+                    <select id="host_system_id" onchange="checkHostFormVisibility()"></select>
+                </div>
+                <div class="form-control initially-hidden" id="host-name-container">
+                    <label for="host_name">Host Name</label>
+                    <input id="host_name" placeholder="Enter host name">
+                </div>
+                <div class="form-control initially-hidden" id="application-type-container">
+                    <label for="application_type">Application Type</label>
+                    <select id="application_type">
+                        <option value="HPE">HPE</option>
+                        <option value="Oracle">Oracle</option>
+                        <option value="SQL">SQL</option>
+                        <option value="VMware">VMware</option>
+                    </select>
+                </div>
+                <div class="form-control initially-hidden" id="protocol-container">
+                    <label for="protocol">Protocol</label>
+                    <select id="protocol">
+                        <option value="FC">FC</option>
+                        <option value="iSCSI">iSCSI</option>
+                        <option value="NVMe">NVMe</option>
+                    </select>
+                </div>
+                <div class="form-control initially-hidden" id="host-id-container">
+                    <label for="host_id">Select Host</label>
+                    <select id="host_id" onchange="toggleHostButtons()"></select>
+                </div>
+                <div class="crud-buttons">
+                    <button class="btn btn-success initially-hidden" id="create-host-btn" onclick="createHost()">
+                        <i class="fas fa-plus"></i> Create
+                    </button>
+                    <button class="btn initially-hidden" id="get-host-btn" onclick="getHost()">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-secondary initially-hidden" id="update-host-btn" onclick="updateHost()">
+                        <i class="fas fa-edit"></i> Update
+                    </button>
+                    <button class="btn btn-danger initially-hidden" id="delete-host-btn" onclick="deleteHost()">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+
+            <!-- Export Volume -->
+            <div class="card" id="export-volume-card">
+                <h2><i class="fas fa-share-alt section-icon"></i> Export Volume</h2>
+                <div class="form-control">
+                    <label for="export_volume_id">Select Volume</label>
+                    <select id="export_volume_id"></select>
+                </div>
+                <div class="form-control">
+                    <label for="export_host_id">Select Host</label>
+                    <select id="export_host_id"></select>
+                </div>
+                <div class="form-control">
+                    <label for="workload_size">Workload Size</label>
+                    <select id="workload_size" name="workload_size">
+                        <option value="4">4 KB</option>
+                        <option value="8">8 KB</option>
+                        <option value="16">16 KB</option>
+                        <option value="32">32 KB</option>
+                        <option value="64">64 KB</option>
+                        <option value="128">128 KB</option>
+                    </select>
+                </div>
+                
+                <div class="crud-buttons">
+                    <button class="btn btn-success" onclick="exportVolume()">
+                        <i class="fas fa-share-square"></i> Export Volume
+                    </button>
+                </div>
+            </div>
+
+            <!-- Unexport Volume -->
+            <div class="card" id="unexport-volume-card">
+                <h2><i class="fas fa-unlink section-icon"></i> Unexport Volume</h2>
+                <div class="form-control">
+                    <label for="volume-select">Select Volume</label>
+                    <select id="volume-select">
+                        <option value="">-- Select Exported Volume --</option>
+                    </select>
+                </div>
+                <div class="crud-buttons">
+                    <button class="btn btn-danger" onclick="unexportVolume()">
+                        <i class="fas fa-unlink"></i> Unexport
+                    </button>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="card" id="settings-card">
+                <h2><i class="fas fa-cog section-icon"></i> Settings</h2>
+                <div class="form-control">
+                    <label for="settings_system_id">Select System</label>
+                    <select id="settings_system_id" onchange="checkSettingsFormVisibility()"></select>
+                </div>
+                <div class="form-control initially-hidden" id="settings-id-container">
+                    <label for="settings_id">Select Settings</label>
+                    <select id="settings_id" onchange="checkSettingsActionVisibility()"></select>
+                </div>
+                <div class="initially-hidden" id="setting-details-container">
+                    <div class="form-control">
+                        <label for="setting_name">Setting Name</label>
+                        <input id="setting_name" placeholder="Enter setting name">
+                    </div>
+                    <div class="form-control">
+                        <label for="setting_type">Setting Type</label>
+                        <select id="setting_type" onchange="handleSettingTypeChange()">
+                            <option value="snapshot">Snapshot</option>
+                            <option value="replication">Replication</option>
+                        </select>
+                    </div>
+                    <div class="form-control" id="value-container">
+                        <label for="setting_value">Setting Value</label>
+                        <input id="setting_value" placeholder="Enter value">
+                    </div>
+                    <div class="form-control" id="max-snapshots-container">
+                        <label for="max_snapshots">Max Snapshots</label>
+                        <input type="number" id="max_snapshots" min="1" placeholder="Enter max snapshots">
+                    </div>
+                    
+                </div>
+                <div class="initially-hidden" id="replication-controls">
+                    <div class="form-control">
+                        <label for="replication_type">Replication Type</label>
+                        <select id="replication_type" onchange="handleReplicationType()">
+                            <option value="synchronous">Synchronous</option>
+                            <option value="asynchronous">Asynchronous</option>
+                        </select>
+                    </div>
+                    <div class="form-control" id="delay-container">
+                        <label for="delay_sec">Delay (seconds)</label>
+                        <input type="number" id="delay_sec" min="1" value="1">
+                    </div>
+                    <div class="form-control" id="target-container">
+                        <label for="replication_target">Target System</label>
+                        <select id="replication_target"></select>
+                    </div>
+                </div>
+                <div class="crud-buttons">
+                    <button class="btn btn-success" id="create-settings-btn" onclick="createSetting()">
+                        <i class="fas fa-plus"></i> Create
+                    </button>
+                    <button class="btn" id="get-settings-btn" onclick="getSettings()">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-secondary" id="update-settings-btn" onclick="updateSettings()">
+                        <i class="fas fa-edit"></i> Update
+                    </button>
+                    <button class="btn btn-danger" id="delete-settings-btn" onclick="deleteSettings()">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+
+            <!-- Response -->
+            <div class="card" id="response-card">
+                <h2><i class="fas fa-reply section-icon"></i> Response</h2>
+                <pre id="response"></pre>
+            </div>
+        </div>
+    </div>
+
+    <button class="logs-button" onclick="showLogs()">
+        <i class="fas fa-list-alt"></i> Show Logs
+    </button>
+    <div id="logs-modal" class="logs-modal">
+        <h2><i class="fas fa-list-alt section-icon"></i> System Logs</h2>
+        <div class="logs-tabs">
+            <div class="logs-tab active" onclick="switchLogs('local')">Local Logs</div>
+            <div class="logs-tab" onclick="switchLogs('global')">Global Logs</div>
+        </div>
+        <div class="logs-content" id="logs-content"></div>
+        <button class="btn" onclick="closeLogs()">
+            <i class="fas fa-times"></i> Close
+        </button>
+    </div>
+
+    <!-- <div class="card" id="latency-card">
+        <h2><i class="fas fa-chart-line section-icon"></i> Exported Volumes - Latency Over Last 15 Minutes</h2>
+        <div id="exportedVolumesCharts"></div>
+    </div> -->
+
+    
+    <!-- <div class="card" id="top-latency-card">
+             <h2><i class="fas fa-tachometer-alt section-icon"></i> Top 3 Volumes by Latency (Last 15 Min)</h2>
+             <ul id="topLatencyList"></ul>
+         </div>-->
+<!--     
+    <canvas id="latencyChart"></canvas> -->
+
+
+    <div class="card" id="top-latency-card">
+        <h2><i class="fas fa-tachometer-alt section-icon"></i> Top 5 Volumes by Latency (Last 15 Min)</h2>
+        <div id="topLatencyTableContainer">
+            <table class="latency-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Volume ID</th>
+                        <th>Avg Latency (ms)</th>
+                    </tr>
+                </thead>
+                <tbody id="topLatencyTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+   <!-- Replace the existing #latencyGraphCard div with this -->
+    <div class="card initially-hidden" id="latencyGraphCard">
+        <h2><i class="fas fa-chart-line section-icon"></i> Volume Latency History</h2>
+        <h3 id="graphTitle"></h3>
+        <canvas id="latencyChart" width="400" height="200"></canvas>
+    </div>
+
+    
+    <!-- <script>
+             async function fetchLatencyData() {
+                 const response = await fetch('/api/latency'); // API endpoint for latency data
+                 const data = await response.json();
+                 console.log("Latency Data:", data);
+                 return data;
+             }
+         
+             // async function updateCharts() {
+             //     const latencyData = await fetchLatencyData();
+             //     const exportedVolumesDiv = document.getElementById('exportedVolumesCharts');
+             //     exportedVolumesDiv.innerHTML = ""; // Clear existing charts
+                 
+             //     Object.keys(latencyData).forEach(volumeId => {
+             //         const chartContainer = document.createElement('div');
+             //         chartContainer.className = 'chart-container';
+             //         chartContainer.innerHTML = `<h3>Volume ID: ${volumeId}</h3><canvas id="chart-${volumeId}"></canvas>`;
+             //         exportedVolumesDiv.appendChild(chartContainer);
+                     
+             //         const volumeCtx = document.getElementById(`chart-${volumeId}`).getContext('2d');
+             //         new Chart(volumeCtx, {
+             //             type: 'line',
+             //             data: {
+             //                 labels: latencyData[volumeId].timestamps,
+             //                 datasets: [{
+             //                     label: 'Latency (ms)',
+             //                     data: latencyData[volumeId].values,
+             //                     borderColor: 'red',
+             //                     fill: false
+             //                 }]
+             //             },
+             //             options: {
+             //                 responsive: true,
+             //                 scales: {
+             //                     x: { title: { display: true, text: 'Time' } },
+             //                     y: { title: { display: true, text: 'Latency (ms)' } }
+             //                 }
+             //             }
+             //         });
+             //     });
+             // }
+             async function updateCharts() {
+             const latencyData = await fetchLatencyData();
+             console.log("Latency Data:", latencyData);  // Debugging: Check structure
+         
+             const exportedVolumesDiv = document.getElementById('exportedVolumesCharts');
+             exportedVolumesDiv.innerHTML = ""; // Clear previous graphs
+         
+         // Check if latencyData is empty
+             if (Object.keys(latencyData).length === 0) {
+                 exportedVolumesDiv.innerHTML = "<p>No latency data available for exported volumes.</p>";
+                 return;
+             }
+     
+             Object.keys(latencyData).forEach(volumeId => {
+                 const volumeData = latencyData[volumeId];  // Extract data for the volume
+                 if (!volumeData.timestamps || !volumeData.values) return; // Skip if missing data
+     
+                 const chartContainer = document.createElement('div');
+                 chartContainer.className = 'chart-container';
+                 chartContainer.innerHTML = `<h3>Volume ID: ${volumeId}</h3><canvas id="chart-${volumeId}"></canvas>`;
+                 exportedVolumesDiv.appendChild(chartContainer);
+                 
+                 const ctx = document.getElementById(`chart-${volumeId}`).getContext('2d');
+                 new Chart(ctx, {
+                     type: 'line',
+                     data: {
+                         labels: volumeData.timestamps,
+                         datasets: [{
+                             label: 'Latency (ms)',
+                             data: volumeData.values,
+                             borderColor: 'red',
+                             fill: false
+                         }]
+                     },
+                     options: {
+                         responsive: true,
+                         scales: {
+                             x: { title: { display: true, text: 'Time' } },
+                             y: { title: { display: true, text: 'Latency (ms)' } }
+                         }
+                     }
+                 });
+             });
+             }
+     
+             updateCharts();
+             setInterval(updateCharts, 60000); // Update every minute
+         </script> -->
+
+    <script>
+        async function fetchLatencyData() {
+            const response = await fetch('/api/latency');
+            const data = await response.json();
+            console.log("Latency Data:", data);
+            return data;
+        }
+
+        async function updateCharts() {
+            const latencyData = await fetchLatencyData();
+            const exportedVolumesDiv = document.getElementById('exportedVolumesCharts');
+            exportedVolumesDiv.innerHTML = ""; // Clear previous charts
+            exportedVolumesDiv.className = 'latency-container';
+
+            // Check if latencyData is empty
+            if (Object.keys(latencyData).length === 0) {
+                exportedVolumesDiv.innerHTML = "<p>No latency data available for exported volumes.</p>";
+                return;
+            }
+
+
+            Object.keys(latencyData).forEach(volumeId => {
+                const volumeData = latencyData[volumeId];
+                if (!volumeData.timestamps || !volumeData.values) return; // Skip if missing data
+
+                const chartContainer = document.createElement('div');
+                chartContainer.className = 'chart-container';
+                chartContainer.innerHTML = `
+                         <h3>Volume ID: ${volumeId}</h3>
+                         <canvas id="chart-${volumeId}"></canvas>
+                     `;
+                exportedVolumesDiv.appendChild(chartContainer);
+
+
+                const ctx = document.getElementById(`chart-${volumeId}`).getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: volumeData.timestamps,
+                        datasets: [{
+                            label: 'Latency (ms)',
+                            data: volumeData.values,
+                            borderColor: 'red',
+                            fill: false,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Time'
+
+                                },
+                                ticks: {
+                                    maxTicksLimit: 10
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Latency (ms)'
+
+                                },
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // Initial chart load and periodic update
+        updateCharts();
+        setInterval(updateCharts, 60000)//Update every minute
+    </script>
+
+
+    
+    <script>
+        async function fetchTopLatency() {
+            try {
+                const response = await fetch('/api/top-latency');
+                const data = await response.json();
+                console.log("Top Latency Data:", data);
+
+                const topLatencyTable = document.getElementById('topLatencyTable');
+                topLatencyTable.innerHTML = ""; // Clear previous entries
+
+                if (!data.top_volumes || data.top_volumes.length === 0) {
+                    topLatencyTable.innerHTML = `
+                     <tr>
+                         <td colspan="3">No data available</td>
+                     </tr>
+                 `;
+                    return;
+                }
+
+                data.top_volumes.slice(0, 5).forEach((volume, index) => { // Limit to top 3
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td><a href="#" onclick="fetchLatencyHistory('${volume.volume_id}')">${volume.volume_id}</a></td>
+                        <td class="latency-value">${parseFloat(volume.avg_latency).toFixed(2)}</td>
+                    `;
+                    topLatencyTable.appendChild(row);
+                });
+
+            } catch (error) {
+                console.error("Error fetching top latency data:", error);
+                const topLatencyTable = document.getElementById('topLatencyTable');
+                topLatencyTable.innerHTML = `
+                 <tr>
+                     <td colspan="3">Error loading data</td>
+                 </tr>
+             `;
+            }
+        }
+        fetchTopLatency();
+        setInterval(fetchTopLatency, 10000); // Update every 10 seconds
+    </script>
+
+    <!-- Load Chart.js first -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let latencyChart = null; // Store the Chart.js instance
+
+async function fetchLatencyHistory(volumeId) {
+    try {
+        const response = await fetch(`/api/latency-history/${volumeId}`);
+        const data = await response.json();
+        console.log("Latency History Data:", data);
+
+        if (!data.latency_data || data.latency_data.length === 0) {
+            alert("No latency data available for the past hour.");
+            return;
+        }
+
+        // Extract timestamps and latency values
+        const timestamps = data.latency_data.map(entry => entry.timestamp);
+        const latencies = data.latency_data.map(entry => entry.latency);
+
+        // Render the graph
+        renderLatencyGraph(volumeId, timestamps, latencies);
+
+        // Show the latency graph card and scroll to it
+        const latencyCard = document.getElementById('latencyGraphCard');
+        latencyCard.classList.remove('initially-hidden');
+        latencyCard.scrollIntoView({ behavior: 'smooth' });
+
+    } catch (error) {
+        console.error("Error fetching latency history:", error);
+        alert("Failed to load latency history.");
+    }
+}
+
+function renderLatencyGraph(volumeId, timestamps, latencies) {
+    const ctx = document.getElementById('latencyChart').getContext('2d');
+
+    // Destroy the previous chart instance before creating a new one
+    if (latencyChart) {
+        latencyChart.destroy();
+    }
+
+    // Update graph title
+    document.getElementById('graphTitle').innerText = `Latency for ${volumeId} (Last Hour)`;
+
+    // Create a new line chart
+    latencyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timestamps,
+            datasets: [{
+                label: `Latency for ${volumeId}`,
+                data: latencies,
+                borderColor: 'blue',
+                borderWidth: 2,
+                fill: false,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: { display: true, text: 'Time' },
+                    ticks: { maxTicksLimit: 10 }
+                },
+                y: {
+                    title: { display: true, text: 'Latency (ms)' },
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: { position: 'top' }
+            }
+        }
+    });
+}
+
+</script>
+
+    
+    <script>
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.getElementById('sidebar-toggle');
+            if (!sidebar.contains(event.target) && event.target !== toggle && !toggle.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        function showResponse(data) {
+            document.getElementById('response').innerHTML = JSON.stringify(data, null, 2);
+            document.getElementById('response-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function fetchJson(resource) {
+            document.getElementById('json-output').innerHTML = "Loading...";
+            fetch(`/data/${resource}`).then(res => res.json()).then(data => {
+                document.getElementById('json-output').innerHTML = JSON.stringify(data, null, 2);
+            }).catch(err => document.getElementById('json-output').innerHTML = err.message);
+        }
+
+        function updateDropdown(resource, selectId, idField, nameField) {
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">Select...</option>';
+            fetch(`/data/${resource}`).then(res => res.json()).then(data => {
+                if (data.length === 0) return;
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item[idField];
+                    if (resource === 'settings') {
+                        option.text = item.name ? `${item.name} (${item.type}, ${item.value})` : `Settings for System ID: ${item[nameField]}`;
+                    } else {
+                        option.text = `${item[nameField]} (ID: ${item[idField]})`;
+                    }
+                    select.appendChild(option);
+                });
+                if (selectId === 'node_system_id') checkNodeFormVisibility();
+                if (selectId === 'volume_system_id') checkVolumeFormVisibility();
+                if (selectId === 'settings_system_id') checkSettingsFormVisibility();
+                if (selectId === 'node_id') checkNodeActionVisibility();
+                if (selectId === 'volume_id') checkVolumeActionVisibility();
+                if (selectId === 'host_id') checkHostActionVisibility();
+                if (selectId === 'settings_id') checkSettingsActionVisibility();
+            });
+        }
+
+        function checkVolumeFormVisibility() {
+            const systemId = document.getElementById('volume_system_id').value;
+            const visible = systemId;
+            document.getElementById('volume-name-container').style.display = visible ? 'block' : 'none';
+            document.getElementById('volume-size-container').style.display = visible ? 'block' : 'none';
+            document.getElementById('create-volume-btn').style.display = visible ? 'inline' : 'none';
+            if (visible) {
+                updateDropdown('volume', 'volume_id', 'id', 'name');
+                updateSettingsCheckboxes();
+                document.getElementById('volume-id-container').style.display = 'block';
+            } else {
+                document.getElementById('volume-id-container').style.display = 'none';
+            }
+        }
+
+        function checkVolumeActionVisibility() {
+            const volumeId = document.getElementById('volume_id').value;
+            const visible = volumeId;
+            document.getElementById('get-volume-btn').style.display = visible ? 'inline' : 'none';
+            document.getElementById('delete-volume-btn').style.display = visible ? 'inline' : 'none';
+            
+            if (visible) {
+                showVolumeSettings(volumeId);
+                fetch('/data/all-settings')
+                    .then(res => res.json())
+                    .then(settings => {
+                        const select = document.getElementById('new-setting-select');
+                        select.innerHTML = '<option value="">Select setting to add...</option>';
+                        settings.forEach(setting => {
+                            const option = document.createElement('option');
+                            option.value = setting.id;
+                            option.text = `${setting.name} (${setting.type})`;
+                            select.appendChild(option);
+                        });
+                    });
+            } else {
+                document.getElementById('applied-settings-container').style.display = 'none';
+            }
+        }
+
+        function checkHostFormVisibility() {
+            const systemId = document.getElementById('host_system_id').value;
+            const visible = systemId;
+            document.getElementById('host-name-container').style.display = visible ? 'block' : 'none';
+            document.getElementById('application-type-container').style.display = visible ? 'block' : 'none';
+            document.getElementById('protocol-container').style.display = visible ? 'block' : 'none';
+            document.getElementById('create-host-btn').style.display = visible ? 'inline' : 'none';
+            if (visible) {
+                fetch('/data/host').then(res => res.json()).then(data => {
+                    const filtered = data.filter(host => host.system_id === systemId);
+                    if (filtered.length > 0) {
+                        updateDropdown('host', 'host_id', 'id', 'name');
+                        document.getElementById('host-id-container').style.display = 'block';
+                    } else {
+                        document.getElementById('host_id').innerHTML = '<option value="">No hosts</option>';
+                        document.getElementById('host-id-container').style.display = 'none';
+                    }
+                });
+            } else {
+                document.getElementById('host-id-container').style.display = 'none';
+            }
+        }
+
+        function checkHostActionVisibility() {
+            const hostId = document.getElementById('host_id').value;
+            const visible = hostId;
+            document.getElementById('get-host-btn').style.display = visible ? 'inline' : 'none';
+            document.getElementById('update-host-btn').style.display = visible ? 'inline' : 'none';
+            document.getElementById('delete-host-btn').style.display = visible ? 'inline' : 'none';
+        }
+
+        function toggleHostButtons() {
+            checkHostActionVisibility();
+        }
+
+        function checkSettingsFormVisibility() {
+            const systemId = document.getElementById('settings_system_id').value;
+            const visible = systemId;
+            document.getElementById('create-settings-btn').style.display = visible ? 'inline' : 'none';
+            document.getElementById('setting-details-container').style.display = visible ? 'block' : 'none';
+            if (visible) {
+                updateDropdown('settings', 'settings_id', 'id', 'system_id');
+                document.getElementById('settings-id-container').style.display = 'block';
+            } else {
+                document.getElementById('settings-id-container').style.display = 'none';
+            }
+        }
+
+        function checkSettingsActionVisibility() {
+            const settingsId = document.getElementById('settings_id').value;
+            const visible = settingsId;
+            document.getElementById('get-settings-btn').style.display = visible ? 'inline' : 'none';
+            document.getElementById('update-settings-btn').style.display = visible ? 'inline' : 'none';
+            document.getElementById('delete-settings-btn').style.display = visible ? 'inline' : 'none';
+        }
+
+        function createSystem() {
+    const maxThroughput = document.getElementById('max_throughput').value;
+    const maxCapacity = document.getElementById('max_capacity').value;
+    
+    fetch('/system', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ 
+            max_throughput: maxThroughput,
+            max_capacity: maxCapacity
+        }) 
+    })
+                .then(res => res.json())
+                .then(data => {
+                    showResponse(data);
+                    updateDropdown('system', 'node_system_id', 'id', 'name');
+                    updateDropdown('system', 'volume_system_id', 'id', 'name');
+                    updateDropdown('system', 'settings_system_id', 'id', 'name');
+                    updateDropdown('system', 'host_system_id', 'id', 'name');
+                    document.getElementById('update-system-btn').style.display = 'inline';
+                    document.getElementById('delete-system-btn').style.display = 'inline';
+                });
+        }
+
+        function getSystem() {
+            fetch('/system').then(res => res.json()).then(data => {
+                showResponse(data);
+                if (data && data.length > 0) {
+                    document.getElementById('update-system-btn').style.display = 'inline';
+                    document.getElementById('delete-system-btn').style.display = 'inline';
+                }
+            });
+        }
+
+        function updateSystem() {
+            fetch('/system', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) })
+                .then(res => res.json())
+                .then(showResponse);
+        }
+
+        function deleteSystem() {
+            fetch('/system', { method: 'DELETE' }).then(() => {
+                showResponse({ message: "System deleted" });
+                document.getElementById('update-system-btn').style.display = 'none';
+                document.getElementById('delete-system-btn').style.display = 'none';
+                updateDropdown('system', 'node_system_id', 'id', 'name');
+                updateDropdown('system', 'volume_system_id', 'id', 'name');
+                updateDropdown('system', 'settings_system_id', 'id', 'name');
+                updateDropdown('system', 'host_system_id', 'id', 'name');
+            });
+        }
+
+        function createVolume() {
+            const system_id = document.getElementById('volume_system_id').value;
+            const name = document.getElementById('volume_name').value;
+    const size = document.getElementById('volume_size').value;
+    
+            if (!system_id || !name) return showResponse({ error: "System ID and Volume name required" });
+    if (!size) return showResponse({ error: "Volume size is required" });
+    
+    fetch('/volume', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ 
+            system_id, 
+            name,
+            size: parseInt(size)
+        }) 
+    })
+                .then(res => res.json())
+    .then(data => { 
+        showResponse(data); 
+        updateDropdown('volume', 'volume_id', 'id', 'name'); 
+    });
+        }
+
+        function getVolume() {
+            const volume_id = document.getElementById('volume_id').value;
+            if (!volume_id) return showResponse({ error: "Volume ID required" });
+            fetch(`/volume/${volume_id}`).then(res => res.json()).then(showResponse);
+        }
+
+        function deleteVolume() {
+            const volume_id = document.getElementById('volume_id').value;
+            if (!volume_id) return showResponse({ error: "Volume ID required" });
+            fetch(`/volume/${volume_id}`, { method: 'DELETE' }).then(() => {
+                showResponse({ message: "Volume deleted" });
+                updateDropdown('volume', 'volume_id', 'id', 'name');
+            });
+        }
+
+        function createHost() {
+            const systemId = document.getElementById('host_system_id').value;
+            const name = document.getElementById('host_name').value;
+            const applicationType = document.getElementById('application_type').value;
+            const protocol = document.getElementById('protocol').value;
+            if (!systemId) return alert("Select a system");
+            fetch('/host', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ system_id: systemId, name, application_type: applicationType, protocol }) })
+                .then(res => res.json())
+                .then(data => {
+                    alert("Host created");
+                    updateDropdown('host', 'host_id', 'id', 'name');
+                    document.getElementById('host-id-container').style.display = 'block';
+                });
+        }
+
+        function getHost() {
+            fetch('/host').then(res => res.json()).then(hosts => {
+                const hostDropdown = document.getElementById('host_id');
+                hostDropdown.innerHTML = '<option value="">Select a Host</option>';
+                hosts.forEach(host => {
+                    const option = document.createElement('option');
+                    option.value = host.id;
+                    option.textContent = `${host.name} (${host.application_type}, ${host.protocol})`;
+                    hostDropdown.appendChild(option);
+                });
+                toggleHostButtons();
+            });
+        }
+
+        function updateHost() {
+            const hostId = document.getElementById('host_id').value;
+            const systemId = document.getElementById('host_system_id').value;
+            const name = document.getElementById('host_name').value;
+            const applicationType = document.getElementById('application_type').value;
+            const protocol = document.getElementById('protocol').value;
+            if (!systemId) return alert("Select a system");
+            fetch(`/host/${hostId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ system_id: systemId, name, application_type: applicationType, protocol }) })
+                .then(res => res.json())
+                .then(data => { alert("Host updated"); getHost(); });
+        }
+
+        function deleteHost() {
+            const hostId = document.getElementById('host_id').value;
+            if (!hostId) return alert("Select a host");
+            fetch(`/host/${hostId}`, { method: 'DELETE' }).then(() => { alert("Host deleted"); getHost(); });
+        }
+
+        function createSetting() {
+    const name = document.getElementById('setting_name').value;
+    const type = document.getElementById('setting_type').value;
+    const systemId = document.getElementById('settings_system_id').value;
+
+    if (!name || !type || !systemId) 
+        return alert("Fill all required fields");
+
+    const data = {
+        name, 
+        type, 
+        system_id: systemId
+    };
+
+    if (type === 'replication') {
+        const replicationType = document.getElementById('replication_type').value;
+        const delaySec = parseInt(document.getElementById('delay_sec').value);
+        const targetId = document.getElementById('replication_target').value;
+        const targetName = document.getElementById('replication_target').selectedOptions[0].text;
+
+        if (!targetId) return alert("Select a target system");
+        if (replicationType === 'asynchronous' && delaySec <= 0) 
+            return alert("Delay must be greater than 0 for asynchronous replication");
+
+        data.replication_type = replicationType;
+        data.delay_sec = delaySec;
+        data.replication_target_id = targetId;
+        data.replication_target_name = targetName;
+    } else {
+        const value = document.getElementById('setting_value').value;
+        if (!value) return alert("Setting value is required");
+        data.value = value;
+
+        // ✅ Add max_snapshots if type is snapshot
+        if (type === 'snapshot') {
+            const maxSnapshots = parseInt(document.getElementById('max_snapshots').value);
+            if (!maxSnapshots || maxSnapshots <= 0) 
+                return alert("Max snapshots must be greater than 0");
+            data.max_snapshots = maxSnapshots;
+        }
+    }
+
+    fetch('/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            alert(data.message || "Setting created");
+            updateSettingsCheckboxes();
+        }
+    });
+}
+
+
+        function loadGlobalSystems() {
+            fetch('/data/global-systems').then(res => res.json()).then(systems => {
+                const targetDropdown = document.getElementById('replication_target');
+                targetDropdown.innerHTML = '<option value="">-- Select Target --</option>';
+                systems.forEach(system => {
+                    const option = document.createElement('option');
+                    option.value = system.id;
+                    option.textContent = system.name;
+                    targetDropdown.appendChild(option);
+                });
+            });
+        }
+
+        document.getElementById('setting_type').addEventListener('change', function() {
+            const type = this.value;
+            const replicationControls = document.getElementById('replication-controls');
+            replicationControls.style.display = type === 'replication' ? 'block' : 'none';
+            if (type === 'replication') {
+                loadAvailableTargets();
+                handleReplicationType();
+            }
+        });
+
+        //function getSettings() {
+            //const settingsId = document.getlementById('settings_id').value;
+            //if (!settingsId) return showResponse({ error: "Settings ID required" });
+            //etch(`/settings/${settingsId}`).then(res => res.json()).then(showResponse);
+        //}
+
+        function updateSettings() {
+            const settingsId = document.getElementById('settings_id').value;
+            if (!settingsId) return showResponse({ error: "Settings ID required" });
+            fetch(`/settings/${settingsId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) })
+                .then(res => res.json())
+                .then(showResponse);
+        }
+
+        function updateSettingsCheckboxes() {
+    fetch('/data/all-settings')
+        .then(res => res.json())
+        .then(settings => {
+            const container = document.getElementById('new-settings-container');
+            if (!container) {
+                console.error("❌ ERROR: new-settings-container not found in the DOM.");
+                return;
+            }
+
+            container.innerHTML = ""; // Clear previous checkboxes
+
+            settings.forEach(setting => {
+                const label = document.createElement('label');
+                label.style.display = "block";
+
+                const checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.value = setting.id;
+                checkbox.name = "settings";
+                checkbox.id = `setting-${setting.id}`;
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${setting.name} (${setting.type}, ${setting.value})`));
+
+                container.appendChild(label);
+            });
+
+            console.log("✅ Checkboxes added:", settings);
+        })
+        .catch(error => {
+            console.error("❌ Failed to fetch settings:", error);
+        });
+}
+
+
+        function deleteSettings() {
+            const settingsId = document.getElementById('settings_id').value;
+            if (!settingsId) return showResponse({ error: "Settings ID required" });
+            fetch(`/settings/${settingsId}`, { method: 'DELETE' }).then(() => {
+                showResponse({ message: "Settings deleted" });
+                updateDropdown('settings', 'settings_id', 'id', 'system_id');
+            });
+        }
+
+        function exportVolume() {
+            const volumeId = document.getElementById('export_volume_id').value;
+            const hostId = document.getElementById('export_host_id').value;
+            const workloadSize = document.getElementById('workload_size').value;
+            if (!volumeId || !hostId || !workloadSize) return alert("Fill all fields");
+            fetch('/export-volume', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ volume_id: volumeId, host_id: hostId, workload_size: workloadSize }) })
+                .then(res => res.json())
+                .then(data => { alert(data.message || "Volume exported"); loadExportedVolumes(); });
+        }
+
+        function loadExportedVolumes() {
+            fetch('/data/exported-volumes').then(res => res.json()).then(data => {
+                const dropdown = document.getElementById('volume-select');
+                dropdown.innerHTML = '<option value="">-- Select Exported Volume --</option>';
+                data.forEach(volume => {
+                    const option = document.createElement('option');
+                    option.value = volume.id;
+                    option.textContent = volume.name || `Volume ${volume.id}`;
+                    dropdown.appendChild(option);
+                });
+            });
+        }
+
+        function unexportVolume() {
+            const volumeId = document.getElementById('volume-select').value;
+            if (!volumeId) return alert("Select a volume");
+            fetch('/unexport-volume', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ volume_id: volumeId }) })
+                .then(res => res.json())
+                .then(data => { alert(data.message || "Unexported"); loadExportedVolumes(); });
+        }
+
+        function handleReplicationType() {
+            const type = document.getElementById('replication_type').value;
+            const delayInput = document.getElementById('delay_sec');
+            
+            if (type === 'synchronous') {
+                delayInput.value = 0;
+                delayInput.disabled = true;
+            } else {
+                delayInput.disabled = false;
+                delayInput.value = 1;
+            }
+        }
+
+        function loadAvailableTargets() {
+            const currentSystemId = document.getElementById('settings_system_id').value;
+            fetch('/all-systems')
+                .then(res => res.json())
+                .then(systems => {
+                    const targetSelect = document.getElementById('replication_target');
+                    targetSelect.innerHTML = '<option value="">Select Target System</option>';
+                    systems.forEach(system => {
+                        if (system.id !== currentSystemId) {
+                            const option = document.createElement('option');
+                            option.value = system.id;
+                            option.text = `System ${system.name}`;
+                            targetSelect.appendChild(option);
+                        }
+                    });
+                });
+        }
+
+        function handleSettingTypeChange() {
+            const type = document.getElementById('setting_type').value;
+            const valueContainer = document.getElementById('value-container');
+            const replicationControls = document.getElementById('replication-controls');
+            
+            if (type === 'replication') {
+                valueContainer.style.display = 'none';
+                replicationControls.style.display = 'block';
+                loadAvailableTargets();
+                handleReplicationType();
+            } else {
+                valueContainer.style.display = 'block';
+                replicationControls.style.display = 'none';
+            }
+        }
+
+        let currentVolumeSettings = new Set();
+
+        function showVolumeSettings(volumeId) {
+            const container = document.getElementById('applied-settings-container');
+            const settingsList = document.getElementById('applied-settings-list');
+            container.style.display = 'block';
+            settingsList.innerHTML = '';
+            currentVolumeSettings.clear();
+
+            // Fetch volume and settings data
+            Promise.all([
+                fetch(`/volume/${volumeId}`).then(res => res.json()),
+                fetch('/data/all-settings').then(res => res.json())
+            ]).then(([volume, allSettings]) => {
+                console.log('Current volume data:', volume); // Debug log
+                // Create a map of settings by ID for easy lookup
+                const settingsMap = new Map(allSettings.map(s => [s.id, s]));
+                
+                // Add existing snapshot settings
+                Object.entries(volume.snapshot_settings || {}).forEach(([settingId, value]) => {
+                    const setting = settingsMap.get(settingId);
+                    if (setting) {
+                        console.log('Adding snapshot setting:', setting); // Debug log
+                        addSettingBlock(setting);
+                        currentVolumeSettings.add(settingId);
+                    }
+                });
+
+                // Add existing replication settings
+                (volume.replication_settings || []).forEach(repSetting => {
+                    const setting = settingsMap.get(repSetting.setting_id);
+                    if (setting) {
+                        console.log('Adding replication setting:', setting); // Debug log
+                        addSettingBlock(setting);
+                        currentVolumeSettings.add(repSetting.setting_id);
+                    }
+                });
+
+                // Update available settings dropdown
+                updateAvailableSettings(allSettings);
+            });
+        }
+
+        function addSettingBlock(setting) {
+            const settingsList = document.getElementById('applied-settings-list');
+            const block = document.createElement('div');
+            block.className = 'setting-block';
+            block.innerHTML = `
+                <span class="remove-btn" onclick="removeSettingBlock('${setting.id}', this)">×</span>
+                <div>${setting.name}</div>
+                <div class="setting-tooltip">
+                    <strong>Type:</strong> ${setting.type}<br>
+                    ${setting.type === 'replication' ? `
+                        <strong>Replication Type:</strong> ${setting.replication_type}<br>
+                        <strong>Delay:</strong> ${setting.delay_sec} seconds<br>
+                        <strong>Target:</strong> ${setting.replication_target?.name || 'N/A'}<br>
+                    ` : `
+                        <strong>Value:</strong> ${setting.value}<br>
+                    `}
+                </div>
+            `;
+            settingsList.appendChild(block);
+        }
+
+        function removeSettingBlock(settingId, element) {
+            currentVolumeSettings.delete(settingId);
+            element.parentElement.remove();
+        }
+
+        function updateAvailableSettings(allSettings) {
+            const select = document.getElementById('new-setting-select');
+            select.innerHTML = '<option value="">Select setting to add...</option>';
+            
+            allSettings.forEach(setting => {
+                if (!currentVolumeSettings.has(setting.id)) {
+                    const option = document.createElement('option');
+                    option.value = setting.id;
+                    option.text = `${setting.name} (${setting.type})`;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        function updateVolumeSettings() {
+    const volumeId = document.getElementById('volume_id').value;
+    if (!volumeId) {
+        alert("⚠️ Volume ID is missing!");
+        return;
+    }
+
+    // Collect all selected checkboxes
+    const selectedSettings = Array.from(document.querySelectorAll("#new-settings-container input:checked"))
+        .map(checkbox => checkbox.value);
+
+    console.log("📌 Selected Settings:", selectedSettings);
+
+    if (selectedSettings.length === 0) {
+        alert("⚠️ No settings selected.");
+        return;
+    }
+
+    // Ensure currentVolumeSettings is updated correctly
+    selectedSettings.forEach(setting => currentVolumeSettings.add(setting));
+
+    fetch(`/volume/${volumeId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            setting_ids: Array.from(currentVolumeSettings)
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            showVolumeSettings(volumeId);
+            alert('✅ Settings updated successfully!');
+        }
+    })
+    .catch(err => {
+        console.error("❌ ERROR updating settings:", err);
+        alert("❌ Failed to update settings.");
+    });
+}
+
+
+        function showLogs() {
+            document.getElementById('logs-modal').style.display = 'block';
+            switchLogs('local'); // Start with local logs
+        }
+
+        function closeLogs() {
+            document.getElementById('logs-modal').style.display = 'none';
+        }
+
+        function switchLogs(type) {
+            document.querySelectorAll('.logs-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            fetch(`/logs/${type}`)
+                .then(res => res.json())
+                .then(logs => {
+                    document.getElementById('logs-content').textContent = logs.join('');
+                })
+                .catch(err => {
+                    document.getElementById('logs-content').textContent = 'Error loading logs: ' + err;
+                });
+        }
+
+        // Auto-refresh logs every 5 seconds when modal is open
+        setInterval(() => {
+            if (document.getElementById('logs-modal').style.display === 'block') {
+                const activeTab = document.querySelector('.logs-tab.active');
+                if (activeTab) {
+                    switchLogs(activeTab.textContent.toLowerCase().split(' ')[0]);
+                }
+            }
+        }, 5000);
+
+        // Add animation effect for cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+        });
+
+        // Staggered animation for cards on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+
+        window.onload = () => {
+            fetch('/data/system').then(res => res.json()).then(systems => {
+                if (systems.length > 0) {
+                    updateDropdown('system', 'volume_system_id', 'id', 'name');
+                    updateDropdown('system', 'settings_system_id', 'id', 'name');
+                    updateDropdown('system', 'host_system_id', 'id', 'name');
+                    updateDropdown('volume', 'export_volume_id', 'id', 'name');
+                    updateDropdown('host', 'export_host_id', 'id', 'name');
+                }
+            });
+            fetch('/data/host').then(res => res.json()).then(data => {
+                if (data.length > 0) document.getElementById('host-id-container').style.display = 'block';
+                updateDropdown('host', 'host_id', 'id', 'name');
+            });
+            updateSettingsCheckboxes();
+            loadExportedVolumes();
+
+        };
+
+
+        function handleVolumeSelection() {
+    const settingsId = document.getElementById("settings_id")?.value;
+    const container = document.getElementById("applied-settings-container");
+
+    if (!settingsId) {
+        console.warn("⚠ No volume selected. Hiding settings.");
+        container.style.display = "none";
+        return;
+    }
+
+    console.log(`✅ Volume selected: ${settingsId}`);
+    getSettings(settingsId);
+}
+
+function getSettings(settingsId) {
+    console.log("📌 Fetching settings for:", settingsId);
+
+    fetch(`/settings/`)
+        .then(res => res.json())
+        .then(data => {
+            console.log("✅ Received Settings Data:", data);
+
+            if (!Array.isArray(data) || data.length === 0) {
+                console.warn("⚠ No settings found.");
+                return;
+            }
+
+            const newSettingsContainer = document.getElementById("new-settings-container");
+
+            if (!newSettingsContainer) {
+                console.error("❌ ERROR: #new-settings-container not found!");
+                return;
+            }
+
+            newSettingsContainer.innerHTML = ""; // Clear existing checkboxes
+
+            data.forEach(setting => {
+                console.log("📌 Adding setting:", setting);
+
+                const label = document.createElement("label");
+                label.style.display = "block";
+
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.value = setting.id;
+                checkbox.name = "settings";
+                checkbox.id = `setting-${setting.id}`;
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${setting.name}`));
+
+                newSettingsContainer.appendChild(label);
+            });
+
+            console.log("✅ Checkboxes inserted successfully.");
+        })
+        .catch(err => console.error("❌ Fetch Error:", err));
+}
+
+    </script>
+
+
+
+
+</body>
+</html>

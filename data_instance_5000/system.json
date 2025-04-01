@@ -1,0 +1,12 @@
+[
+    {
+        "id": "8a142bd8-ad34-4d59-907d-4c79dbccd5b0",
+        "name": "5000",
+        "max_throughput": "100",
+        "max_capacity": "100",
+        "saturation": 0,
+        "cpu_usage": 0,
+        "remote_replication": false,
+        "replication_target": null
+    }
+]
