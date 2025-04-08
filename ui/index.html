@@ -850,6 +850,7 @@
                     <tr>
                         <th>Rank</th>
                         <th>Volume ID</th>
+                        <th>Host ID</th>
                         <th>Avg Latency (ms)</th>
                     </tr>
                 </thead>
@@ -1068,6 +1069,7 @@
                     row.innerHTML = `
                         <td>${index + 1}</td>
                         <td><a href="#" onclick="fetchLatencyHistory('${volume.volume_id}')">${volume.volume_id}</a></td>
+                        <td>${volume.host_id || 'N/A'}</td>
                         <td class="latency-value">${parseFloat(volume.avg_latency).toFixed(2)}</td>
                     `;
                     topLatencyTable.appendChild(row);

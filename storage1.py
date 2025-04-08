@@ -319,10 +319,50 @@ class StorageManager:
 
         return f"Volume {volume_id} exported successfully to Host {host_id}"
 
+    def calculate_volume_throughput(self, volume):
+        """
+        Calculate throughput for a volume based on IOPS and I/O size.
+        Returns throughput in MB/s.
+        """
+        FIXED_IOPS = 2000  # Fixed IOPS for all volumes
+        io_size_kb = volume.get("workload_size", 4)  # Default to 4KB if not specified
+        
+        # Convert KB to MB and calculate throughput
+        throughput_mb = (FIXED_IOPS * io_size_kb) / 1024
+        return throughput_mb
+
+    def calculate_latency(self, system_metrics):
+        """
+        Calculate latency based on system saturation and capacity usage percentages.
+        Returns latency in milliseconds.
+        """
+        # Get current saturation and capacity usage percentages
+        saturation_pct = system_metrics.get("saturation", 0)
+        
+        # Calculate capacity usage percentage
+        system = self.load_resource("system")[0]  # Get first system
+        max_capacity = float(system.get("max_capacity", 1024))  # Default 1TB
+        current_capacity = system_metrics.get("capacity_used", 0)
+        capacity_pct = (current_capacity / max_capacity) * 100 if max_capacity > 0 else 0
+
+        # Use the higher of saturation or capacity percentage to determine latency
+        highest_pct = max(saturation_pct, capacity_pct)
+
+        # Default latency is 1ms
+        if highest_pct <= 70:
+            return 1.0
+        elif 70 < highest_pct <= 80:
+            return 2.0
+        elif 80 < highest_pct <= 90:
+            return 3.0
+        elif 90 < highest_pct <= 100:
+            return 4.0
+        else:
+            return 5.0
+
     def start_host_io(self, volume_id):
         """Simulate I/O operations for a volume using logger"""
         print(f"Host I/O started for volume {volume_id}")
-        
 
         def io_worker():
             try:
@@ -331,9 +371,9 @@ class StorageManager:
 
                 if volume and volume.get("is_exported", False):
                     host_id = volume.get("exported_host_id", "Unknown")
-                    io_count = random.randint(800, 1200)
-                    latency = round(random.uniform(1.5, 8.0), 2)
-                    throughput = round(io_count * self.IO_SIZE_KB / 1024, 2)
+                    io_count = 2000
+                    throughput = self.calculate_volume_throughput(volume)  # Fixed: Use self.
+                    latency = self.calculate_latency(self.load_metrics())  # Fixed: Use self. and load metrics
 
                     # ✅ Ensure io_metrics is only inside data_instance_5001
                     metrics = self.load_resource("io_metrics")
@@ -365,14 +405,14 @@ class StorageManager:
                         break
 
                     host_id = volume.get("exported_host_id", "Unknown")
-                    io_count = random.randint(100, 1000)
-                    latency = round(random.uniform(1.0, 10.0), 2)
-                    throughput = round(io_count * self.IO_SIZE_KB / 1024, 2)
+                    io_count = 2000
+                    latency = self.calculate_latency(self.load_metrics())  # Fixed: Use self. and load metrics
+                    throughput = self.calculate_volume_throughput(volume)  # Fixed: Use self.
 
                     metrics = self.load_resource("io_metrics")
                     if not isinstance(metrics, list):
                         metrics = []
-                    else :
+                    else:
                         metrics = [m for sublist in metrics for m in (sublist if isinstance(sublist, list) else [sublist])]
                         metrics = [m for m in metrics if isinstance(m, dict)]  # Ensure elements are dicts
 
@@ -398,11 +438,9 @@ class StorageManager:
                 if self.logger:
                     self.logger.error(f"Host I/O error: {str(e)}", global_log=True)
 
-    
         worker_thread = threading.Thread(target=io_worker, daemon=True)
         worker_thread.start()
         print(f"Background thread started for volume {volume_id}")  # Debug log
-
 
 
 
@@ -816,46 +854,36 @@ class StorageManager:
             self.cleanup_thread.join(timeout=1)
             self.logger.info("Stopped background cleanup thread", global_log=True)
 
-    def calculate_latency(self, system_metrics):
-        """
-        Calculate latency based on system saturation and capacity usage percentages.
-        Returns latency in milliseconds.
-        """
-        # Get current saturation and capacity usage percentages
-        saturation_pct = system_metrics.get("saturation", 0)
+    # def calculate_latency(self, system_metrics):
+    #     """
+    #     Calculate latency based on system saturation and capacity usage percentages.
+    #     Returns latency in milliseconds.
+    #     """
+    #     # Get current saturation and capacity usage percentages
+    #     saturation_pct = system_metrics.get("saturation", 0)
         
-        # Calculate capacity usage percentage
-        system = self.load_resource("system")[0]  # Get first system
-        max_capacity = float(system.get("max_capacity", 1024))  # Default 1TB
-        current_capacity = system_metrics.get("capacity_used", 0)
-        capacity_pct = (current_capacity / max_capacity) * 100 if max_capacity > 0 else 0
+    #     # Calculate capacity usage percentage
+    #     system = self.load_resource("system")[0]  # Get first system
+    #     max_capacity = float(system.get("max_capacity", 1024))  # Default 1TB
+    #     current_capacity = system_metrics.get("capacity_used", 0)
+    #     capacity_pct = (current_capacity / max_capacity) * 100 if max_capacity > 0 else 0
 
-        # Use the higher of saturation or capacity percentage to determine latency
-        highest_pct = max(saturation_pct, capacity_pct)
+    #     # Use the higher of saturation or capacity percentage to determine latency
+    #     highest_pct = max(saturation_pct, capacity_pct)
 
-        # Default latency is 1ms
-        if highest_pct <= 70:
-            return 1.0
-        elif 70 < highest_pct <= 80:
-            return 2.0
-        elif 80 < highest_pct <= 90:
-            return 3.0
-        elif 90 < highest_pct <= 100:
-            return 4.0
-        else:
-            return 5.0
+    #     # Default latency is 1ms
+    #     if highest_pct <= 70:
+    #         return 1.0
+    #     elif 70 < highest_pct <= 80:
+    #         return 2.0
+    #     elif 80 < highest_pct <= 90:
+    #         return 3.0
+    #     elif 90 < highest_pct <= 100:
+    #         return 4.0
+    #     else:
+    #         return 5.0
 
-    def calculate_volume_throughput(self, volume):
-        """
-        Calculate throughput for a volume based on IOPS and I/O size.
-        Returns throughput in MB/s.
-        """
-        FIXED_IOPS = 2000  # Fixed IOPS for all volumes
-        io_size_kb = volume.get("workload_size", 4)  # Default to 4KB if not specified
-        
-        # Convert KB to MB and calculate throughput
-        throughput_mb = (FIXED_IOPS * io_size_kb) / 1024
-        return throughput_mb
+
 
     def update_system_metrics(self):
         """

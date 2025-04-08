@@ -5,5 +5,12 @@
         "name": "h1",
         "application_type": "HPE",
         "protocol": "FC"
+    },
+    {
+        "id": "81633185-010f-4484-abaf-798207303b7e",
+        "system_id": "8a142bd8-ad34-4d59-907d-4c79dbccd5b0",
+        "name": "h2",
+        "application_type": "HPE",
+        "protocol": "FC"
     }
 ]

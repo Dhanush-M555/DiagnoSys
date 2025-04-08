@@ -1,319 +1,887 @@
-[2025-04-01 13:34:31][CLEANUP] Starting cleanup process
-[2025-04-01 13:34:31][INFO] Started background cleanup thread
-[2025-04-01 13:34:31][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:34:31][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 20:51:45][CLEANUP] Starting cleanup process
+[2025-04-08 20:51:45][INFO] Started background cleanup thread
+[2025-04-08 20:51:45][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-08 20:51:45][CLEANUP] Capacity changes after cleanup:
+- Initial: 10.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:34:31][CLEANUP] Housekeeping completed:
+- Final: 0.00 GB
+[2025-04-08 20:51:45][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
-  - Latency: 1.00ms
-[2025-04-01 13:34:33][CLEANUP] Starting cleanup process
-[2025-04-01 13:34:33][INFO] Started background cleanup thread
-[2025-04-01 13:34:33][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:34:33][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
-- Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:11][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:11][INFO] Started background cleanup thread
-[2025-04-01 13:35:11][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 0.00%, Latency: 1.00ms
-[2025-04-01 13:35:11][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
-- Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:11][CLEANUP] Housekeeping completed:
-- Total snapshots removed: 0
-- Capacity freed: 0.00 GB
-- Current system metrics:
-  - Capacity: 8.00 GB
+  - Capacity: 0.00 GB
   - Saturation: 0.00%
   - Latency: 1.00ms
-[2025-04-01 13:35:13][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:13][INFO] Started background cleanup thread
-[2025-04-01 13:35:13][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 0.00%, Latency: 1.00ms
-[2025-04-01 13:35:13][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 20:51:47][CLEANUP] Starting cleanup process
+[2025-04-08 20:51:47][INFO] Started background cleanup thread
+[2025-04-08 20:51:47][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-08 20:51:47][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:13][CLEANUP] Housekeeping completed:
+- Final: 0.00 GB
+[2025-04-08 20:51:47][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
+  - Capacity: 0.00 GB
   - Saturation: 0.00%
   - Latency: 1.00ms
-[2025-04-01 13:35:33][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:33][INFO] Volume: 4c1d9771-847c-447b-85c9-4abf10cfa0b7, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 492, Latency: 3.91ms, Throughput: 3.84 MB/s
-[2025-04-01 13:35:33][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 7.81%, Latency: 1.00ms
-[2025-04-01 13:35:33][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 20:52:15][CLEANUP] Starting cleanup process
+[2025-04-08 20:52:15][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-08 20:52:15][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:33][CLEANUP] Housekeeping completed:
+- Final: 1.00 GB
+[2025-04-08 20:52:15][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
+  - Capacity: 1.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-08 20:52:17][CLEANUP] Starting cleanup process
+[2025-04-08 20:52:17][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-08 20:52:17][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:52:17][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-08 20:52:20][CLEANUP] Starting cleanup process
+[2025-04-08 20:52:20][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:52:20][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:52:20][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:52:20][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
   - Saturation: 7.81%
   - Latency: 1.00ms
-[2025-04-01 13:35:37][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:37][INFO] Volume: 83ed2360-f86a-4baf-a265-1e522c8fd088, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 932, Latency: 3.51ms, Throughput: 7.28 MB/s
-[2025-04-01 13:35:37][INFO] System metrics updated - Throughput: 15.62 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 15.62%, Latency: 1.00ms
-[2025-04-01 13:35:37][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 20:52:45][CLEANUP] Starting cleanup process
+[2025-04-08 20:52:45][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:52:45][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:37][CLEANUP] Housekeeping completed:
+- Final: 1.00 GB
+[2025-04-08 20:52:45][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:52:47][CLEANUP] Starting cleanup process
+[2025-04-08 20:52:47][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:52:47][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:52:47][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:52:50][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:53:15][CLEANUP] Starting cleanup process
+[2025-04-08 20:53:15][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:53:15][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:53:15][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:53:17][CLEANUP] Starting cleanup process
+[2025-04-08 20:53:17][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:53:17][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:53:17][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:53:20][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:53:45][CLEANUP] Starting cleanup process
+[2025-04-08 20:53:45][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:53:45][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:53:45][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:53:47][CLEANUP] Starting cleanup process
+[2025-04-08 20:53:47][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:53:47][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:53:47][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:53:50][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:54:15][CLEANUP] Starting cleanup process
+[2025-04-08 20:54:15][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:54:15][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:54:15][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:54:17][CLEANUP] Starting cleanup process
+[2025-04-08 20:54:17][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:54:17][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:54:17][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:54:20][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:54:45][CLEANUP] Starting cleanup process
+[2025-04-08 20:54:45][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:54:45][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:54:45][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:54:47][CLEANUP] Starting cleanup process
+[2025-04-08 20:54:47][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:54:47][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:54:47][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:54:50][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:55:15][CLEANUP] Starting cleanup process
+[2025-04-08 20:55:15][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:55:15][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:55:15][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:55:17][CLEANUP] Starting cleanup process
+[2025-04-08 20:55:17][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:55:17][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:55:17][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:55:20][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:55:45][CLEANUP] Starting cleanup process
+[2025-04-08 20:55:45][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:55:45][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:55:45][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:55:47][CLEANUP] Starting cleanup process
+[2025-04-08 20:55:47][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:55:47][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:55:47][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:55:50][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:56:15][CLEANUP] Starting cleanup process
+[2025-04-08 20:56:15][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:56:15][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:56:15][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:56:17][CLEANUP] Starting cleanup process
+[2025-04-08 20:56:17][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:56:17][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:56:17][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:56:20][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:56:45][CLEANUP] Starting cleanup process
+[2025-04-08 20:56:45][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:56:45][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:56:45][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:56:47][CLEANUP] Starting cleanup process
+[2025-04-08 20:56:47][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:56:47][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:56:47][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:56:50][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 20:57:15][CLEANUP] Starting cleanup process
+[2025-04-08 20:57:15][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:57:15][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:57:15][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:57:17][CLEANUP] Starting cleanup process
+[2025-04-08 20:57:17][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 20:57:17][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 20:57:17][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 20:57:21][INFO] Volume: 8f33defd-7292-4969-bc91-cbf298b6ed95, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:01:58][CLEANUP] Starting cleanup process
+[2025-04-08 21:01:58][INFO] Started background cleanup thread
+[2025-04-08 21:01:58][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 21:01:58][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 21:01:58][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 21:02:00][CLEANUP] Starting cleanup process
+[2025-04-08 21:02:00][INFO] Started background cleanup thread
+[2025-04-08 21:02:00][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 1.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 1.00 GB (1.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 21:02:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 1.00 GB
+- Freed: 0.00 GB
+- Final: 1.00 GB
+[2025-04-08 21:02:00][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 1.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 21:02:28][CLEANUP] Starting cleanup process
+[2025-04-08 21:02:28][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 2.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 2.00 GB (2.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 21:02:28][CLEANUP] Capacity changes after cleanup:
+- Initial: 2.00 GB
+- Freed: 0.00 GB
+- Final: 2.00 GB
+[2025-04-08 21:02:28][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 2.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 21:02:30][CLEANUP] Starting cleanup process
+[2025-04-08 21:02:30][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 2.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 2.00 GB (2.0%), Saturation: 7.81%, Latency: 1.00ms
+[2025-04-08 21:02:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 2.00 GB
+- Freed: 0.00 GB
+- Final: 2.00 GB
+[2025-04-08 21:02:30][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 2.00 GB
+  - Saturation: 7.81%
+  - Latency: 1.00ms
+[2025-04-08 21:02:33][CLEANUP] Starting cleanup process
+[2025-04-08 21:02:33][INFO] System metrics updated - Throughput: 15.62 MB/s, Volume Capacity: 2.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 2.00 GB (2.0%), Saturation: 15.62%, Latency: 1.00ms
+[2025-04-08 21:02:33][CLEANUP] Capacity changes after cleanup:
+- Initial: 2.00 GB
+- Freed: 0.00 GB
+- Final: 2.00 GB
+[2025-04-08 21:02:33][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 2.00 GB
   - Saturation: 15.62%
   - Latency: 1.00ms
-[2025-04-01 13:35:41][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:41][INFO] Volume: 7776fb14-bc6b-4488-ac20-3dfc072cc9f4, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 461, Latency: 8.28ms, Throughput: 3.6 MB/s
-[2025-04-01 13:35:41][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 23.44%, Latency: 1.00ms
-[2025-04-01 13:35:41][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:02:36][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:02:58][CLEANUP] Starting cleanup process
+[2025-04-08 21:02:58][INFO] System metrics updated - Throughput: 15.62 MB/s, Volume Capacity: 2.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 2.00 GB (2.0%), Saturation: 15.62%, Latency: 1.00ms
+[2025-04-08 21:02:58][CLEANUP] Capacity changes after cleanup:
+- Initial: 2.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:41][CLEANUP] Housekeeping completed:
+- Final: 2.00 GB
+[2025-04-08 21:02:58][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
+  - Capacity: 2.00 GB
+  - Saturation: 15.62%
+  - Latency: 1.00ms
+[2025-04-08 21:03:00][CLEANUP] Starting cleanup process
+[2025-04-08 21:03:00][INFO] System metrics updated - Throughput: 15.62 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 15.62%, Latency: 1.00ms
+[2025-04-08 21:03:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:03:00][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 15.62%
+  - Latency: 1.00ms
+[2025-04-08 21:03:09][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:03:19][CLEANUP] Starting cleanup process
+[2025-04-08 21:03:19][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:03:20][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:03:20][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
   - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:35:41][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:41][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 23.44%, Latency: 1.00ms
-[2025-04-01 13:35:41][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:03:28][CLEANUP] Starting cleanup process
+[2025-04-08 21:03:28][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:03:28][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:41][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:03:28][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
+  - Capacity: 3.00 GB
   - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:35:43][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:43][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 23.44%, Latency: 1.00ms
-[2025-04-01 13:35:43][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:03:30][CLEANUP] Starting cleanup process
+[2025-04-08 21:03:30][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:03:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:43][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:03:30][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
+  - Capacity: 3.00 GB
   - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:35:45][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:45][INFO] System metrics updated - Throughput: 31.25 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 31.25%, Latency: 1.00ms
-[2025-04-01 13:35:46][INFO] Volume: 79465bc3-2a45-4809-bb01-e8f5f8ee6fae, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 758, Latency: 3.39ms, Throughput: 5.92 MB/s
-[2025-04-01 13:35:46][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:03:37][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:03:58][CLEANUP] Starting cleanup process
+[2025-04-08 21:03:58][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:03:58][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:46][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:03:58][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 31.25%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:35:49][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:49][INFO] System metrics updated - Throughput: 39.06 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 39.06%, Latency: 1.00ms
-[2025-04-01 13:35:49][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:04:00][CLEANUP] Starting cleanup process
+[2025-04-08 21:04:00][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:04:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:49][INFO] Volume: 184ae39e-9e4c-4e88-a65f-bca489ee4cec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 402, Latency: 3.21ms, Throughput: 3.14 MB/s
-[2025-04-01 13:35:49][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:04:00][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 39.06%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:35:54][CLEANUP] Starting cleanup process
-[2025-04-01 13:35:54][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:35:54][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:04:03][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:04:28][CLEANUP] Starting cleanup process
+[2025-04-08 21:04:29][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:04:29][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:35:54][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:04:29][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:35:54][INFO] Volume: 565e508f-0f04-4edf-b858-40f3d2e38bec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 397, Latency: 9.91ms, Throughput: 3.1 MB/s
-[2025-04-01 13:36:04][INFO] Volume: 4c1d9771-847c-447b-85c9-4abf10cfa0b7, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 450, Latency: 3.24ms, Throughput: 3.52 MB/s
-[2025-04-01 13:36:09][INFO] Volume: 83ed2360-f86a-4baf-a265-1e522c8fd088, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 405, Latency: 7.37ms, Throughput: 3.16 MB/s
-[2025-04-01 13:36:11][CLEANUP] Starting cleanup process
-[2025-04-01 13:36:11][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:36:12][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:04:30][CLEANUP] Starting cleanup process
+[2025-04-08 21:04:30][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:04:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:36:12][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:04:30][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:36:13][CLEANUP] Starting cleanup process
-[2025-04-01 13:36:14][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:36:14][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:04:39][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:04:58][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:04:59][CLEANUP] Starting cleanup process
+[2025-04-08 21:04:59][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:04:59][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:36:14][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:04:59][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:36:15][INFO] Volume: 7776fb14-bc6b-4488-ac20-3dfc072cc9f4, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 103, Latency: 3.52ms, Throughput: 0.8 MB/s
-[2025-04-01 13:36:20][INFO] Volume: 184ae39e-9e4c-4e88-a65f-bca489ee4cec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 802, Latency: 9.49ms, Throughput: 6.27 MB/s
-[2025-04-01 13:36:23][INFO] Volume: 79465bc3-2a45-4809-bb01-e8f5f8ee6fae, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 336, Latency: 7.62ms, Throughput: 2.62 MB/s
-[2025-04-01 13:36:25][INFO] Volume: 565e508f-0f04-4edf-b858-40f3d2e38bec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 915, Latency: 1.52ms, Throughput: 7.15 MB/s
-[2025-04-01 13:36:34][INFO] Volume: 4c1d9771-847c-447b-85c9-4abf10cfa0b7, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 575, Latency: 2.01ms, Throughput: 4.49 MB/s
-[2025-04-01 13:36:39][INFO] Volume: 83ed2360-f86a-4baf-a265-1e522c8fd088, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 726, Latency: 8.4ms, Throughput: 5.67 MB/s
-[2025-04-01 13:36:42][CLEANUP] Starting cleanup process
-[2025-04-01 13:36:42][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:36:42][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:05:00][CLEANUP] Starting cleanup process
+[2025-04-08 21:05:00][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:05:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:36:42][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:05:00][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:36:44][CLEANUP] Starting cleanup process
-[2025-04-01 13:36:44][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:36:44][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:05:14][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:05:28][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:05:29][CLEANUP] Starting cleanup process
+[2025-04-08 21:05:29][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:05:29][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:36:44][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:05:29][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:36:45][INFO] Volume: 7776fb14-bc6b-4488-ac20-3dfc072cc9f4, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 577, Latency: 8.68ms, Throughput: 4.51 MB/s
-[2025-04-01 13:36:50][INFO] Volume: 184ae39e-9e4c-4e88-a65f-bca489ee4cec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 934, Latency: 2.73ms, Throughput: 7.3 MB/s
-[2025-04-01 13:36:53][INFO] Volume: 79465bc3-2a45-4809-bb01-e8f5f8ee6fae, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 761, Latency: 3.81ms, Throughput: 5.95 MB/s
-[2025-04-01 13:36:55][INFO] Volume: 565e508f-0f04-4edf-b858-40f3d2e38bec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 279, Latency: 9.06ms, Throughput: 2.18 MB/s
-[2025-04-01 13:37:04][INFO] Volume: 4c1d9771-847c-447b-85c9-4abf10cfa0b7, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 509, Latency: 3.75ms, Throughput: 3.98 MB/s
-[2025-04-01 13:37:09][INFO] Volume: 83ed2360-f86a-4baf-a265-1e522c8fd088, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 399, Latency: 9.33ms, Throughput: 3.12 MB/s
-[2025-04-01 13:37:12][CLEANUP] Starting cleanup process
-[2025-04-01 13:37:12][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:37:12][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:05:30][CLEANUP] Starting cleanup process
+[2025-04-08 21:05:30][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:05:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:37:12][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:05:31][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:37:14][CLEANUP] Starting cleanup process
-[2025-04-01 13:37:14][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:37:14][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:05:44][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:05:58][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:05:59][CLEANUP] Starting cleanup process
+[2025-04-08 21:05:59][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:05:59][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:37:14][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:05:59][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:37:15][INFO] Volume: 7776fb14-bc6b-4488-ac20-3dfc072cc9f4, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 886, Latency: 6.42ms, Throughput: 6.92 MB/s
-[2025-04-01 13:37:21][INFO] Volume: 184ae39e-9e4c-4e88-a65f-bca489ee4cec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 656, Latency: 3.07ms, Throughput: 5.12 MB/s
-[2025-04-01 13:37:24][INFO] Volume: 79465bc3-2a45-4809-bb01-e8f5f8ee6fae, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 843, Latency: 7.66ms, Throughput: 6.59 MB/s
-[2025-04-01 13:37:26][INFO] Volume: 565e508f-0f04-4edf-b858-40f3d2e38bec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 702, Latency: 9.32ms, Throughput: 5.48 MB/s
-[2025-04-01 13:37:35][INFO] Volume: 4c1d9771-847c-447b-85c9-4abf10cfa0b7, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 176, Latency: 5.26ms, Throughput: 1.38 MB/s
-[2025-04-01 13:37:42][CLEANUP] Starting cleanup process
-[2025-04-01 13:37:42][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:37:42][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:06:01][CLEANUP] Starting cleanup process
+[2025-04-08 21:06:01][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:06:01][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:37:42][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:06:01][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:37:42][INFO] Volume: 83ed2360-f86a-4baf-a265-1e522c8fd088, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 580, Latency: 9.36ms, Throughput: 4.53 MB/s
-[2025-04-01 13:37:44][CLEANUP] Starting cleanup process
-[2025-04-01 13:37:44][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:37:44][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:06:14][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:06:28][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:06:29][CLEANUP] Starting cleanup process
+[2025-04-08 21:06:29][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:06:29][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:37:44][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:06:29][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:37:52][INFO] Volume: 184ae39e-9e4c-4e88-a65f-bca489ee4cec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 629, Latency: 3.81ms, Throughput: 4.91 MB/s
-[2025-04-01 13:37:53][INFO] Volume: 7776fb14-bc6b-4488-ac20-3dfc072cc9f4, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 193, Latency: 3.05ms, Throughput: 1.51 MB/s
-[2025-04-01 13:37:54][INFO] Volume: 79465bc3-2a45-4809-bb01-e8f5f8ee6fae, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 299, Latency: 2.97ms, Throughput: 2.34 MB/s
-[2025-04-01 13:37:56][INFO] Volume: 565e508f-0f04-4edf-b858-40f3d2e38bec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 820, Latency: 2.47ms, Throughput: 6.41 MB/s
-[2025-04-01 13:38:05][INFO] Volume: 4c1d9771-847c-447b-85c9-4abf10cfa0b7, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 747, Latency: 1.13ms, Throughput: 5.84 MB/s
-[2025-04-01 13:38:12][CLEANUP] Starting cleanup process
-[2025-04-01 13:38:12][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:38:12][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:06:31][CLEANUP] Starting cleanup process
+[2025-04-08 21:06:31][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:06:31][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:38:12][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:06:31][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:38:12][INFO] Volume: 83ed2360-f86a-4baf-a265-1e522c8fd088, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 102, Latency: 3.14ms, Throughput: 0.8 MB/s
-[2025-04-01 13:38:14][CLEANUP] Starting cleanup process
-[2025-04-01 13:38:14][INFO] System metrics updated - Throughput: 46.88 MB/s, Volume Capacity: 8.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 8.00 GB (8.0%), Saturation: 46.88%, Latency: 1.00ms
-[2025-04-01 13:38:14][CLEANUP] Capacity changes after cleanup:
-- Initial: 8.00 GB
+[2025-04-08 21:06:44][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:06:58][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:06:59][CLEANUP] Starting cleanup process
+[2025-04-08 21:06:59][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:06:59][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
 - Freed: 0.00 GB
-- Final: 8.00 GB
-[2025-04-01 13:38:14][CLEANUP] Housekeeping completed:
+- Final: 3.00 GB
+[2025-04-08 21:06:59][CLEANUP] Housekeeping completed:
 - Total snapshots removed: 0
 - Capacity freed: 0.00 GB
 - Current system metrics:
-  - Capacity: 8.00 GB
-  - Saturation: 46.88%
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
   - Latency: 1.00ms
-[2025-04-01 13:38:22][INFO] Volume: 184ae39e-9e4c-4e88-a65f-bca489ee4cec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 411, Latency: 1.13ms, Throughput: 3.21 MB/s
-[2025-04-01 13:38:23][INFO] Volume: 7776fb14-bc6b-4488-ac20-3dfc072cc9f4, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 347, Latency: 4.08ms, Throughput: 2.71 MB/s
-[2025-04-01 13:38:24][INFO] Volume: 79465bc3-2a45-4809-bb01-e8f5f8ee6fae, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 718, Latency: 8.92ms, Throughput: 5.61 MB/s
-[2025-04-01 13:38:26][INFO] Volume: 565e508f-0f04-4edf-b858-40f3d2e38bec, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 620, Latency: 3.88ms, Throughput: 4.84 MB/s
+[2025-04-08 21:07:01][CLEANUP] Starting cleanup process
+[2025-04-08 21:07:01][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:07:01][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:07:01][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:07:14][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:07:28][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:07:29][CLEANUP] Starting cleanup process
+[2025-04-08 21:07:29][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:07:29][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:07:29][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:07:31][CLEANUP] Starting cleanup process
+[2025-04-08 21:07:31][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:07:31][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:07:31][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:07:44][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:07:59][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:07:59][CLEANUP] Starting cleanup process
+[2025-04-08 21:07:59][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:07:59][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:07:59][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:08:01][CLEANUP] Starting cleanup process
+[2025-04-08 21:08:01][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:08:01][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:08:01][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:08:15][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:08:29][CLEANUP] Starting cleanup process
+[2025-04-08 21:08:29][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:08:29][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:08:29][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:08:30][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:08:31][CLEANUP] Starting cleanup process
+[2025-04-08 21:08:31][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:08:31][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:08:31][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:08:48][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:08:59][CLEANUP] Starting cleanup process
+[2025-04-08 21:08:59][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:08:59][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:08:59][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:09:01][CLEANUP] Starting cleanup process
+[2025-04-08 21:09:01][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:09:01][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:09:01][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:09:06][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:09:28][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:09:29][CLEANUP] Starting cleanup process
+[2025-04-08 21:09:29][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:09:29][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:09:29][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:09:31][CLEANUP] Starting cleanup process
+[2025-04-08 21:09:31][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:09:31][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:09:31][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:10:07][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:10:19][CLEANUP] Starting cleanup process
+[2025-04-08 21:10:19][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:10:19][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:10:19][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:10:20][CLEANUP] Starting cleanup process
+[2025-04-08 21:10:21][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:10:21][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:10:21][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:10:42][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:10:49][CLEANUP] Starting cleanup process
+[2025-04-08 21:10:49][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:10:49][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:10:49][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:10:52][CLEANUP] Starting cleanup process
+[2025-04-08 21:10:52][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:10:52][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:10:52][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:11:05][INFO] Volume: 4f4b02b7-3a79-4757-be6a-3c1d38634342, Host: fdc19462-d1fe-4463-915a-3be2ed36287e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:11:16][INFO] Volume: 38316b2f-21ee-475c-b168-78b84c441c63, Host: 81633185-010f-4484-abaf-798207303b7e, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-04-08 21:11:20][CLEANUP] Starting cleanup process
+[2025-04-08 21:11:20][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:11:20][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:11:20][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
+[2025-04-08 21:11:22][CLEANUP] Starting cleanup process
+[2025-04-08 21:11:22][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 3.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 3.00 GB (3.0%), Saturation: 23.44%, Latency: 1.00ms
+[2025-04-08 21:11:22][CLEANUP] Capacity changes after cleanup:
+- Initial: 3.00 GB
+- Freed: 0.00 GB
+- Final: 3.00 GB
+[2025-04-08 21:11:22][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 3.00 GB
+  - Saturation: 23.44%
+  - Latency: 1.00ms
