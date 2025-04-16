@@ -1,0 +1,10 @@
+{
+    "throughput_used": 0,
+    "capacity_used": 0,
+    "saturation": 0.0,
+    "cpu_usage": 0.0,
+    "volume_capacity": 0,
+    "snapshot_capacity": 0,
+    "capacity_percentage": 0.0,
+    "current_latency": 1.0
+}

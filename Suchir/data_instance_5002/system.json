@@ -1,0 +1,10 @@
+[
+    {
+        "id": "72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d",
+        "name": "5002",
+        "max_throughput": "100",
+        "max_capacity": "2000",
+        "saturation": 0,
+        "cpu_usage": 0
+    }
+]

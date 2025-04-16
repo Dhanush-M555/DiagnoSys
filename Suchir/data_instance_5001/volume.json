@@ -1,0 +1,26 @@
+[
+    {
+        "id": "f1ecd05e-b19c-4bfb-b088-3e1a4e94b695",
+        "name": "v1",
+        "system_id": "a798c468-b244-4185-b194-424480a62595",
+        "size": 100,
+        "is_exported": true,
+        "exported_host_id": "73cbff00-cd3a-4973-a785-bd7c625f1299",
+        "workload_size": 4,
+        "snapshot_settings": {},
+        "replication_settings": [],
+        "snapshot_frequencies": []
+    },
+    {
+        "id": "c0ad688a-9513-4d06-be5d-bee7854da4ce",
+        "name": "v2",
+        "system_id": "a798c468-b244-4185-b194-424480a62595",
+        "size": 200,
+        "is_exported": true,
+        "exported_host_id": "1dabc6f3-5c62-4232-a85e-324fbfad9400",
+        "workload_size": 8,
+        "snapshot_settings": {},
+        "replication_settings": [],
+        "snapshot_frequencies": []
+    }
+]

@@ -1,0 +1,723 @@
+[PORT 5001][2025-04-15 20:01:00][INFO] System created with ID: a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:01:00][INFO] Started background cleanup thread
+[2025-04-15 20:01:00][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:01:00][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:01:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:01:00][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[PORT 5002][2025-04-15 20:01:24][INFO] System created with ID: 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:01:24][INFO] Started background cleanup thread
+[2025-04-15 20:01:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:01:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:01:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:01:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:01:30][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:01:30][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 100.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 100.00 GB (10.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:01:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 100.00 GB
+- Freed: 0.00 GB
+- Final: 100.00 GB
+[2025-04-15 20:01:30][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 100.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:01:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:01:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:01:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:01:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:02:00][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:02:00][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 100.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 100.00 GB (10.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:02:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 100.00 GB
+- Freed: 0.00 GB
+- Final: 100.00 GB
+[2025-04-15 20:02:00][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 100.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:02:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:02:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:02:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:02:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:02:30][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:02:30][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:02:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:02:30][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:02:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:02:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:02:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:02:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:03:00][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:03:00][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:03:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:03:00][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:03:17][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:03:17][INFO] System metrics updated - Throughput: 7.81 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 3.91%, Latency: 1.00ms
+[2025-04-15 20:03:17][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:03:17][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 3.91%
+  - Latency: 1.00ms
+[2025-04-15 20:03:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:03:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:03:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:03:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:03:26][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:03:26][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:03:26][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:03:26][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:03:30][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:03:30][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:03:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:03:30][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:03:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:03:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:03:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:03:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:04:00][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:04:00][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:04:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:04:00][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:04:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:04:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:04:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:04:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:04:30][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:04:30][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:04:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:04:30][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[PORT 5001][2025-04-15 20:04:31][INFO] Stopped all processes for volume f1ecd05e-b19c-4bfb-b088-3e1a4e94b695: Volume update
+[PORT 5001][2025-04-15 20:04:31][INFO] Volume f1ecd05e-b19c-4bfb-b088-3e1a4e94b695 unexported: Volume update
+[PORT 5001][2025-04-15 20:04:41][INFO] Stopped all processes for volume c0ad688a-9513-4d06-be5d-bee7854da4ce: Volume update
+[PORT 5001][2025-04-15 20:04:41][INFO] Volume c0ad688a-9513-4d06-be5d-bee7854da4ce unexported: Volume update
+[2025-04-15 20:04:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:04:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:04:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:04:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:05:00][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:05:00][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:05:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:05:00][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:05:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:05:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:05:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:05:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:05:30][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:05:30][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:05:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:05:30][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:05:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:05:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:05:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:05:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:06:00][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:06:00][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:06:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:06:00][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:06:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:06:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:06:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:06:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:06:30][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:06:30][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:06:30][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:06:30][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:06:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:06:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:06:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:06:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:07:00][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:07:00][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:07:00][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:07:00][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:07:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:07:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:07:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:07:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:07:31][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:07:31][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:07:31][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:07:31][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:07:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:07:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:07:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:07:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:08:01][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:08:01][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:08:01][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:08:01][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:08:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:08:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:08:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:08:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:08:31][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:08:31][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:08:31][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:08:31][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:08:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:08:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:08:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:08:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:09:01][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:09:03][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:09:03][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:09:03][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:09:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:09:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:09:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:09:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:09:33][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:09:33][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:09:33][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:09:33][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:09:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:09:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:09:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:09:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:10:03][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:10:03][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:10:03][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:10:03][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:10:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:10:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:10:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:10:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:10:33][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:10:33][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:10:33][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:10:33][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:10:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:10:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:10:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:10:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:11:03][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:11:03][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:11:03][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:11:03][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:11:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:11:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:11:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:11:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:11:33][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:11:33][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:11:33][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:11:33][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:11:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:11:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:11:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:11:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:12:03][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:12:03][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:12:03][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:12:03][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:12:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:12:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:12:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:12:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:12:33][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:12:33][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:12:33][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:12:33][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:12:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:12:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:12:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:12:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:13:03][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:13:03][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:13:03][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:13:03][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:13:24][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:13:24][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:13:24][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:13:24][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:13:33][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:13:33][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:13:33][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:13:33][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms
+[2025-04-15 20:13:54][CLEANUP] Starting cleanup process for system 72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d
+[PORT 5002][2025-04-15 20:13:54][INFO] System metrics updated - Throughput: 0.00 MB/s, Volume Capacity: 0.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 0.00 GB (0.0%), Saturation: 0.00%, Latency: 1.00ms
+[2025-04-15 20:13:54][CLEANUP] Capacity changes after cleanup:
+- Initial: 0.00 GB
+- Freed: 0.00 GB
+- Final: 0.00 GB
+[2025-04-15 20:13:54][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 0.00 GB
+  - Saturation: 0.00%
+  - Latency: 1.00ms
+[2025-04-15 20:14:03][CLEANUP] Starting cleanup process for system a798c468-b244-4185-b194-424480a62595
+[PORT 5001][2025-04-15 20:14:03][INFO] System metrics updated - Throughput: 23.44 MB/s, Volume Capacity: 300.00 GB, Snapshot Capacity: 0.00 GB, Total Capacity: 300.00 GB (30.0%), Saturation: 11.72%, Latency: 1.00ms
+[2025-04-15 20:14:03][CLEANUP] Capacity changes after cleanup:
+- Initial: 300.00 GB
+- Freed: 0.00 GB
+- Final: 300.00 GB
+[2025-04-15 20:14:03][CLEANUP] Housekeeping completed:
+- Total snapshots removed: 0
+- Capacity freed: 0.00 GB
+- Current system metrics:
+  - Capacity: 300.00 GB
+  - Saturation: 11.72%
+  - Latency: 1.00ms

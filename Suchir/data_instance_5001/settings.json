@@ -1,0 +1,22 @@
+[
+    {
+        "id": "a72b94a9-fd4e-48a5-b4f4-7ac11b30c7ad",
+        "system_id": "a798c468-b244-4185-b194-424480a62595",
+        "name": "s1",
+        "type": "snapshot",
+        "value": "30 seconds",
+        "max_snapshots": 10
+    },
+    {
+        "id": "91d613b5-8034-4ae6-857a-f24236577b7b",
+        "system_id": "a798c468-b244-4185-b194-424480a62595",
+        "name": "s2",
+        "type": "replication",
+        "replication_type": "asynchronous",
+        "delay_sec": 5,
+        "replication_target": {
+            "id": "72d54e32-a2fb-4ec3-bdaf-b99ba8bdfe2d",
+            "name": "System 5002"
+        }
+    }
+]

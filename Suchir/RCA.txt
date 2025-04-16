@@ -1,0 +1,233 @@
+
+12
+3.  CPU and Network Saturation: Check if the system’s CPU or network bandwidth is near 
+100% utilization, which can cause delays in handling I/O requests.  
+ 
+2. High Latency Due to High System Capacity 
+Configuration 
+●  Snapshot Retention Settings:  
+○  Maximum number of snapshots per volume  
+○  Frequency of snapshots  
+○  Snapshot purge policies  
+●  Volume Capacity:  
+○  Max capacity per system or volume  
+○  Current capacity usage  
+Metrics 
+●  System Metrics:  
+○  Capacity used (% of max capacity)  
+○  Volume capacity utilization (GB)  
+○  Snapshot capacity usage (GB)  
+●  Snapshot Metrics:  
+○  Snapshot frequency  
+○  Size of each snapshot  
+Logs 
+●  Volume Logs:  
+○  Snapshot creation timestamps  
+○  Snapshot deletions or purges  
+○  Storage space usage alerts  
+●  System Logs:  
+○  Warning logs related to capacity thresholds  
+○  Cleanup and purge logs for snapshots  
+Root Cause Analysis (RCA) 
+1.  Check Snapshot Retention Settings: Evaluate whether excessive snapshots are being 
+retained. The accumulation of snapshots can cause high system capacity.  
+2.  Review System Capacity Metrics: Check if the total system capacity or volume usage 
+exceeds the configured limits.  
+3.  Monitor Snapshot Size: Identify whether individual snapshots are large and contributing 
+to high storage consumption.  
+ 
+3.High Latency due to Replication Link Issues 
+Configuration 
+●  Replication Settings:  
+○  Synchronous vs. asynchronous replication types  
+○  Replication delay and throughput  
+○  Replication target systems and network settings  
+Metrics 
+●  Volume Metrics:  
+○  I/O throughput during replication  
+○  Volume state (replicating, synchronized, etc.)  
+Logs 
+●  Replication Logs:  
+○  Replication start and stop events  
+○  Replication throughput and latency logs  
+○  Replication errors and timeouts  
+●  System Logs:  
+○  Network connection failures or delays  
+○  High latency or timeouts in replication  
+Root Cause Analysis (RCA) 
+1.  Check Replication Status: Ensure the replication process is active and running. 
+Investigate any timeouts or errors during replication.  
+2.  Evaluate Replication Delay: Check if replication delay exceeds acceptable thresholds, 
+indicating possible network issues or overload.  
+3.  Verify Target System: Check if the target system for replication is reachable and has 
+the necessary capacity to receive data.  
+ 
+ 
+To pinpoint faults in the system, the AI agent needs to refer to specific files that contain the 
+relevant configuration, metrics, and logs for each type of problem. Below is a detailed insight 
+into the files involved in diagnosing the three identified problem categories: High Latency due 
+to System Saturation, High System Capacity, and Replication Link Issues. 
+1. High Latency Due to System Saturation 
+To diagnose high latency issues caused by system saturation, the agent should refer to the 
+following files: 
+Files to Refer: 
+1.  Volume Configuration Files:  
+○  volume.json: This file contains information about all the volumes in the system. 
+It includes details like the volume size, I/O throughput, and whether a volume is 
+exported. Checking the throughput and workload size is essential to identify if a 
+specific volume is contributing to high latency.  
+■  Key Data: throughput_used, workload_size, size, is_exported, 
+exported_host_id.  
+■  Location: {data_dir}/volume.json  
+2.  System Configuration Files:  
+○  system.json: This file provides the overall system configuration, including max 
+throughput, max capacity, and current system saturation. This is useful for 
+identifying if the system’s resources (CPU, bandwidth) are fully saturated, leading 
+to high latency.  
+■  Key Data: max_throughput, max_capacity, saturation, 
+cpu_usage.  
+■  Location: {data_dir}/system.json  
+3.  Logs:  
+○  logs_{port}.txt (Local Logs): Logs that track system events such as 
+volume exports, I/O operations, and system performance. This log is key to 
+monitoring the volume’s performance, CPU usage, and network throughput.  
+■  Key Data: IOPS, throughput, latency, and any system warnings or errors.  
+■  Location: {data_dir}/logs_{port}.txt  
+4.  Volume Metrics:  
+○  io_metrics.json: This file tracks metrics like I/O counts, latency, and 
+throughput for each volume. If a volume is experiencing excessive I/O or latency, 
+this file can help pinpoint which volume is responsible for the high latency.  
+■  Key Data: volume_id, io_count, latency, throughput.  
+■  Location: {data_dir}/io_metrics.json  
+Diagnosis Process: 
+●  Check volume.json for volumes with high throughput or large workload sizes.  
+●  Check system.json to ensure the system's max throughput and capacity are not being 
+exceeded.  
+●  Analyze logs_{port}.txt for high I/O, IOPS, or latency entries.  
+●  Review io_metrics.json for high latency or throughput spikes in the affected 
+volumes.  
+ 
+2. High System Capacity (Snapshot Retention Settings) 
+For diagnosing issues related to high system capacity, often caused by snapshot retention, the 
+following files should be referenced: 
+Files to Refer: 
+1.  Snapshot and Volume Configuration:  
+○  volume.json: This file holds information about volumes, including the volume 
+size and snapshot-related settings. The retention of snapshots can cause high 
+system capacity usage.  
+■  Key Data: snapshot_settings, size.  
+■  Location: {data_dir}/volume.json  
+2.  Snapshot Files:  
+○  snapshots.json: This file contains details of each snapshot, including the 
+snapshot ID, the volume ID it’s associated with, and the size of each snapshot.  
+■  Key Data: volume_id, snapshot_id, size, created_at.  
+■  Location: {data_dir}/snapshots.json  
+3.  System Metrics:  
+○  system_metrics_{port}.json: This file stores the system’s usage metrics, 
+including capacity usage and throughput. It will provide insight into whether the 
+system is nearing its max capacity due to retained snapshots.  
+■  Key Data: capacity_used, throughput_used.  
+■  Location: {data_dir}/system_metrics_{port}.json  
+4.  Logs:  
+○  logs_{port}.txt: The logs will track snapshot creation and deletion events, 
+which can be useful to determine if excessive snapshots are being kept.  
+■  Key Data: Snapshot creation timestamps, size, and volume.  
+■  Location: {data_dir}/logs_{port}.txt  
+Diagnosis Process: 
+●  Check volume.json and snapshots.json to determine if excessive snapshots are 
+being retained. Focus on volumes with many snapshots.  
+●  Review system_metrics_{port}.json to monitor the system’s capacity and 
+throughput. If the system is reaching max capacity, this could be due to large or many 
+snapshots.  
+●  Examine logs_{port}.txt for entries related to snapshot creation or purging events, 
+and if any warnings regarding system capacity or snapshot count appear.  
+ 
+3. Replication Link Issues 
+For diagnosing replication link issues, the following files should be referred to: 
+Files to Refer: 
+1.  Replication Settings:  
+○  settings.json: This file contains replication settings for each volume. It stores 
+information such as replication type (synchronous or asynchronous), target 
+system, and delay settings.  
+■  Key Data: replication_type, replication_target, delay_sec.  
+■  Location: {data_dir}/settings.json  
+2.  Replication Metrics:  
+○  replication_metrics_{port}.json: This file contains metrics related to 
+the replication process, such as throughput and latency during replication.  
+■  Key Data: throughput, latency, replication_type.  
+■  Location: {data_dir}/replication_metrics_{port}.json  
+3.  Volume and Host Configuration:  
+○  volume.json and host.json: These files provide configuration data for 
+volumes and hosts, including whether volumes are exported and which host they 
+are exported to. If replication is failing, it could be due to issues between the 
+volume and its host.  
+■  Key Data: is_exported, exported_host_id, workload_size, 
+host_id.  
+■  Location: {data_dir}/volume.json and {data_dir}/host.json  
+4.  Replication Logs:  
+○  logs_{port}.txt: Replication issues, such as delays, failures, or connection 
+problems, will be logged here. It provides real-time information about replication 
+status and issues.  
+■  Key Data: Replication events, throughput, latency, error logs.  
+■  Location: {data_dir}/logs_{port}.txt  
+Diagnosis Process: 
+●  Check settings.json for replication configurations and ensure that replication 
+settings (type, target system, delay) are correct.  
+●  Review replication_metrics_{port}.json to analyze replication throughput and 
+latency, ensuring that replication is proceeding as expected.  
+●  Check volume.json and host.json to confirm that the volumes are correctly 
+exported to the target hosts for replication.  
+●  Examine logs_{port}.txt for any replication errors or warnings that indicate issues 
+with the replication link, such as timeouts or network failures. 
+ 
+ 
+ 
+ 
+  
+ 
+Conclusion 
+The AI agent will need to access these specific files to gather the necessary data to diagnose 
+issues related to high latency, high system capacity, and replication link failures. The data within 
+these files, including configuration, metrics, and logs, will provide the insights needed to identify 
+and resolve system faults efficiently. The agent will query these files, analyze the data, and 
+suggest corrective actions based on the problem type. 
+ 
+ 
+ 
+ 
+ 
+High System Capacity (Snapshot Retention Settings) 
+For diagnosing issues related to high system capacity, often caused by snapshot retention, the 
+following files should be referenced: 
+Files to Refer: 
+5.  Snapshot and Volume Configuration:  
+○  volume.json: This file holds information about volumes, including the volume 
+size and snapshot-related settings. The retention of snapshots can cause high 
+system capacity usage.  
+■  Key Data: snapshot_settings, size.  
+■  Location: {data_dir}/volume.json  
+6.  Snapshot Files:  
+○  snapshots.json: This file contains details of each snapshot, including the 
+snapshot ID, the volume ID it’s associated with, and the size of each snapshot.  
+■  Key Data: volume_id, snapshot_id, size, created_at.  
+■  Location: {data_dir}/snapshots.json  
+7.  System Metrics:  
+○  system_metrics_{port}.json: This file stores the system’s usage metrics, 
+including capacity usage and throughput. It will provide insight into whether the 
+system is nearing its max capacity due to retained snapshots.  
+■  Key Data: capacity_used, throughput_used.  
+■  Location: {data_dir}/system_metrics_{port}.json  
+8.  Logs:  
+○  logs_{port}.txt: The logs will track snapshot creation and deletion events, 
+which can be useful to determine if excessive snapshots are being kept.  
+■  Key Data: Snapshot creation timestamps, size, and volume.  
+■  Location: {data_dir}/logs_{port}.txt  
+Diagnosis Process: 
+●  Check volume.json and snapshots.json to determine if excessive snapshots are 
+being retained. Focus on volumes with many snapshots.  
+●  Review system_metrics_{port}.json to monitor the system’s capacity and 
+throughput. If the system is reaching max capacity, this could be due to large or many 
+snapshots.  
+●  Examine logs_{port}.txt for entries related to snapshot creation or purging events, 
+and if any warnings regarding system capacity or snapshot count appear. 
+ 

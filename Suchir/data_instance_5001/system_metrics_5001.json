@@ -1,0 +1,10 @@
+{
+    "throughput_used": 23.4375,
+    "capacity_used": 300.0,
+    "saturation": 11.71875,
+    "cpu_usage": 11.71875,
+    "volume_capacity": 300.0,
+    "snapshot_capacity": 0,
+    "capacity_percentage": 30.0,
+    "current_latency": 1.0
+}
