@@ -4,8 +4,11 @@ import uuid
 import threading
 import time
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 import requests
+
+# --- Constants ---
+MAX_RETENTION_METRICS = 3  # Max retention time in minutes for metrics files (system, replication, io). Set to None for no limit.
 
 class StorageManager:
     def __init__(self, data_dir, global_file="global_systems.json", logger=None):
@@ -14,6 +17,10 @@ class StorageManager:
         self.logger = logger
         self.metrics_file = os.path.join(data_dir, f"system_metrics_{self.get_port()}.json")
         self.replication_metrics_file = os.path.join(data_dir, f"replication_metrics_{self.get_port()}.json")
+        self.io_metrics_file = os.path.join(data_dir, "io_metrics.json") # Define io_metrics file path
+        self.io_metrics_lock = threading.Lock()  # Lock for io_metrics.json
+        self.replication_metrics_lock = threading.Lock()  # Lock for replication_metrics.json
+        self.system_metrics_lock = threading.Lock()  # Lock for system_metrics.json
         os.makedirs(data_dir, exist_ok=True)
 
         # ✅ Initialize snapshot_threads (Now supports multiple frequencies per volume)
@@ -29,11 +36,10 @@ class StorageManager:
                 json.dump([], f, indent=4)
 
         # Initialize metrics files if they don't exist
-        if not os.path.exists(self.metrics_file):
-            self.save_metrics({"throughput_used": 0, "capacity_used": 0})
-        if not os.path.exists(self.replication_metrics_file):
-            self.save_replication_metrics({})
-
+        self._initialize_metrics_file(self.metrics_file)
+        self._initialize_metrics_file(self.replication_metrics_file)
+        self._initialize_metrics_file(self.io_metrics_file)
+                
         # Dictionary to keep track of ongoing replication tasks (one per volume)
         self.replication_tasks = {}
         
@@ -45,45 +51,212 @@ class StorageManager:
         self.FIXED_IOPS = 2000  # Fixed IOPS for all volumes
         self.IO_SIZE_OPTIONS = [4, 8, 16, 32, 64, 128]  # Valid I/O sizes in KB
 
+    def _initialize_metrics_file(self, file_path):
+        """Initialize a metrics file with an empty list if it doesn't exist."""
+        if not os.path.exists(file_path):
+            try:
+                with open(file_path, 'w') as f:
+                    json.dump([], f, indent=4)
+            except Exception as e:
+                if self.logger:
+                    self.logger.error(f"Failed to initialize metrics file {file_path}: {str(e)}", global_log=True)
+
     def get_port(self):
         return self.data_dir.split('_')[-1]
 
-    def save_metrics(self, metrics):
-        """Safely saves system metrics while preventing corruption and ensuring consistency."""
-        
-        if not isinstance(metrics, dict):
-            print("Warning: system_metrics is not a dictionary. Resetting to defaults.")
-            metrics = {"throughput_used": 0, "capacity_used": 0, "saturation": 0, "cpu_usage": 0}
+    def _apply_retention_and_append(self, file_path, lock, new_entry, max_retention_minutes):
+        """
+        Helper function to load metrics, apply time-based retention, append new entry, and save.
+        Handles concurrency using the provided lock.
+        """
+        with lock:
+            try:
+                # Read existing metrics
+                if os.path.exists(file_path):
+                    with open(file_path, 'r') as f:
+                        metrics_list = json.load(f)
+                    if not isinstance(metrics_list, list):
+                        # Attempt to handle legacy format or reset
+                        if isinstance(metrics_list, dict) and "timestamp" in metrics_list:
+                             metrics_list = [metrics_list] # Convert single dict legacy format
+                        else:
+                             metrics_list = [] 
+                else:
+                    metrics_list = []
 
-        # ✅ Ensure valid keys exist in metrics
+                # Apply retention policy
+                if max_retention_minutes is not None and len(metrics_list) > 0:
+                    try:
+                        # Ensure the new entry has a timestamp
+                        if "timestamp" not in new_entry:
+                             new_entry["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                             
+                        last_timestamp_str = new_entry["timestamp"]
+                        first_timestamp_str = metrics_list[0].get("timestamp")
+
+                        if first_timestamp_str and last_timestamp_str:
+                            last_time = datetime.strptime(last_timestamp_str, "%Y-%m-%d %H:%M:%S")
+                            first_time = datetime.strptime(first_timestamp_str, "%Y-%m-%d %H:%M:%S")
+                            time_diff = last_time - first_time
+                            time_diff_minutes = time_diff.total_seconds() / 60
+
+                            # Remove oldest entries if retention period exceeded
+                            while time_diff_minutes > max_retention_minutes and len(metrics_list) > 0:
+                                metrics_list.pop(0) # Remove the oldest entry
+                                # Recalculate time diff if list still has entries
+                                if len(metrics_list) > 0:
+                                     first_timestamp_str = metrics_list[0].get("timestamp")
+                                     if first_timestamp_str:
+                                          first_time = datetime.strptime(first_timestamp_str, "%Y-%m-%d %H:%M:%S")
+                                          time_diff = last_time - first_time
+                                          time_diff_minutes = time_diff.total_seconds() / 60
+                                     else:
+                                          break # Stop if no valid timestamp found
+                                else:
+                                     break # Stop if list is empty
+                                     
+                    except (ValueError, TypeError, KeyError) as e:
+                         if self.logger:
+                              self.logger.warn(f"Could not parse timestamps for retention check in {file_path}: {e}", global_log=True)
+                    except Exception as e:
+                         if self.logger:
+                              self.logger.error(f"Error during retention check for {file_path}: {e}", global_log=True)
+
+                # Append the new metrics entry
+                metrics_list.append(new_entry)
+                
+                # Atomic write to prevent corruption
+                tmp_file_path = file_path + ".tmp"
+                with open(tmp_file_path, "w") as f:
+                    json.dump(metrics_list, f, indent=4)
+                
+                os.replace(tmp_file_path, file_path)  # Replace atomically
+            
+            except Exception as e:
+                if self.logger:
+                    self.logger.error(f"Failed to save metrics to {file_path}: {str(e)}", global_log=True)
+
+    def save_metrics(self, metrics_data):
+        """
+        Safely save system metrics as timeseries data by appending the new entry.
+        
+        Args:
+            metrics_data: Dictionary with metrics to append to the timeseries
+        """
+        # Ensure required fields exist (provide defaults if missing)
         required_keys = ["throughput_used", "capacity_used", "saturation", "cpu_usage"]
         for key in required_keys:
-            if key not in metrics:
-                metrics[key] = 0  # Default missing keys to zero
+            if key not in metrics_data:
+                metrics_data[key] = 0
+                
+        # Ensure timestamp exists
+        if "timestamp" not in metrics_data:
+            metrics_data["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # ✅ Atomic JSON write to prevent corruption
-        tmp_file_path = self.metrics_file + ".tmp"
-        with open(tmp_file_path, "w") as f:
-            json.dump(metrics, f, indent=4)
-
-        os.replace(tmp_file_path, self.metrics_file)  # ✅ Prevents incomplete writes
-
-        # ✅ Debugging: Log confirmation of saved metrics
-        #if self.logger:
-            #self.logger.info(f"System metrics updated successfully: {metrics}", global_log=True)
-
+        # Use the helper function to handle retention and saving
+        self._apply_retention_and_append(self.metrics_file, self.system_metrics_lock, metrics_data, MAX_RETENTION_METRICS)
 
     def load_metrics(self):
-        if not os.path.exists(self.metrics_file):
-            return {"throughput_used": 0, "capacity_used": 0}
-        with open(self.metrics_file, 'r') as f:
-            return json.load(f)
+        """
+        Load the most recent system metrics from the timeseries.
+        
+        Returns:
+            Dictionary with the most recent metrics, or default values if none exist
+        """
+        default_metrics = {
+            "throughput_used": 0,
+            "capacity_used": 0,
+            "saturation": 0,
+            "cpu_usage": 0,
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+        
+        try:
+            if not os.path.exists(self.metrics_file):
+                return default_metrics
+                
+            with self.system_metrics_lock: # Use lock for reading to be safe
+                with open(self.metrics_file, 'r') as f:
+                    metrics_list = json.load(f)
+            
+            # Handle different formats
+            if isinstance(metrics_list, list):
+                if not metrics_list:
+                    return default_metrics
+                # Return the most recent entry
+                return metrics_list[-1]
+            elif isinstance(metrics_list, dict):
+                # Handle legacy format (single dict instead of list)
+                 if "timestamp" not in metrics_list:
+                      metrics_list["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                 return metrics_list
+            else:
+                return default_metrics
+                
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"Failed to load system metrics: {str(e)}", global_log=True)
+            return default_metrics
+    
+    def get_metrics_history(self, hours=24):
+        """
+        Get system metrics history for the specified time period.
+        
+        Args:
+            hours: Number of hours to look back (default 24)
+            
+        Returns:
+            List of metric entries from the specified time period
+        """
+        try:
+            if not os.path.exists(self.metrics_file):
+                return []
+                
+            with self.system_metrics_lock: # Use lock for reading
+                 with open(self.metrics_file, 'r') as f:
+                      metrics_list = json.load(f)
+            
+            if not isinstance(metrics_list, list):
+                # Handle legacy dict format
+                if isinstance(metrics_list, dict):
+                     return [metrics_list] 
+                return []
+                
+            # Calculate cutoff time
+            cutoff_time = datetime.now() - timedelta(hours=hours)
+            cutoff_str = cutoff_time.strftime("%Y-%m-%d %H:%M:%S")
+            
+            # Filter metrics by timestamp
+            return [m for m in metrics_list if m.get("timestamp", "") >= cutoff_str]
+                
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"Failed to get metrics history: {str(e)}", global_log=True)
+            return []
 
     def update_capacity_used(self, size_gb):
-        metrics = self.load_metrics()
-        metrics["capacity_used"] += size_gb
-        self.save_metrics(metrics)
-        return metrics["capacity_used"]
+        """
+        Update capacity used by adding a new entry with the updated capacity.
+        
+        Args:
+            size_gb: Size in GB to add to the current capacity used
+            
+        Returns:
+            Updated capacity used value
+        """
+        current_metrics = self.load_metrics()
+        current_capacity = current_metrics.get("capacity_used", 0)
+        new_capacity = current_capacity + size_gb
+        
+        # Create new metrics entry with updated capacity and other current values
+        new_metrics = current_metrics.copy() # Start with the last known state
+        new_metrics["capacity_used"] = new_capacity
+        new_metrics["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Save the new metrics entry using the helper
+        self._apply_retention_and_append(self.metrics_file, self.system_metrics_lock, new_metrics, MAX_RETENTION_METRICS)
+        
+        return new_capacity
 
     def load_resource(self, resource_type):
         file_path = os.path.join(self.data_dir, f"{resource_type}.json")
@@ -326,69 +499,53 @@ class StorageManager:
         """Simulate I/O operations for a volume using logger"""
         print(f"Host I/O started for volume {volume_id}")
         
-
         def io_worker():
             try:
+                # Initial metric write (if volume is exported)
                 volumes = self.load_resource("volume")
                 volume = next((v for v in volumes if v["id"] == volume_id), None)
-
                 if volume and volume.get("is_exported", False):
                     host_id = volume.get("exported_host_id", "Unknown")
                     io_count = 2000
-                    throughput = self.calculate_volume_throughput(volume)  # Fixed: Use self.
-                    latency = self.calculate_latency(self.load_metrics())  # Fixed: Use self. and load metrics
-
-                    # ✅ Ensure io_metrics is only inside data_instance_5001
-                    metrics = self.load_resource("io_metrics")
-
-                    if not isinstance(metrics, list):
-                        metrics = []
-                    elif any(isinstance(m, list) for m in metrics):
-                        metrics = [item for sublist in metrics for item in (sublist if isinstance(sublist, list) else [sublist])]
-
-                    metrics = [m for m in metrics if isinstance(m, dict)]
-
-                    # ✅ Avoid duplicate entries for the same volume
-                    if not any(m.get("volume_id") == volume_id for m in metrics):
-                        metrics.append({
-                            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                            "volume_id": volume_id,
-                            "host_id": host_id,
-                            "io_count": io_count,
-                            "latency": latency,
-                            "throughput": throughput
-                        })
-                        self.save_resource("io_metrics", metrics)
-
-                while True:
-                    volumes = self.load_resource("volume")
-                    volume = next((v for v in volumes if v["id"] == volume_id), None)
-
-                    if not volume or not volume.get("is_exported", False):
-                        break
-
-                    host_id = volume.get("exported_host_id", "Unknown")
-                    io_count = 2000
-                    latency = self.calculate_latency(self.load_metrics())  # Fixed: Use self. and load metrics
-                    throughput = self.calculate_volume_throughput(volume)  # Fixed: Use self.
-
-                    metrics = self.load_resource("io_metrics")
-                    if not isinstance(metrics, list):
-                        metrics = []
-                    else:
-                        metrics = [m for sublist in metrics for m in (sublist if isinstance(sublist, list) else [sublist])]
-                        metrics = [m for m in metrics if isinstance(m, dict)]  # Ensure elements are dicts
-
-                    metrics.append({
+                    throughput = self.calculate_volume_throughput(volume)
+                    latency = self.calculate_latency(self.load_metrics()) 
+                    new_metric = {
                         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         "volume_id": volume_id,
                         "host_id": host_id,
                         "io_count": io_count,
                         "latency": latency,
                         "throughput": throughput
-                    })
-                    self.save_resource("io_metrics", metrics)
+                    }
+                    # Save initial IO metric using the helper
+                    self._apply_retention_and_append(self.io_metrics_file, self.io_metrics_lock, new_metric, MAX_RETENTION_METRICS)
 
+                # Periodic metric writes
+                while True:
+                    time.sleep(30)
+                    # Reload volume info in case it was unexported
+                    volumes = self.load_resource("volume")
+                    volume = next((v for v in volumes if v["id"] == volume_id), None)
+                    if not volume or not volume.get("is_exported", False):
+                        break
+
+                    host_id = volume.get("exported_host_id", "Unknown")
+                    io_count = 2000
+                    latency = self.calculate_latency(self.load_metrics())
+                    throughput = self.calculate_volume_throughput(volume)
+
+                    new_metric = {
+                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        "volume_id": volume_id,
+                        "host_id": host_id,
+                        "io_count": io_count,
+                        "latency": latency,
+                        "throughput": throughput
+                    }
+                    
+                    # Save periodic IO metric using the helper
+                    self._apply_retention_and_append(self.io_metrics_file, self.io_metrics_lock, new_metric, MAX_RETENTION_METRICS)
+                    
                     if self.logger:
                         self.logger.info(
                             f"Volume: {volume_id}, "
@@ -396,15 +553,13 @@ class StorageManager:
                             f"Throughput: {throughput} MB/s"
                         )
 
-                    time.sleep(30)
             except Exception as e:
                 if self.logger:
-                    self.logger.error(f"Host I/O error: {str(e)}", global_log=True)
+                    self.logger.error(f"Host I/O error for volume {volume_id}: {str(e)}", global_log=True)
 
         worker_thread = threading.Thread(target=io_worker, daemon=True)
         worker_thread.start()
-        print(f"Background thread started for volume {volume_id}")  # Debug log
-
+        print(f"Background thread started for volume {volume_id}")
 
     def unexport_volume(self, volume_id, reason="Manual unexport"):
         """
@@ -795,25 +950,90 @@ class StorageManager:
             self.logger.error(f"Error during cleanup for volume {volume_id}: {str(e)}", global_log=True)
 
     def save_replication_metrics(self, metrics):
-        with open(self.replication_metrics_file, 'w') as f:
+        """
+        Safely save replication metrics to file. Use this when completely replacing the file.
+        """
+        # Ensure metrics is a list for timeseries data
+        if not isinstance(metrics, list):
+            self.logger.warn("Converting replication metrics to list format", global_log=True)
+            metrics = []
+        
+        # Atomic write to prevent corruption
+        tmp_file = self.replication_metrics_file + ".tmp"
+        with open(tmp_file, "w") as f:
             json.dump(metrics, f, indent=4)
+        
+        # Replace the file atomically
+        os.replace(tmp_file, self.replication_metrics_file)
 
     def load_replication_metrics(self):
+        """
+        Load replication metrics from file as a list for timeseries data.
+        """
         if not os.path.exists(self.replication_metrics_file):
-            return {}
-        with open(self.replication_metrics_file, 'r') as f:
-            return json.load(f)
+            return []
+            
+        try:
+            with open(self.replication_metrics_file, "r") as f:
+                metrics = json.load(f)
+                
+            # Ensure it's a list
+            if not isinstance(metrics, list):
+                # Handle legacy format conversion
+                if isinstance(metrics, dict):
+                    # Convert old nested format to flat timeseries
+                    flat_metrics = []
+                    for volume_id, targets in metrics.items():
+                        for target_id, metric in targets.items():
+                            flat_metric = {
+                                "volume_id": volume_id,
+                                "target_system_id": target_id,
+                                "timestamp": metric.get("timestamp", ""),
+                                "throughput": metric.get("throughput", 0),
+                                "latency": metric.get("latency", 0),
+                                "io_count": metric.get("io_count", 0),
+                                "replication_type": metric.get("replication_type", ""),
+                            }
+                            flat_metrics.append(flat_metric)
+                    return flat_metrics
+                else:
+                    return []
+                    
+            return metrics
+        except Exception as e:
+            self.logger.error(f"Error loading replication metrics: {str(e)}", global_log=True)
+            return []
 
-    def update_replication_metrics(self, volume_id, target_id, metrics):
-        """Update replication metrics for a specific volume-target pair"""
-        all_metrics = self.load_replication_metrics()
-        if volume_id not in all_metrics:
-            all_metrics[volume_id] = {}
-        all_metrics[volume_id][target_id] = {
-            **metrics,
-            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    def update_replication_metrics(self, volume_id, target_id, metric_data):
+        """
+        Update replication metrics by adding a new entry to the timeseries.
+        Applies retention policy.
+        """
+        # Create new metric entry in timeseries format
+        new_metric = {
+            "volume_id": volume_id,
+            "target_system_id": target_id,
+            "host_id": self._get_volume_host_id(volume_id),
+            "timestamp": metric_data.get("timestamp", datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+            "throughput": metric_data.get("throughput", 0),
+            "latency": metric_data.get("latency", 0),
+            "io_count": metric_data.get("io_count", 0),
+            "replication_type": metric_data.get("replication_type", ""),
         }
-        self.save_replication_metrics(all_metrics)
+        
+        # Use the helper function to handle retention and saving
+        self._apply_retention_and_append(self.replication_metrics_file, self.replication_metrics_lock, new_metric, MAX_RETENTION_METRICS)
+
+    def _get_volume_host_id(self, volume_id):
+        """Helper to get the host_id for a volume if it's exported"""
+        try:
+            volumes = self.load_resource("volume")
+            volume = next((v for v in volumes if v["id"] == volume_id), None)
+            if volume and volume.get("is_exported"):
+                return volume.get("exported_host_id", "")
+        except Exception:
+            pass
+        return ""
 
     def force_system_metrics_update_for_fault(self, target_system_id, action="added", sleep_time=None):
         """
@@ -956,10 +1176,15 @@ class StorageManager:
     def update_system_metrics(self):
         """
         Update system metrics including throughput, capacity, and saturation.
+        Creates a new entry in the system metrics timeseries.
         """
         try:
             # Load current system and volumes
-            system = self.load_resource("system")[0]
+            system_resource = self.load_resource("system")
+            if not system_resource: # Check if system exists
+                 # Optionally log: self.logger.warn("Cannot update system metrics: No system found.")
+                 return 
+            system = system_resource[0]
             volumes = self.load_resource("volume")
             snapshots = self.load_resource("snapshots")
             
@@ -984,8 +1209,9 @@ class StorageManager:
             # Calculate saturation percentage
             saturation = (total_throughput / max_throughput_mb * 100) if max_throughput_mb > 0 else 0
             
-            # Update system metrics
-            metrics = {
+            # Create new metrics entry with timestamp
+            metrics_data = {
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "throughput_used": total_throughput,
                 "capacity_used": total_capacity,
                 "saturation": saturation,
@@ -996,11 +1222,12 @@ class StorageManager:
             }
             
             # Calculate new latency based on updated metrics and active faults
-            current_latency = self.calculate_latency(metrics)
-            metrics["current_latency"] = current_latency
+            # Pass the newly calculated metrics_data to calculate_latency
+            current_latency = self.calculate_latency(metrics_data) 
+            metrics_data["current_latency"] = current_latency
             
-            # Save the metrics
-            self.save_metrics(metrics)
+            # Save the metrics as a new entry in the timeseries using the helper
+            self._apply_retention_and_append(self.metrics_file, self.system_metrics_lock, metrics_data, MAX_RETENTION_METRICS)
             
             # Log the metrics update with more detailed information
             self.logger.info(
