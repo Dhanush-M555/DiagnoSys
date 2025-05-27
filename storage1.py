@@ -15,18 +15,16 @@ class StorageManager:
         self.data_dir = data_dir
         self.global_file = global_file
         self.logger = logger
-        self.metrics_file = os.path.join(data_dir, f"system_metrics_{self.get_port()}.json")
-        self.replication_metrics_file = os.path.join(data_dir, f"replication_metrics_{self.get_port()}.json")
+        self.metrics_file = os.path.join(data_dir, f"system_metrics.json")
+        self.replication_metrics_file = os.path.join(data_dir, f"replication_metrics.json")
         self.io_metrics_file = os.path.join(data_dir, "io_metrics.json") # Define io_metrics file path
         self.io_metrics_lock = threading.Lock()  # Lock for io_metrics.json
         self.replication_metrics_lock = threading.Lock()  # Lock for replication_metrics.json
         self.system_metrics_lock = threading.Lock()  # Lock for system_metrics.json
         os.makedirs(data_dir, exist_ok=True)
 
-        # ✅ Initialize snapshot_threads (Now supports multiple frequencies per volume)
         self.snapshot_threads = {}
 
-        # Initialize cleanup thread related attributes, but don't start it yet
         self.cleanup_thread = None
         self.cleanup_stop = False
         # self.start_cleanup_thread() # Removed from here
@@ -39,7 +37,7 @@ class StorageManager:
         self._initialize_metrics_file(self.metrics_file)
         self._initialize_metrics_file(self.replication_metrics_file)
         self._initialize_metrics_file(self.io_metrics_file)
-                
+
         # Dictionary to keep track of ongoing replication tasks (one per volume)
         self.replication_tasks = {}
         
@@ -179,19 +177,19 @@ class StorageManager:
                 with open(self.metrics_file, 'r') as f:
                     metrics_list = json.load(f)
             
-            # Handle different formats
-            if isinstance(metrics_list, list):
-                if not metrics_list:
+                # Handle different formats
+                if isinstance(metrics_list, list):
+                    if not metrics_list:
+                        return default_metrics
+                    # Return the most recent entry
+                    return metrics_list[-1]
+                elif isinstance(metrics_list, dict):
+                    # Handle legacy format (single dict instead of list)
+                    if "timestamp" not in metrics_list:
+                        metrics_list["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    return metrics_list
+                else:
                     return default_metrics
-                # Return the most recent entry
-                return metrics_list[-1]
-            elif isinstance(metrics_list, dict):
-                # Handle legacy format (single dict instead of list)
-                 if "timestamp" not in metrics_list:
-                      metrics_list["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                 return metrics_list
-            else:
-                return default_metrics
                 
         except Exception as e:
             if self.logger:
@@ -315,38 +313,44 @@ class StorageManager:
             raise Exception(f"Failed to update {resource_type}: {str(e)}")
 
     def delete_resource(self, resource_type, resource_id):
+        """
+        Delete a resource from its corresponding JSON file.
+        """
         file_path = os.path.join(self.data_dir, f"{resource_type}.json")
         existing_data = self.load_resource(resource_type)
         
-        # Log the current state before deletion
-        self.logger.info(f"Attempting to delete {resource_type} with ID: {resource_id}", global_log=True)
-        self.logger.info(f"Current {resource_type} count before deletion: {len(existing_data)}", global_log=True)
-        
-        if resource_id is None:
-            existing_data = []
+        # Simplified logging for snapshots
+        if resource_type == "snapshots":
+            # Only log the essential info in a single line
+            self.logger.info(f"Deleted snapshot {resource_id}, current {resource_type} count: {len(existing_data)-1}", global_log=True)
         else:
-            # Log the specific resource being deleted
+            # For other resources, keep the original logging
+            self.logger.info(f"Attempting to delete {resource_type} with ID: {resource_id}", global_log=True)
+            self.logger.info(f"Current {resource_type} count before deletion: {len(existing_data)}", global_log=True)
+            
+            # Log the specific resource being deleted if not a snapshot
             resource_to_delete = next((item for item in existing_data if item["id"] == resource_id), None)
             if resource_to_delete:
                 self.logger.info(f"Found {resource_type} to delete: {resource_to_delete}", global_log=True)
             else:
                 self.logger.warn(f"No {resource_type} found with ID: {resource_id}", global_log=True)
             
-            # Filter out the resource to delete
-            existing_data = [item for item in existing_data if item["id"] != resource_id]
-            
-            # Verify deletion
-            if any(item["id"] == resource_id for item in existing_data):
-                self.logger.error(f"Failed to remove {resource_type} with ID: {resource_id}", global_log=True)
-                raise Exception(f"Failed to delete {resource_type}: Resource still exists after deletion")
+        # Filter out the resource to delete
+        existing_data = [item for item in existing_data if item["id"] != resource_id]
+        
+        # Verify deletion - only log errors, not success
+        if any(item["id"] == resource_id for item in existing_data):
+            self.logger.error(f"Failed to remove {resource_type} with ID: {resource_id}", global_log=True)
+            raise Exception(f"Failed to delete {resource_type}: Resource still exists after deletion")
         
         try:
             with open(file_path, "w") as f:
                 json.dump(existing_data, f, indent=4)
             
-            # Log the final state after deletion
-            self.logger.info(f"Successfully deleted {resource_type} with ID: {resource_id}", global_log=True)
-            self.logger.info(f"Final {resource_type} count after deletion: {len(existing_data)}", global_log=True)
+            # Skip final success logging for snapshots - already logged above
+            if resource_type != "snapshots":
+                self.logger.info(f"Successfully deleted {resource_type} with ID: {resource_id}", global_log=True)
+                self.logger.info(f"Final {resource_type} count after deletion: {len(existing_data)}", global_log=True)
             
         except Exception as e:
             self.logger.error(f"Failed to delete {resource_type}: {str(e)}", global_log=True)
@@ -498,7 +502,7 @@ class StorageManager:
     def start_host_io(self, volume_id):
         """Simulate I/O operations for a volume using logger"""
         print(f"Host I/O started for volume {volume_id}")
-        
+
         def io_worker():
             try:
                 # Initial metric write (if volume is exported)
@@ -510,12 +514,12 @@ class StorageManager:
                     throughput = self.calculate_volume_throughput(volume)
                     latency = self.calculate_latency(self.load_metrics()) 
                     new_metric = {
-                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                        "volume_id": volume_id,
-                        "host_id": host_id,
-                        "io_count": io_count,
-                        "latency": latency,
-                        "throughput": throughput
+                            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                            "volume_id": volume_id,
+                            "host_id": host_id,
+                            "io_count": io_count,
+                            "latency": latency,
+                            "throughput": throughput
                     }
                     # Save initial IO metric using the helper
                     self._apply_retention_and_append(self.io_metrics_file, self.io_metrics_lock, new_metric, MAX_RETENTION_METRICS)
@@ -545,7 +549,7 @@ class StorageManager:
                     
                     # Save periodic IO metric using the helper
                     self._apply_retention_and_append(self.io_metrics_file, self.io_metrics_lock, new_metric, MAX_RETENTION_METRICS)
-                    
+
                     if self.logger:
                         self.logger.info(
                             f"Volume: {volume_id}, "
@@ -1143,10 +1147,8 @@ class StorageManager:
         current_capacity = system_metrics.get("capacity_used", 0)
         capacity_pct = (current_capacity / max_capacity) * 100 if max_capacity > 0 else 0
 
-        # Use the higher of saturation or capacity percentage to determine latency
         highest_pct = max(saturation_pct, capacity_pct)
 
-        # Calculate base latency (in milliseconds) based on thresholds
         base_latency = 1.0  # default 1ms
         if highest_pct <= 70:
             base_latency = 1.0
@@ -1229,17 +1231,17 @@ class StorageManager:
             # Save the metrics as a new entry in the timeseries using the helper
             self._apply_retention_and_append(self.metrics_file, self.system_metrics_lock, metrics_data, MAX_RETENTION_METRICS)
             
-            # Log the metrics update with more detailed information
-            self.logger.info(
-                f"System metrics updated - "
-                f"Throughput: {total_throughput:.2f} MB/s, "
-                f"Volume Capacity: {volume_capacity:.2f} GB, "
-                f"Snapshot Capacity: {snapshot_capacity:.2f} GB, "
-                f"Total Capacity: {total_capacity:.2f} GB ({capacity_pct:.1f}%), "
-                f"Saturation: {saturation:.2f}%, "
-                f"Latency: {current_latency:.2f}ms",
-                global_log=True
-            )
+            # Only log errors or significant changes instead of every update
+            # self.logger.info(
+            #    f"System metrics updated - "
+            #    f"Throughput: {total_throughput:.2f} MB/s, "
+            #    f"Volume Capacity: {volume_capacity:.2f} GB, "
+            #    f"Snapshot Capacity: {snapshot_capacity:.2f} GB, "
+            #    f"Total Capacity: {total_capacity:.2f} GB ({capacity_pct:.1f}%), "
+            #    f"Saturation: {saturation:.2f}%, "
+            #    f"Latency: {current_latency:.2f}ms",
+            #    global_log=True
+            # )
 
         except Exception as e:
             self.logger.error(f"Failed to update system metrics: {str(e)}", global_log=True)
@@ -1290,8 +1292,6 @@ class StorageManager:
             # self.logger.warn("No system found. Skipping cleanup.", global_log=True) # Optional: Log only if needed for debugging
             return # Don't log or proceed if no system exists
 
-        self.logger.cleanup_log(f"Starting cleanup process for system {system_data[0]['id']}")
-
         try:
             # Load necessary data
             system = system_data[0]
@@ -1325,17 +1325,18 @@ class StorageManager:
                     snapshots_for_setting = [s for s in snapshots if s.get("snapshot_setting_id") == setting_id]
                     
                     num_snapshots_for_setting = len(snapshots_for_setting)
-                    self.logger.info(
-                        f"Volume {volume_id}, Setting {setting_id}: "
-                        f"Current snapshots: {num_snapshots_for_setting}, Max allowed: {max_snapshots}", 
-                        global_log=True
-                    )
-
+                    
+                    # Only log if snapshots exceed max limit
                     if num_snapshots_for_setting > max_snapshots:
+                        self.logger.info(
+                            f"Volume {volume_id}, Setting {setting_id}: "
+                            f"Current snapshots: {num_snapshots_for_setting}, Max allowed: {max_snapshots}", 
+                            global_log=True
+                        )
+                        
                         excess_count = num_snapshots_for_setting - max_snapshots
                         self.logger.cleanup_log(
-                            f"Volume {volume_id} with setting {setting_id} "
-                            f"has {excess_count} excess snapshots (max: {max_snapshots})."
+                            f"Volume {volume_id}, Setting {setting_id}: {excess_count} excess snapshots detected (max: {max_snapshots})"
                         )
 
                         # Sort snapshots by creation date (oldest first)
@@ -1354,27 +1355,15 @@ class StorageManager:
                                     self.delete_resource("snapshots", snapshot_to_delete["id"])
                                     cleaned_snapshots += 1
                                     
-                                    cleanup_msg = (
-                                        f"Snapshot {snapshot_to_delete['id']} removed for setting {setting_id} "
-                                        f"in volume {volume_id} (freed {snapshot_size} GB)"
-                                    )
-                                    self.logger.cleanup_log(cleanup_msg)
-                                    
                                     if setting_id not in cleanup_summary[volume_id]:
                                         cleanup_summary[volume_id][setting_id] = 0
                                     cleanup_summary[volume_id][setting_id] += 1
 
-                                    # Verify deletion
+                                    # Verify deletion - only log errors
                                     snapshots_after = self.load_resource("snapshots")
                                     if any(s["id"] == snapshot_to_delete["id"] for s in snapshots_after):
                                         self.logger.error(
                                             f"Failed to delete snapshot {snapshot_to_delete['id']}", 
-                                            global_log=True
-                                        )
-                                    else:
-                                        self.logger.info(
-                                            f"Successfully deleted snapshot {snapshot_to_delete['id']} "
-                                            f"and freed {snapshot_size} GB", 
                                             global_log=True
                                         )
                                 except Exception as e:
@@ -1387,14 +1376,8 @@ class StorageManager:
                         volume["snapshot_count"] = min(snapshot_count, max_snapshots)
                         self.update_resource("volume", volume_id, volume)
 
-            # Log cleanup summary
-            for volume_id, settings in cleanup_summary.items():
-                for setting_id, count in settings.items():
-                    summary_msg = (
-                        f"Cleanup Summary - Volume {volume_id}, Setting {setting_id}: "
-                        f"Removed {count} snapshots"
-                    )
-                    self.logger.cleanup_log(summary_msg)
+            # Skip individual summary logs for each volume/setting combination
+            # We'll just have the final summary at the end
 
             # Update system metrics after cleanup
             current_metrics = self.load_metrics()
@@ -1403,29 +1386,19 @@ class StorageManager:
             # Only update metrics but preserve any existing fault-related latency
             self.update_system_metrics()
 
-            # Log final capacity changes
-            final_capacity = self.load_metrics().get("capacity_used", 0)
-            self.logger.cleanup_log(
-                f"Capacity changes after cleanup:\n"
-                f"- Initial: {initial_capacity:.2f} GB\n"
-                f"- Freed: {capacity_freed:.2f} GB\n"
-                f"- Final: {final_capacity:.2f} GB"
-            )
-
             # Get the current metrics after update
-            updated_metrics = self.load_metrics()
+            final_capacity = self.load_metrics().get("capacity_used", 0)
             
-            # Log cleanup results with detailed summary
-            cleanup_result_msg = (
-                f"Housekeeping completed:\n"
-                f"- Total snapshots removed: {cleaned_snapshots}\n"
-                f"- Capacity freed: {capacity_freed:.2f} GB\n"
-                f"- Current system metrics:\n"
-                f"  - Capacity: {final_capacity:.2f} GB\n"
-                f"  - Saturation: {updated_metrics.get('saturation', 0):.2f}%\n"
-                f"  - Latency: {updated_metrics.get('current_latency', 1.0):.2f}ms"
-            )
-            self.logger.cleanup_log(cleanup_result_msg)
+            # Create a single concise cleanup summary line
+            if cleaned_snapshots > 0:
+                self.logger.cleanup_log(
+                    f"Cleanup complete: {cleaned_snapshots} snapshots removed, Initial: {initial_capacity:.2f} GB, Freed: {capacity_freed:.2f} GB, Final: {final_capacity:.2f} GB"
+                )
+            else:
+                # Even more concise if no snapshots were removed
+                self.logger.cleanup_log(
+                    f"Cleanup complete: No snapshots needed removal, Capacity: {final_capacity:.2f} GB"
+                )
 
         except Exception as e:
             self.logger.error(f"Housekeeping error: {str(e)}", global_log=True)

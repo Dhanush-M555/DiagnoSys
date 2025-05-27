@@ -11,7 +11,7 @@ class Logger:
         self.port = port
         self.data_dir = data_dir
         self.local_log_file = os.path.join(data_dir, f"logs_{port}.txt")
-        self.global_log_file = "global_logs.txt"
+        self.global_log_file = "data/global_logs.txt"
         self.lock = threading.Lock()  # Thread-safe logging
 
         # Create log files if they don't exist
@@ -124,21 +124,22 @@ class Logger:
     def snapshot_event_log(self, message):
         """
         Log snapshot creation events to both local instance log and snapshot_log.txt
-        Specifically for logs with the format: "📸 Snapshot xyz taken for volume abc..."
+        Uses the [INFO] prefix for consistency and single-line format
         """
         timestamp = self._get_timestamp()
-        entry = f"[{timestamp}] {message}"
+        
+        # Format message as a single line with INFO prefix
+        formatted_message = f"[{timestamp}][INFO] {message}"
         
         # Write to local instance log (applies retention)
-        self._write_log(self.local_log_file, entry)
+        self._write_log(self.local_log_file, formatted_message)
         
         # Write to snapshot log (no retention applied here)
         snapshot_log_file = os.path.join(os.path.dirname(self.local_log_file), "snapshot_log.txt")
-        # Use separate write to snapshot log to avoid retention logic on it
         try:
             with self.lock:
                 with open(snapshot_log_file, 'a') as f:
-                    f.write(f"{entry}\n")
+                    f.write(f"{formatted_message}\n")
                     f.flush()
         except Exception as e:
             print(f"Error writing to snapshot log {snapshot_log_file}: {e}")
@@ -146,19 +147,26 @@ class Logger:
     def cleanup_log(self, message):
         """
         Special logging for cleanup events.
-        Writes to both regular logs and snapshot logs.
+        Writes concise, single-line logs with [CLEANUP] prefix.
         """
         timestamp = self._get_timestamp()
+        
+        # Ensure message is a single line by replacing newlines with pipe separator
+        message = message.replace('\n', ' | ')
+        
+        # Create concise log entry with CLEANUP prefix
         log_entry = f"[{timestamp}][CLEANUP] {message}"
         
-        # Write to regular logs (local log applies retention)
+        # Write to local log (applies retention)
         self._write_log(self.local_log_file, log_entry)
-        self._write_log(self.global_log_file, log_entry)  # Global log has no retention
+        
+        # Write to global log
+        global_entry = f"[PORT {self.port}]{log_entry}"
+        self._write_log(self.global_log_file, global_entry)
         
         # Write to snapshot logs if the message contains snapshot-related information
         if "snapshot" in message.lower():
             snapshot_log_file = os.path.join(os.path.dirname(self.local_log_file), "snapshot_log.txt")
-            # Use separate write to snapshot log
             try:
                 with self.lock:
                     with open(snapshot_log_file, 'a') as f:

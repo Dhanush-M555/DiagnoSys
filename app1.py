@@ -16,11 +16,9 @@ app = Flask(__name__)
 
 print("Flask app is starting...")
 
-# Configuration for multi-instance simulation
-GLOBAL_FILE = "global_systems.json"  # Tracks all instances
-ENABLE_UI = True  # Enable UI serving
+GLOBAL_FILE = "data/global_systems.json"  
+ENABLE_UI = True 
 
-# Automatically find the next available port (5000+)
 
 def find_available_port(start=5000, max_instances=50):
     for port in range(start, start + max_instances):
@@ -32,7 +30,7 @@ def find_available_port(start=5000, max_instances=50):
 PORT = find_available_port() 
 
 # Unique data directory for this instance
-DATA_DIR = f"data_instance_{PORT}"
+DATA_DIR = f"data/data_instance_{PORT}"
 os.makedirs(DATA_DIR, exist_ok=True)
 
 # Initialize logger

@@ -1,0 +1,167 @@
+Support Document: Diagnosing Latency Issues in the Storage System
+This document provides guidance for diagnosing latency issues in the storage system by analyzing system metrics, configuration files, and replication faults. The goal is to help the AI agent identify the root cause of high latency and provide detailed fault reports when necessary.
+Overview of Latency Calculation
+Latency in the storage system is influenced by three primary factors:
+
+Capacity Usage Percentage (capacity_pct): Reflects how much of the system's storage capacity is being used.
+Saturation Percentage (saturation_pct): Indicates the level of system throughput utilization.
+Replication Faults: Issues in replication links that add extra latency, particularly for volumes with synchronous replication.
+
+The total latency is calculated as:
+
+Base Latency: Determined by the higher of capacity_pct or saturation_pct, using the following scale:
+
+≤ 70%: 1.0 ms
+
+70% to ≤80%: 2.0 ms
+
+80% to ≤90%: 3.0 ms
+
+90% to ≤100%: 4.0 ms
+
+100%: 5.0 ms
+
+
+
+Replication Fault Latency: Additional latency (in milliseconds) from active synchronous replication faults.
+
+Total Latency: base_latency + total_replication_fault_latency
+
+
+Latency Scale and Severity
+
+1.0 ms: Normal operation(Not Fault).
+2.0 ms: Slightly elevated, usually within acceptable limits(Not Fault).
+3.0 ms: Acceptable, may not be too risky(Not Fault).
+4.0 ms: Near high latency(Not Fault).
+5.0 ms or higher: Critical latency issue, immediate investigation required(It is Fault).
+
+Step 1: Confirm High Latency
+To begin diagnosis, check the system_metrics file for latency values within a specific time interval:
+
+Look for latency values ≥ 5 ms. If found, proceed with diagnosis.
+If no values ≥ 5 ms, check for = 4 ms, then = 3 ms, and finally = 2 ms.
+If latency is consistently <= 1 ms, conclude that there is no significant latency increase during the given interval.
+
+Step 2: Identify the Cause of High Latency
+Once high latency is confirmed, determine the contributing factors by analyzing the base latency (driven by capacity or saturation) and any additional latency from replication faults.
+2.1 Check Base Latency Contribution (Capacity or Saturation)
+
+Retrieve capacity_pct and saturation_pct from the system_metrics file.
+Identify which of the two is higher, as the base latency is set by the maximum of capacity_pct or saturation_pct.
+Use the latency scale above to determine the base latency based on this higher percentage.
+
+Note: Both capacity and saturation can contribute to high base latency, but the base latency is determined by whichever percentage is higher.
+2.2 Check for Replication Faults
+
+Retrieve active replication faults from the system.
+Sum the sleep_time (in milliseconds) of all active faults to calculate the total additional latency due to replication issues.
+If the total replication fault latency is greater than 0 ms, it is contributing to the overall latency.
+
+Step 3: Diagnose Specific Fault Types
+Depending on the findings from Step 2, proceed to diagnose the specific type of fault causing the high latency. There are three possible fault types:
+
+Fault Type 1: High Latency Due to High Capacity
+This fault occurs when the capacity_pct is high and is the primary driver of the base latency.
+Diagnosis Steps:
+
+Confirm Capacity is Driving Base Latency:
+
+Check if capacity_pct > 70%.
+Verify that capacity_pct ≥ saturation_pct. If true, capacity is the primary cause of the high base latency.
+
+
+Analyze Capacity Usage:
+
+Retrieve the max_capacity from the system configuration file.
+Calculate the total capacity used: capacity_used = (capacity_pct / 100) * max_capacity.
+Break down capacity_used into:
+Volume Capacity: Sum of the sizes of all volumes.
+Snapshot Capacity: For each volume, calculate (volume_size * snapshot_count) if snapshots are enabled.
+
+
+Identify volumes with large sizes or high snapshot counts that are contributing significantly to the total capacity used.
+
+
+Generate Fault Report:
+
+List the volumes with the highest capacity usage.
+If applicable, identify volumes with high snapshot capacity (i.e., large volume_size and high max_snapshots from the snapshot settings).
+If no snapshots are contributing, state "No snapshot capacity contributing to high usage."
+
+
+
+
+Fault Type 2: High Latency Due to High Saturation
+This fault occurs when the saturation_pct is high and is the primary driver of the base latency.
+Diagnosis Steps:
+
+Confirm Saturation is Driving Base Latency:
+
+Check if saturation_pct > 70%.
+Verify that saturation_pct > capacity_pct. If true, saturation is the primary cause of the high base latency.
+
+
+Analyze Saturation:
+
+Retrieve the max_throughput from the system configuration file.
+Calculate the total throughput: total_throughput = (saturation_pct / 100) * max_throughput.
+For each volume, calculate its throughput contribution:
+Volume Throughput (MB/s) = (2000 IOPS * workload_size) / 1024, where workload_size is from the volume configuration file.
+Per-Volume Saturation Contribution = (volume_throughput / max_throughput) * 100.
+
+
+Identify volumes with the highest throughput, contributing most to the saturation.
+
+
+Generate Fault Report:
+
+List the volumes with the highest throughput and their contribution to the system saturation.
+
+
+
+
+Fault Type 3: High Latency Due to Replication Link Issues
+This fault occurs when replication faults add significant latency, particularly for volumes with synchronous replication.
+Diagnosis Steps:
+
+Check for Active Replication Faults:
+
+Retrieve active replication faults and their sleep_time values.
+If the total sleep_time sum is greater than 0 ms, replication faults are contributing to the latency.
+
+
+Confirm Impact on Synchronous Replication:
+
+Check the replication_metrics file for volumes with replication_type = synchronous.
+Look for replication latency values > 0.05 ms (normal range is 0.01 to 0.05 ms).
+If increased replication latency is found, confirm the impact by checking the corresponding I/O metrics for those volumes. If I/O latency is also elevated, it confirms the replication link issue.
+
+
+Identify Affected Replication Links:
+
+For each fault, note the source system, target system, and affected volume.
+Since replication happens in parallel, the latency addition is cumulative across faults but not multiplicative.
+
+
+Generate Fault Report:
+
+List the replication links (source to target) and the affected volumes causing the latency increase.
+Example format: "Replication link: to for "
+
+Handling Multiple Faults
+If multiple fault types are contributing to high latency (e.g., both high capacity and replication faults), generate a detailed fault report for each type separately. Ensure that the AI agent provides a comprehensive analysis covering all contributing factors.
+
+Data Sources
+The AI agent should retrieve data from the following sources:
+
+System Configuration File: Contains max_capacity and max_throughput.
+Volume Configuration File: Contains volume sizes and workload_size.
+Snapshot Settings File: Contains max_snapshots for each volume.
+System Metrics File: Contains capacity_used, saturation, and latency values.
+I/O Metrics File: Contains I/O latency for volumes.
+Replication Metrics File: Contains replication latency and fault details.
+
+
+* The bully volume is the volume that contributes the most to a specific fault. Determine the contribution of the bully volume to the fault, considering that the cause may not solely be the volume size but could also stem from high max_snapshots settings if the volume has snapshot settings configured.
+* Also, Check for Logs having errors or warning which might be unknown cause for latency too.
