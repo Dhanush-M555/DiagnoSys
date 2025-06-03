@@ -1,0 +1,74 @@
+[
+    {
+        "id": "2b69817a-ee0d-4dc6-9348-85c0c8782e21",
+        "volume_id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "snapshot_setting_id": "c64d63d3-465f-483f-8e03-dfeea9865235",
+        "created_at": "2025-06-03 16:56:06",
+        "frequency": 10,
+        "size": 10
+    },
+    {
+        "id": "4329de1f-2703-4e13-9b4d-46fcfcd7a7e6",
+        "volume_id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "snapshot_setting_id": "c64d63d3-465f-483f-8e03-dfeea9865235",
+        "created_at": "2025-06-03 16:56:17",
+        "frequency": 10,
+        "size": 10
+    },
+    {
+        "id": "5eb0cc7e-a47c-42ec-ac26-13cbab921e3e",
+        "volume_id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "snapshot_setting_id": "c64d63d3-465f-483f-8e03-dfeea9865235",
+        "created_at": "2025-06-03 16:56:27",
+        "frequency": 10,
+        "size": 10
+    },
+    {
+        "id": "2c74270c-bc38-4210-af72-29803adb54d5",
+        "volume_id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "snapshot_setting_id": "c64d63d3-465f-483f-8e03-dfeea9865235",
+        "created_at": "2025-06-03 16:56:37",
+        "frequency": 10,
+        "size": 10
+    },
+    {
+        "id": "283e7cce-5f7d-42a2-8c94-381fae4a023c",
+        "volume_id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "snapshot_setting_id": "c64d63d3-465f-483f-8e03-dfeea9865235",
+        "created_at": "2025-06-03 16:57:36",
+        "frequency": 10,
+        "size": 10
+    },
+    {
+        "id": "9ff93948-1f94-4297-be0e-6134e55d6bb5",
+        "volume_id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "snapshot_setting_id": "c64d63d3-465f-483f-8e03-dfeea9865235",
+        "created_at": "2025-06-03 16:57:46",
+        "frequency": 10,
+        "size": 10
+    },
+    {
+        "id": "6d51abb5-62fb-4f9d-902e-c69706e340c0",
+        "volume_id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "snapshot_setting_id": "c64d63d3-465f-483f-8e03-dfeea9865235",
+        "created_at": "2025-06-03 16:57:56",
+        "frequency": 10,
+        "size": 10
+    },
+    {
+        "id": "028b7ce3-3aee-442f-bd1e-6f759cfc7192",
+        "volume_id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "snapshot_setting_id": "c64d63d3-465f-483f-8e03-dfeea9865235",
+        "created_at": "2025-06-03 16:58:06",
+        "frequency": 10,
+        "size": 10
+    },
+    {
+        "id": "1cc53835-3b73-42b0-864c-2f2aac903924",
+        "volume_id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "snapshot_setting_id": "c64d63d3-465f-483f-8e03-dfeea9865235",
+        "created_at": "2025-06-03 16:58:16",
+        "frequency": 10,
+        "size": 10
+    }
+]

@@ -1,0 +1,56 @@
+[2025-06-03 16:53:17][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:53:17][INFO] Snapshot 015fca31-ee0e-484a-8831-1bf9f19ad3ba taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 27
+[2025-06-03 16:53:27][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:53:27][INFO] Snapshot 66bd4e85-83a0-459f-9fe7-68f108aa89a6 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 28
+[2025-06-03 16:53:37][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:53:37][INFO] Snapshot 1009b903-35a0-4aaa-9912-dbd012b92a18 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 29
+[2025-06-03 16:53:47][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:53:47][INFO] Snapshot ecd5c42c-c6f9-4b05-a149-f4ad8c341de2 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 30
+[2025-06-03 16:56:06][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:06][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:06][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:06][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:06][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:07][INFO] Snapshot 2b69817a-ee0d-4dc6-9348-85c0c8782e21 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 31
+[2025-06-03 16:56:07][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:07][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:07][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[2025-06-03 16:56:17][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:17][INFO] Snapshot 4329de1f-2703-4e13-9b4d-46fcfcd7a7e6 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 32
+[2025-06-03 16:56:27][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:27][INFO] Snapshot 5eb0cc7e-a47c-42ec-ac26-13cbab921e3e taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 33
+[2025-06-03 16:56:37][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:37][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:37][INFO] Volume: cb92f1dc-6370-4a23-a080-8451da71bb76, Host: 0c998d37-3b6b-427f-b90e-0c12e3f2ebce, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-06-03 16:56:37][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:37][INFO] Snapshot 2c74270c-bc38-4210-af72-29803adb54d5 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 34
+[2025-06-03 16:56:44][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:44][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:44][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:44][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:56:44][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[2025-06-03 16:57:35][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:57:35][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:57:36][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:57:36][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:57:36][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:57:36][INFO] Snapshot 283e7cce-5f7d-42a2-8c94-381fae4a023c taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 35
+[2025-06-03 16:57:36][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:57:36][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:57:36][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[2025-06-03 16:57:46][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:57:46][INFO] Snapshot 9ff93948-1f94-4297-be0e-6134e55d6bb5 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 36
+[2025-06-03 16:57:56][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:57:56][INFO] Snapshot 6d51abb5-62fb-4f9d-902e-c69706e340c0 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 37
+[2025-06-03 16:58:05][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:58:05][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:58:05][INFO] Volume: cb92f1dc-6370-4a23-a080-8451da71bb76, Host: 0c998d37-3b6b-427f-b90e-0c12e3f2ebce, IOPS: 2000, Latency: 1.0ms, Throughput: 7.8125 MB/s
+[2025-06-03 16:58:06][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:58:06][INFO] Snapshot 028b7ce3-3aee-442f-bd1e-6f759cfc7192 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 38
+[2025-06-03 16:58:16][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:58:16][INFO] Snapshot 1cc53835-3b73-42b0-864c-2f2aac903924 taken for volume cb92f1dc-6370-4a23-a080-8451da71bb76, frequency 10 sec, size 10 GB, total snapshots: 39
+[2025-06-03 16:58:17][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:58:17][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:58:17][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:58:17][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[2025-06-03 16:58:17][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB

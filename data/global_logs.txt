@@ -1,0 +1,172 @@
+[PORT 5000][2025-06-01 21:32:58][INFO] System created with ID: 48e262d8-ba6c-4072-8049-ce3a8a5d275c
+[PORT 5000][2025-06-01 21:32:58][INFO] Started background cleanup thread
+[PORT 5000][2025-06-01 21:32:58][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[PORT 5000][2025-06-01 21:33:28][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[PORT 5000][2025-06-01 21:33:59][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[PORT 5000][2025-06-01 21:34:29][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 20.00 GB
+[PORT 5000][2025-06-01 21:34:59][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:35:29][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:35:59][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:36:22][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:36:29][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:36:30][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:36:42][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:36:59][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:37:29][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:37:59][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:38:30][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:39:00][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:39:30][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:40:00][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:40:30][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:41:00][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:41:30][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:42:00][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 21:42:30][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 120.00 GB
+[PORT 5000][2025-06-01 22:31:27][WARN] Attempt to create system when one already exists
+[PORT 5000][2025-06-01 22:32:17][INFO] Stopped all processes for volume ed61852f-1f7f-4c0e-8924-cd84408ce3c8: Volume update
+[PORT 5000][2025-06-01 22:32:17][INFO] Volume ed61852f-1f7f-4c0e-8924-cd84408ce3c8 unexported: Volume update
+[PORT 5000][2025-06-01 22:32:34][INFO] Stopped all processes for volume 444a1215-c633-4052-bb05-a34a35521674: Volume update
+[PORT 5000][2025-06-01 22:32:34][INFO] Volume 444a1215-c633-4052-bb05-a34a35521674 unexported: Volume update
+[PORT 5000][2025-06-01 22:32:40][INFO] Stopped all processes for volume a608726b-230e-4723-8d30-3389e8107f09: Volume update
+[PORT 5000][2025-06-01 22:32:40][INFO] Volume a608726b-230e-4723-8d30-3389e8107f09 unexported: Volume update
+[PORT 5000][2025-06-01 22:32:49][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-01 22:32:54][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-01 22:32:57][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-01 22:33:07][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-01 22:33:12][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-01 22:33:16][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-02 09:57:23][WARN] Attempt to create system when one already exists
+[PORT 5000][2025-06-02 10:00:24][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-02 10:00:30][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-02 10:00:53][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-02 10:11:35][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-02 10:11:40][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-02 10:17:19][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-02 10:18:19][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-02 10:21:27][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 130.00 GB
+[PORT 5000][2025-06-02 17:13:53][WARN] Attempt to create system when one already exists
+[PORT 5000][2025-06-02 17:16:24][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 150.00 GB
+[PORT 5000][2025-06-02 17:17:02][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 150.00 GB
+[PORT 5000][2025-06-02 17:17:37][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 150.00 GB
+[PORT 5000][2025-06-02 17:29:36][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 180.00 GB
+[PORT 5000][2025-06-02 17:31:16][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 210.00 GB
+[PORT 5000][2025-06-02 17:34:39][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 240.00 GB
+[PORT 5000][2025-06-03 13:51:36][WARN] Attempt to create system when one already exists
+[PORT 5000][2025-06-03 13:56:43][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:56:43][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 20.00 GB
+[PORT 5000][2025-06-03 13:57:05][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:57:06][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 20.00 GB
+[PORT 5000][2025-06-03 13:57:13][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:57:36][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:57:43][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:57:50][INFO] Stopped all processes for volume 28a753a0-915e-43ae-bf86-7c21aabedcb2: Volume update
+[PORT 5000][2025-06-03 13:57:50][INFO] Volume 28a753a0-915e-43ae-bf86-7c21aabedcb2 unexported: Volume update
+[PORT 5000][2025-06-03 13:58:06][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:58:13][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:58:36][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:58:43][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:59:06][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:59:13][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:59:36][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:59:44][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 13:59:53][INFO] Stopped all processes for volume 28a753a0-915e-43ae-bf86-7c21aabedcb2: Volume update
+[PORT 5000][2025-06-03 13:59:53][INFO] Volume 28a753a0-915e-43ae-bf86-7c21aabedcb2 unexported: Volume update
+[PORT 5000][2025-06-03 14:00:06][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:00:14][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:00:36][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:00:44][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:01:06][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:01:14][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:01:36][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:01:44][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:02:06][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:02:14][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:02:36][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:02:44][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:03:06][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:03:14][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:03:36][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:03:44][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:04:06][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:04:13][INFO] Volume 28a753a0-915e-43ae-bf86-7c21aabedcb2, Setting c64d63d3-465f-483f-8e03-dfeea9865235: Current snapshots: 26, Max allowed: 20
+[PORT 5000][2025-06-03 14:04:13][CLEANUP] Volume 28a753a0-915e-43ae-bf86-7c21aabedcb2, Setting c64d63d3-465f-483f-8e03-dfeea9865235: 6 excess snapshots detected (max: 20)
+[PORT 5000][2025-06-03 14:04:13][INFO] Deleted snapshot e90d2aa6-a5e0-4c2e-bf1f-7782c7484610, current snapshots count: 25
+[PORT 5000][2025-06-03 14:04:13][INFO] Deleted snapshot d9470f7c-752f-4395-abe0-ceaad21e9497, current snapshots count: 24
+[PORT 5000][2025-06-03 14:04:13][INFO] Deleted snapshot 0b218c88-1744-48c0-acc3-a3cd22e381b8, current snapshots count: 23
+[PORT 5000][2025-06-03 14:04:13][INFO] Deleted snapshot dd0bcde4-d155-4f54-a536-81141d07735f, current snapshots count: 22
+[PORT 5000][2025-06-03 14:04:14][INFO] Deleted snapshot 38d10057-a673-4cf5-aa30-6579ff12d553, current snapshots count: 21
+[PORT 5000][2025-06-03 14:04:14][INFO] Deleted snapshot 53865ca2-da15-48be-b0f3-66fee7d8af43, current snapshots count: 20
+[PORT 5000][2025-06-03 14:04:14][CLEANUP] Cleanup complete: 6 snapshots removed, Initial: 290.00 GB, Freed: 60.00 GB, Final: 230.00 GB
+[PORT 5000][2025-06-03 14:04:14][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:04:44][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 14:05:14][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:38:23][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:38:23][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 20.00 GB
+[PORT 5000][2025-06-03 16:38:49][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 40.00 GB
+[PORT 5000][2025-06-03 16:41:48][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:41:48][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[PORT 5000][2025-06-03 16:42:18][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:42:48][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:42:55][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 80.00 GB
+[PORT 5000][2025-06-03 16:52:16][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:16][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:16][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:16][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:16][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:16][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:17][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:17][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[PORT 5000][2025-06-03 16:52:27][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:37][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:46][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:46][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:47][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:55][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:55][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:55][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:55][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:52:55][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[PORT 5000][2025-06-03 16:52:57][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:53:07][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:53:17][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:53:27][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:53:37][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:53:47][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:06][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:06][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:06][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:06][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:06][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:07][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:07][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:07][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[PORT 5000][2025-06-03 16:56:17][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:27][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:37][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:37][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:37][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:44][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:44][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:44][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:44][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:56:44][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[PORT 5000][2025-06-03 16:57:35][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:57:35][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:57:36][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:57:36][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:57:36][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:57:36][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:57:36][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:57:36][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB
+[PORT 5000][2025-06-03 16:57:46][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:57:56][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:58:05][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:58:05][ERROR] Failed to save metrics to data/data_instance_5000\io_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:58:06][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:58:16][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:58:17][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:58:17][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:58:17][ERROR] Failed to save metrics to data/data_instance_5000\system_metrics.json: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:58:17][ERROR] Failed to load system metrics: Expecting value: line 1 column 1 (char 0)
+[PORT 5000][2025-06-03 16:58:17][CLEANUP] Cleanup complete: No snapshots needed removal, Capacity: 0.00 GB

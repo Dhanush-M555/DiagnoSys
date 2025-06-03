@@ -1,0 +1,19 @@
+[
+    {
+        "id": "cb92f1dc-6370-4a23-a080-8451da71bb76",
+        "name": "v1",
+        "system_id": "48e262d8-ba6c-4072-8049-ce3a8a5d275c",
+        "size": 10,
+        "is_exported": false,
+        "exported_host_id": "0c998d37-3b6b-427f-b90e-0c12e3f2ebce",
+        "workload_size": 4,
+        "snapshot_settings": {
+            "c64d63d3-465f-483f-8e03-dfeea9865235": 10
+        },
+        "replication_settings": [],
+        "snapshot_frequencies": [
+            10
+        ],
+        "snapshot_count": 39
+    }
+]
