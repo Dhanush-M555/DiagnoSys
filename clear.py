@@ -46,9 +46,12 @@ def cleanup_directory(directory_path):
         for dir_name in dirs_to_remove:
             dirs.remove(dir_name)
                 
-        # Check for .json files
+        # Check for .json files, excluding config.json, tools.json, and data_model.json
         for file in files:
             if file.endswith('.json'):
+                if file in ['config.json', 'tools.json', 'data_model.json']:
+                    print(f"Skipping protected JSON file: {os.path.join(root, file)}")
+                    continue
                 json_path = os.path.join(root, file)
                 try:
                     os.remove(json_path)
@@ -75,6 +78,7 @@ def main():
     directory_path = os.path.abspath(args.directory)
     
     print(f"This will delete all __pycache__ folders, data_instance* folders, and .json files in: {directory_path}")
+    print("Note: config.json, tools.json, and data_model.json will be preserved.")
     confirmation = input("Are you sure you want to proceed? (y/n): ")
     
     if confirmation.lower() not in ['y', 'yes']:
