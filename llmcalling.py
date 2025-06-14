@@ -69,7 +69,7 @@ except Exception as e:
 TOOLS = {}
 for tool in TOOLS_CONFIG:
     tool_path = f"{PROBLEM_SPACE_DIR}/tools/{tool.get('file', '')}"
-    function_name = tool.get('function', 'run')  # Default to 'run' if 'function' missing
+    function_name = tool.get('function', 'run')
     tool_name = tool.get('name', 'unknown_tool')
     
     if not os.path.exists(tool_path):
@@ -103,20 +103,25 @@ llm = ChatOpenAI(
     temperature=0
 )
 
-# === Load and Chunk RAG Document ===
-print("🔍 Loading and splitting RAG document...")
-loader = TextLoader(RAG_PATH)
-docs = loader.load()
-if not docs:
-    raise ValueError("No content loaded from the RAG file")
-splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-chunks = splitter.split_documents(docs)
+# === Initialize RAG Once ===
+def initialize_rag():
+    """Load and index RAG document once at startup."""
+    if "retriever" not in st.session_state:
+        print("🔍 Loading and splitting RAG document...")
+        loader = TextLoader(RAG_PATH)
+        docs = loader.load()
+        if not docs:
+            raise ValueError("No content loaded from the RAG file")
+        splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+        chunks = splitter.split_documents(docs)
 
-# === Embeddings and Vector Store ===
-print("📡 Embedding and indexing...")
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-vectorstore = FAISS.from_documents(chunks, embeddings)
-retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 7})
+        print("📡 Embedding and indexing...")
+        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        vectorstore = FAISS.from_documents(chunks, embeddings)
+        st.session_state.retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 7})
+
+# Run RAG initialization
+initialize_rag()
 
 # === State Definition for LangGraph ===
 class AgentState(TypedDict):
@@ -137,21 +142,27 @@ def extract_relevant_data(state: AgentState) -> AgentState:
     port_match = re.search(r'(?:system|port)\s+(\d+)', query.lower())
     port = int(port_match.group(1)) if port_match else 5000
 
-    # Load system data
+    # Initialize state
+    state["port"] = port
+    state["system_name"] = f"System_{port}"
+    state["system_data"] = {}
+    state["system_metrics"] = {}
+    state["context"] = ""
+    state["rag_context"] = ""
+    state["skip_analysis"] = False
+
+    # Check for system data directory
     data_dir = f"data_instance_{port}"
+    if not os.path.exists(data_dir):
+        print(f"Error: Data directory {data_dir} not found")
+        state["fault_analysis"] = {"error": "System not found", "port": port}
+        state["skip_analysis"] = True
+        return state
+
+    # Load system data
+    context_parts = []
     system_data = {}
     system_metrics = {}
-    context_parts = []
-
-    if not os.path.exists(data_dir):
-        context_parts.append(f"⚠️ Warning: Data directory {data_dir} not found")
-        state["context"] = "\n\n".join(context_parts)
-        state["port"] = port
-        state["system_name"] = f"System_{port}"
-        state["system_data"] = system_data
-        state["system_metrics"] = system_metrics
-        state["rag_context"] = ""
-        return state
 
     # System info
     system_file = f"{data_dir}/system.json"
@@ -163,11 +174,10 @@ def extract_relevant_data(state: AgentState) -> AgentState:
                 system_data = system_data_raw[0]
             else:
                 system_data = system_data_raw
-            system_name = system_data.get("name", f"System_{port}")
+            state["system_name"] = system_data.get("name", f"System_{port}")
             context_parts.append(f"System Information:\n{json.dumps(system_data, indent=2)}")
         except Exception as e:
             context_parts.append(f"⚠️ Error loading system.json: {str(e)}")
-            system_name = f"System_{port}"
 
     # Latest metrics
     metrics_file = f"{data_dir}/system_metrics.json"
@@ -236,12 +246,10 @@ def extract_relevant_data(state: AgentState) -> AgentState:
             context_parts.append(f"⚠️ Error loading logs_{port}.txt: {str(e)}")
 
     state["context"] = "\n\n".join(context_parts)
-    state["port"] = port
-    state["system_name"] = system_name
     state["system_data"] = system_data
     state["system_metrics"] = system_metrics
-    state["rag_context"] = ""
     return state
+
 
 # === Agent 2: Fault Analysis Agent ===
 def analyze_fault(state: AgentState) -> AgentState:
@@ -300,12 +308,12 @@ def analyze_fault(state: AgentState) -> AgentState:
             analyze_prompt_content = "Analyze the fault and return a JSON object based on the provided data and structure."
 
         # Retrieve relevant RAG chunks
-        relevant_docs = retriever.invoke(query)
+        relevant_docs = st.session_state.retriever.invoke(query)
         context_with_rca = "\n".join([doc.page_content for doc in relevant_docs])
         print("\n=== Retrieved RAG Context ===")
         print(context_with_rca)
         
-        # Construct system message - using string concatenation instead of format
+        # Construct system message
         system_message = analyze_prompt_content.replace("{PROBLEM_SPACE}", PROBLEM_SPACE) + f"\nRAG Logic:\n{context_with_rca}"
         print("\n=== Constructed System Message ===")
         print(system_message)
@@ -333,7 +341,6 @@ def analyze_fault(state: AgentState) -> AgentState:
         print("\n=== Processing Raw Response ===")
         print(f"Raw response before cleanup: {raw_response}")
         
-        # Clean up the response to ensure it's valid JSON
         if raw_response.startswith('```json'):
             raw_response = raw_response[7:]
             print("Removed ```json prefix")
@@ -413,7 +420,6 @@ def tool_agent(state: AgentState) -> AgentState:
         print(f"Error: Skipping tool invocation due to invalid fault analysis: {fault_analysis}")
         return state
 
-    # Extract tool call information from fault analysis
     tool_call = fault_analysis.get("tool_call", {})
     tool_name = tool_call.get("tool_name")
     parameters = tool_call.get("parameters", {})
@@ -459,13 +465,11 @@ def format_response(state: AgentState) -> AgentState:
     query = state["query"]
     rag_context = state.get("rag_context", "")
 
-    # Fallback retrieval if rag_context is empty
     if not rag_context:
         print("Warning: No RAG context in state, retrieving chunks")
-        relevant_docs = retriever.invoke(query)
+        relevant_docs = st.session_state.retriever.invoke(query)
         rag_context = "\n".join([doc.page_content for doc in relevant_docs])
 
-    # Load format prompt
     try:
         with open(FORMAT_PROMPT_PATH, 'r') as f:
             format_prompt_content = f.read().strip()
@@ -478,7 +482,6 @@ def format_response(state: AgentState) -> AgentState:
             "Include fault type, key details, and next actions."
         )
 
-    # Construct system message
     system_message = format_prompt_content.format(
         PROBLEM_SPACE=PROBLEM_SPACE,
         system_name=system_name,
@@ -486,13 +489,11 @@ def format_response(state: AgentState) -> AgentState:
         rag_context=rag_context
     )
 
-    # Construct messages list
     messages = [
         SystemMessage(content=system_message),
         HumanMessage(content=f"JSON Analysis:\n{json.dumps(fault_analysis, indent=2)}")
     ]
 
-    # Invoke the LLM
     print("\n=== Invoking LLM for Formatting ===")
     response = llm.invoke(messages)
     formatted_report = response.content
@@ -527,13 +528,11 @@ def main():
     st.title(f"🔍 RCA Chatbot ({PROBLEM_SPACE})")
     st.markdown("""
     This chatbot helps analyze system faults and provides detailed RCA (Root Cause Analysis) reports.
-    Enter your query about system performance, replication issues, or snapshot capacity.
+    Enter your query about system performance.
     """)
 
-    # Add debug mode toggle
     debug_mode = st.sidebar.checkbox("Debug Mode", value=False)
 
-    # Initialize session state for chat history
     if "messages" not in st.session_state:
         st.session_state.messages = [
             {
@@ -541,27 +540,25 @@ def main():
                 "content": (
                     "Welcome to the RCA Chatbot! Here are some example queries you can try:\n"
                     "- Why is system 5000 experiencing high latency?\n"
-                    "- Check replication issues in system 5001\n"
-                    "- Analyze snapshot capacity in system 5000\n"
-                    "- Show faults across all systems\n\n"
+                    "- Why is volume1 in system 5000 experiencing high latency?\n"
+                    "- Give me a detailed fault report for system 5000\n\n"
+                    
                     "Enter your query below to begin."
                 )
             }
         ]
 
-    # Display chat history
+    # Render old messages with proper markdown formatting
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+            # Ensure markdown is rendered correctly
+            st.markdown(message["content"], unsafe_allow_html=False)
 
-    # Chat input
     if query := st.chat_input("Enter your query (e.g., 'Why is system 5000 experiencing high latency?')"):
-        # Add user message to chat history
         st.session_state.messages.append({"role": "user", "content": query})
         with st.chat_message("user"):
             st.markdown(query)
 
-        # Process query
         try:
             state = {
                 "query": query,
@@ -575,11 +572,9 @@ def main():
                 "rag_context": ""
             }
             
-            # Create a placeholder for debug output
             debug_placeholder = st.empty()
             
             with st.spinner(f"Analyzing system..."):
-                # Capture stdout for debug mode
                 import io
                 from contextlib import redirect_stdout
                 
@@ -594,7 +589,6 @@ def main():
                 
                 formatted_report = result["formatted_report"]
                 
-                # Check for errors in fault analysis
                 if "error" in result["fault_analysis"]:
                     error_msg = f"❌ Error during analysis: {result['fault_analysis']['error']}"
                     if debug_mode and "traceback" in result["fault_analysis"]:
@@ -603,19 +597,21 @@ def main():
                         error_msg += f"\n\nRaw Response:\n{result['fault_analysis']['raw_response']}"
                     st.session_state.messages.append({"role": "assistant", "content": error_msg})
                     with st.chat_message("assistant"):
-                        st.markdown(error_msg)
+                        st.markdown(error_msg, unsafe_allow_html=False)
                 else:
-                    output = f"{formatted_report}"
+                    # Store the formatted report wrapped in a markdown code block
+                    output = f"```text\n{formatted_report}\n```"
                     st.session_state.messages.append({"role": "assistant", "content": output})
                     with st.chat_message("assistant"):
-                        st.markdown(f"```text\n{output}\n```")
+                        st.markdown(output, unsafe_allow_html=False)
                         
         except Exception as e:
             import traceback
             error_message = f"❌ Unexpected error: {str(e)}\n\nTraceback:\n{traceback.format_exc()}"
             st.session_state.messages.append({"role": "assistant", "content": error_message})
             with st.chat_message("assistant"):
-                st.markdown(error_message)
+                st.markdown(error_message, unsafe_allow_html=False)
+
 
 if __name__ == "__main__":
     main()
