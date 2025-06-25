@@ -125,4 +125,4 @@ For step-by-step fault reproduction, UI screenshots, and simulated environment s
 
 ## License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+------
