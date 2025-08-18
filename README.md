@@ -10,7 +10,6 @@ DiagnoSys Bot is an AI-powered diagnostic assistant that helps users identify, a
 - **Tool-Based Analysis**: Leverages specialized tool wrappers to fetch and process system metrics, logs, and configuration details relevant to the suspected issue.
 - **RAG Integration**: Integrates support documentation (PDF/text) to supplement AI-generated recommendations with reference content from manuals, KB articles, and internal documentation.
 - **Interactive Visualizations**: Displays key diagnostic metrics via interactive charts and dashboards for clear, real-time insights.
-- **Conversational Context Tracking**: Maintains context of the diagnostic session across multiple user queries to support deep-dive, follow-up, and comparative analysis.
 
 ## Supported Latency Issue Types
 
