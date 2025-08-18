@@ -101,12 +101,6 @@ Once the app launches, open your browser and navigate to:
    _Example:_  
    `"Is system 5003 experiencing any replication issues currently?"`
 
-## Visualizations
-
-Streamlit-powered interactive dashboards visualize:
-
-- Line and bar charts for capacity, latency, IOPS, and throughput over time.
-
 ## Development & Extensibility
 
 **To extend diagnostic capabilities:**
